@@ -4,31 +4,25 @@
  */
 package com.mycompany.projectmanagement;
 
-import java.util.Locale;
+import org.json.simple.parser.ParseException;
+
 
 /**
  *
  * @author yizun
  */
-public class Test {
+public class Test implements FileController {
 
-    public static void main(String[] args) {
-        Test test = new Test(); // Create an instance of the Test class
-        String[] countries = test.getAllCountries(); // Call the getAllCountries method
-        // Now you can use the countries array as needed
-        for (String country : countries) {
-            System.out.println(country);
-        }
+    public static void main(String[] args) throws ParseException {
+        Files file = new Files();
+        file.readFile();
 
     }
 
-    public String[] getAllCountries() {
-        String[] countries = new String[Locale.getISOCountries().length];
-        String[] countryCodes = Locale.getISOCountries();
-        for (int i = 0; i < countryCodes.length; i++) {
-            Locale obj = new Locale("", countryCodes[i]);
-            countries[i] = obj.getDisplayCountry();
-        }
-        return countries;
+    @Override
+    public void saveFile(String fileName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 }

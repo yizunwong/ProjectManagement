@@ -1,0 +1,26 @@
+{
+  "diploma": [
+    "Diploma in Information Technology",
+    "Diploma in Engineering",
+    "Diploma in Hotel Management",
+    "Diploma in Business Management",
+    "Diploma in Marketing",
+    "Diploma in Graphic Design",
+    "Diploma in Web Development",
+    "Diploma in Accounting",
+    "Diploma in Accounting",
+    "Diploma in Early Childhood Education"
+  ],
+  "degree": [
+    "Bachelor of Science in Computer Science",
+    "Bachelor of Arts in Business Administration",
+    "Bachelor of Science in Nursing",
+    "Bachelor of Arts in Psychology",
+    "Bachelor of Arts in English",
+    "Bachelor of Science in Biology",
+    "Bachelor of Arts in Graphic Design",
+    "Bachelor of Science in Mechanical Engineering",
+    "Bachelor of Arts in History",
+    "Bachelor of Fine Arts"
+  ]
+}

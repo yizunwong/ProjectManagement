@@ -4,7 +4,6 @@
  */
 package com.mycompany.projectmanagement;
 
-import java.awt.Image;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -304,8 +303,9 @@ public class StudentForm extends javax.swing.JFrame {
         } else {
             gender = "Female";
         }
-
+        
         Student student = new Student();
+
         student.setName(name);
         student.setParent_name(parent_name);
         student.setIc(ic);
@@ -334,13 +334,11 @@ public class StudentForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getSource() == fileUploadBtn) {
             Student student = new Student();
-            student.uploadFile();
+            student.setUploadPath();
             this.imagePath = student.getImagePath();
             this.selectedFile = student.getSelectedFile();
-            ImageIcon avatarImage = new ImageIcon(selectedFile.toString());
-            Image originalImage = avatarImage.getImage();
-            Image scaledImage = originalImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
-            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+            ImageController image = new ImageController();
+            ImageIcon scaledIcon = image.getImageIcon(selectedFile);
             avatarImageIcon.setIcon(scaledIcon);
 
         }
