@@ -87,6 +87,7 @@ class User {
 
 }
 
+
 class Student extends User implements FileController {
 
     private String parent_name;
@@ -166,8 +167,8 @@ class Student extends User implements FileController {
 
     @Override
     public void saveFile(String fileName) {
-        Files files = new Files();
-        files.writeFile(fileName, keys, getStudent());
+        FileService fs = new FileService();
+        fs.writeFile(fileName, keys, getStudent());
     }
 
     public void setUploadPath() {

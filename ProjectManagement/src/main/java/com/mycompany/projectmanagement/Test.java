@@ -4,8 +4,8 @@
  */
 package com.mycompany.projectmanagement;
 
+import java.io.IOException;
 import org.json.simple.parser.ParseException;
-
 
 /**
  *
@@ -13,9 +13,13 @@ import org.json.simple.parser.ParseException;
  */
 public class Test implements FileController {
 
-    public static void main(String[] args) throws ParseException {
-        Files file = new Files();
-        file.readFile();
+    public static void main(String[] args) throws ParseException, IOException {
+//        FileService file = new FileService();
+//        file.findIntake("course.txt");
+//        JSONObject test = file.getNewObj();
+//        System.out.println(test.get("degree"));
+            Course course = new Course();
+            course.findIntake("Foundation in Information Technology");
 
     }
 
@@ -23,6 +27,5 @@ public class Test implements FileController {
     public void saveFile(String fileName) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
 }
