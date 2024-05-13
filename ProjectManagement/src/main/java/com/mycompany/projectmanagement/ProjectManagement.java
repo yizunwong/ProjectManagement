@@ -10,7 +10,4 @@ package com.mycompany.projectmanagement;
  */
 public class ProjectManagement {
 
-    public static void main(String[] args) {
-        StudentForm memberForm =  new StudentForm();
-        memberForm.setVisible(true);    }
 }

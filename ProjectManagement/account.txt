@@ -1,0 +1,2 @@
+{"password":"TP1367@0520","id":"TP1367","role":"student","email":"TP1367@mail.edu.my"}
+{"password":"LC3435@0506","id":"LC3435","role":"lecturer","email":"LC3435@mail.edu.my"}

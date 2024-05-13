@@ -4,31 +4,31 @@
       "area": "Technology",
       "programs": {
         "Diploma": [
-          {"name": "Diploma in Information Technology"},
-          {"name": "Diploma in Web Development"},
-          {"name": "Diploma in Graphic Design"},
-          {"name": "Diploma in Multimedia Design"},
-          {"name": "Diploma in Animation"}
+          {"id": "T-DI-001", "name": "Diploma in Information Technology"},
+          {"id": "T-DI-002", "name": "Diploma in Web Development"},
+          {"id": "T-DI-003", "name": "Diploma in Graphic Design"},
+          {"id": "T-DI-004", "name": "Diploma in Multimedia Design"},
+          {"id": "T-DI-005", "name": "Diploma in Animation"}
         ],
         "Degree": [
-          {"name": "Bachelor of Science in Computer Science"},
-          {"name": "Bachelor of Science in Information Technology"}
+          {"id": "T-DEG-001", "name": "Bachelor of Science in Computer Science"},
+          {"id": "T-DEG-002", "name": "Bachelor of Science in Information Technology"}
         ],
-        "Masters_Degree": [
-          {"name": "Master of Science in Computer Science"},
-          {"name": "Master of Science in Information Technology"}
+        "Masters Degree": [
+          {"id": "T-MDEG-001", "name": "Master of Science in Computer Science"},
+          {"id": "T-MDEG-002", "name": "Master of Science in Information Technology"}
         ],
         "PhD": [
-          {"name": "PhD in Computer Science"}
+          {"id": "T-PHD-001", "name": "PhD in Computer Science"}
         ],
         "Foundation": [
-          {"name": "Foundation in Information Technology"}
+          {"id": "T-FDN-001", "name": "Foundation in Information Technology"}
         ]
       },
       "intake_dates": {
         "Diploma": ["22/1/23", "23/4/24"],
         "Degree": ["5/9/23", "10/1/24"],
-        "Masters_Degree": ["22/1/23", "23/4/24"],
+        "Masters Degree": ["22/1/23", "23/4/24"],
         "PhD": ["5/9/23", "10/1/24"],
         "Foundation": ["5/9/23", "10/1/24"]
       }
@@ -37,28 +37,28 @@
       "area": "Engineering",
       "programs": {
         "Diploma": [
-          {"name": "Diploma in Engineering"},
-          {"name": "Diploma in Civil Engineering Technology"}
+          {"id": "E-DI-001", "name": "Diploma in Engineering"},
+          {"id": "E-DI-002", "name": "Diploma in Civil Engineering Technology"}
         ],
         "Degree": [
-          {"name": "Bachelor of Engineering in Electrical Engineering"},
-          {"name": "Bachelor of Science in Mechanical Engineering"}
+          {"id": "E-DEG-001", "name": "Bachelor of Engineering in Electrical Engineering"},
+          {"id": "E-DEG-002", "name": "Bachelor of Science in Mechanical Engineering"}
         ],
-        "Masters_Degree": [
-          {"name": "Master of Engineering in Electrical Engineering"},
-          {"name": "Master of Science in Civil Engineering"}
+        "Masters Degree": [
+          {"id": "E-MDEG-001", "name": "Master of Engineering in Electrical Engineering"},
+          {"id": "E-MDEG-002", "name": "Master of Science in Civil Engineering"}
         ],
         "PhD": [
-          {"name": "PhD in Mechanical Engineering"}
+          {"id": "E-PHD-001", "name": "PhD in Mechanical Engineering"}
         ],
         "Foundation": [
-          {"name": "Foundation in Engineering"}
+          {"id": "E-FDN-001", "name": "Foundation in Engineering"}
         ]
       },
       "intake_dates": {
         "Diploma": ["15/6/23", "10/9/24"],
         "Degree": ["3/2/23", "8/5/24"],
-        "Masters_Degree": ["15/6/23", "10/9/24"],
+        "Masters Degree": ["15/6/23", "10/9/24"],
         "PhD": ["3/2/23", "8/5/24"],
         "Foundation": ["3/2/23", "8/5/24"]
       }
@@ -67,27 +67,27 @@
       "area": "Hospitality",
       "programs": {
         "Diploma": [
-          {"name": "Diploma in Hotel Management"},
-          {"name": "Diploma in Culinary Arts"}
+          {"id": "H-DI-001", "name": "Diploma in Hotel Management"},
+          {"id": "H-DI-002", "name": "Diploma in Culinary Arts"}
         ],
         "Degree": [
-          {"name": "Bachelor of Science in Hospitality Management"},
-          {"name": "Bachelor of Business Administration in Hospitality Management"}
+          {"id": "H-DEG-001", "name": "Bachelor of Science in Hospitality Management"},
+          {"id": "H-DEG-002", "name": "Bachelor of Business Administration in Hospitality Management"}
         ],
-        "Masters_Degree": [
-          {"name": "Master of Science in Hospitality Management"}
+        "Masters Degree": [
+          {"id": "H-MDEG-001", "name": "Master of Science in Hospitality Management"}
         ],
         "PhD": [
-          {"name": "PhD in Hospitality Management"}
+          {"id": "H-PHD-001", "name": "PhD in Hospitality Management"}
         ],
         "Foundation": [
-          {"name": "Foundation in Hospitality"}
+          {"id": "H-FDN-001", "name": "Foundation in Hospitality"}
         ]
       },
       "intake_dates": {
         "Diploma": ["8/3/23", "5/7/24"],
         "Degree": ["12/10/23", "15/1/24"],
-        "Masters_Degree": ["8/3/23", "5/7/24"],
+        "Masters Degree": ["8/3/23", "5/7/24"],
         "PhD": ["12/10/23", "15/1/24"],
         "Foundation": ["12/10/23", "15/1/24"]
       }
@@ -96,29 +96,29 @@
       "area": "Business",
       "programs": {
         "Diploma": [
-          {"name": "Diploma in Business Management"},
-          {"name": "Diploma in Marketing"},
-          {"name": "Diploma in Human Resource Management"}
+          {"id": "B-DI-001", "name": "Diploma in Business Management"},
+          {"id": "B-DI-002", "name": "Diploma in Marketing"},
+          {"id": "B-DI-003", "name": "Diploma in Human Resource Management"}
         ],
         "Degree": [
-          {"name": "Bachelor of Business Administration"},
-          {"name": "Bachelor of Commerce"}
+          {"id": "B-DEG-001", "name": "Bachelor of Business Administration"},
+          {"id": "B-DEG-002", "name": "Bachelor of Commerce"}
         ],
-        "Masters_Degree": [
-          {"name": "Master of Business Administration"},
-          {"name": "Master of Science in Marketing"}
+        "Masters Degree": [
+          {"id": "B-MDEG-001", "name": "Master of Business Administration"},
+          {"id": "B-MDEG-002", "name": "Master of Science in Marketing"}
         ],
         "PhD": [
-          {"name": "PhD in Business Administration"}
+          {"id": "B-PHD-001", "name": "PhD in Business Administration"}
         ],
         "Foundation": [
-          {"name": "Foundation in Business"}
+          {"id": "B-FDN-001", "name": "Foundation in Business"}
         ]
       },
       "intake_dates": {
         "Diploma": ["18/2/23", "20/5/24"],
         "Degree": ["7/8/23", "12/11/24"],
-        "Masters_Degree": ["18/2/23", "20/5/24"],
+        "Masters Degree": ["18/2/23", "20/5/24"],
         "PhD": ["7/8/23", "12/11/24"],
         "Foundation": ["7/8/23", "12/11/24"]
       }
@@ -127,30 +127,30 @@
       "area": "Creative Arts",
       "programs": {
         "Diploma": [
-          {"name": "Diploma in Fashion Design"},
-          {"name": "Diploma in Interior Design"}
+          {"id": "CA-DI-001", "name": "Diploma in Fashion Design"},
+          {"id": "CA-DI-002", "name": "Diploma in Interior Design"}
         ],
         "Degree": [
-          {"name": "Bachelor of Fine Arts in Fashion Design"},
-          {"name": "Bachelor of Fine Arts in Interior Design"}
+          {"id": "CA-DEG-001", "name": "Bachelor of Fine Arts in Fashion Design"},
+          {"id": "CA-DEG-002", "name": "Bachelor of Fine Arts in Interior Design"}
         ],
-        "Masters_Degree": [
-          {"name": "Master of Fine Arts in Fashion Design"}
+        "Masters Degree": [
+          {"id": "CA-MDEG-001", "name": "Master of Fine Arts in Fashion Design"}
         ],
         "PhD": [
-          {"name": "PhD in Design Studies"}
+          {"id": "CA-PHD-001", "name": "PhD in Design Studies"}
         ],
         "Foundation": [
-          {"name": "Foundation in Creative Arts"}
+          {"id": "CA-FDN-001", "name": "Foundation in Creative Arts"}
         ]
       },
       "intake_dates": {
         "Diploma": ["28/8/23", "25/11/24"],
         "Degree": ["2/4/23", "7/7/24"],
-        "Masters_Degree": ["28/8/23", "25/11/24"],
+        "Masters Degree": ["28/8/23", "25/11/24"],
         "PhD": ["2/4/23", "7/7/24"],
         "Foundation": ["2/4/23", "7/7/24"]
       }
     }
-  ]
+  ],
 }
