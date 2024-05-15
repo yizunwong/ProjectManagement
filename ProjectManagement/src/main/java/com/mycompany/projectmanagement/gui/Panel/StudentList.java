@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI.Panel;
+package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
@@ -49,7 +49,7 @@ public class StudentList extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        studentPanel = new com.mycompany.projectmanagement.GUI.Panel.StudentPanel();
+        studentPanel = new com.mycompany.projectmanagement.gui.panel.StudentPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
@@ -142,7 +142,7 @@ public class StudentList extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
-    public static com.mycompany.projectmanagement.GUI.Panel.StudentPanel studentPanel;
+    public static com.mycompany.projectmanagement.gui.panel.StudentPanel studentPanel;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

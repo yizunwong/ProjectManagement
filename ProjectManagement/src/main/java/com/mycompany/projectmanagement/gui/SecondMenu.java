@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI;
+package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel;
+import com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel;
 
 /**
  *
@@ -34,7 +34,7 @@ public class SecondMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        assignAssessmentPanel2 = new com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel();
+        assignAssessmentPanel2 = new com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel();
         jPanel2 = new javax.swing.JPanel();
         assignAssessmentBtn = new javax.swing.JButton();
         manageAssessmentBtn = new javax.swing.JButton();
@@ -161,7 +161,7 @@ public class SecondMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignAssessmentBtn;
-    public static com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel assignAssessmentPanel2;
+    public static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel assignAssessmentPanel2;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTabbedPane jTabbedPane1;

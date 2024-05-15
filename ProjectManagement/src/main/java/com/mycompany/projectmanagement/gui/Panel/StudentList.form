@@ -46,7 +46,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="com.mycompany.projectmanagement.GUI.panel.StudentPanel" name="studentPanel">
+    <Component class="com.mycompany.projectmanagement.gui.panel.StudentPanel" name="studentPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
