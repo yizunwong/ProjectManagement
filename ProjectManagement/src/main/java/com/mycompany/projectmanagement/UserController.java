@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JFileChooser;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -242,7 +241,7 @@ public class UserController {
 
         private String parent_name;
         private String entry_level;
-        public String intake_date;
+        private String intake_date;
         private String course;
 
         public Student() {
@@ -357,10 +356,10 @@ public class UserController {
 
         public boolean checkConfidential(String email, String password) {
             JSONArray jsonArray = (JSONArray) file.readData("account.txt", "array");
-            
+
             List<String> existed_email = getValues(jsonArray, "email", false);
             List<String> existed_password = getValues(jsonArray, "password", false);
-           
+
             int index = existed_email.indexOf(email);
 
             if (index != -1) {
@@ -372,7 +371,7 @@ public class UserController {
                 Admin admin = new Admin();
                 if (email.equals(admin.getEmail())) {
                     if (password.equals(admin.getPassword())) {
-                        System.out.println("Admin");
+                        setRole("admin");
                         return true;
                     }
                 }

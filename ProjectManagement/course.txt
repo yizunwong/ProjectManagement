@@ -4,113 +4,25 @@
       "area": "Technology",
       "programs": {
         "Diploma": [
-          {
-            "id": "T-DI-001",
-            "name": "Diploma in Information Technology",
-            "modules": [
-              "Introduction to Programming",
-              "Network Fundamentals",
-              "Database Management Systems"
-            ]
-          },
-          {
-            "id": "T-DI-002",
-            "name": "Diploma in Web Development",
-            "modules": [
-              "HTML and CSS",
-              "JavaScript Programming",
-              "Web Development Frameworks"
-            ]
-          },
-          {
-            "id": "T-DI-003",
-            "name": "Diploma in Graphic Design",
-            "modules": [
-              "Fundamentals of Design",
-              "Digital Imaging",
-              "Typography and Layout"
-            ]
-          },
-          {
-            "id": "T-DI-004",
-            "name": "Diploma in Multimedia Design",
-            "modules": [
-              "Multimedia Authoring",
-              "Interactive Media Design",
-              "Animation Techniques"
-            ]
-          },
-          {
-            "id": "T-DI-005",
-            "name": "Diploma in Animation",
-            "modules": [
-              "Principles of Animation",
-              "3D Modeling",
-              "Storyboarding and Scripting"
-            ]
-          }
+          {"id": "T-DI-001", "name": "Diploma in Information Technology"},
+          {"id": "T-DI-002", "name": "Diploma in Web Development"},
+          {"id": "T-DI-003", "name": "Diploma in Graphic Design"},
+          {"id": "T-DI-004", "name": "Diploma in Multimedia Design"},
+          {"id": "T-DI-005", "name": "Diploma in Animation"}
         ],
         "Degree": [
-          {
-            "id": "T-DEG-001",
-            "name": "Bachelor of Science in Computer Science",
-            "modules": [
-              "Data Structures and Algorithms",
-              "Operating Systems",
-              "Artificial Intelligence"
-            ]
-          },
-          {
-            "id": "T-DEG-002",
-            "name": "Bachelor of Science in Information Technology",
-            "modules": [
-              "Systems Analysis and Design",
-              "IT Project Management",
-              "Cybersecurity"
-            ]
-          }
+          {"id": "T-DEG-001", "name": "Bachelor of Science in Computer Science"},
+          {"id": "T-DEG-002", "name": "Bachelor of Science in Information Technology"}
         ],
         "Masters Degree": [
-          {
-            "id": "T-MDEG-001",
-            "name": "Master of Science in Computer Science",
-            "modules": [
-              "Advanced Algorithms",
-              "Machine Learning",
-              "Distributed Systems"
-            ]
-          },
-          {
-            "id": "T-MDEG-002",
-            "name": "Master of Science in Information Technology",
-            "modules": [
-              "IT Strategy and Management",
-              "Advanced Database Systems",
-              "Network Security"
-            ]
-          }
+          {"id": "T-MDEG-001", "name": "Master of Science in Computer Science"},
+          {"id": "T-MDEG-002", "name": "Master of Science in Information Technology"}
         ],
         "PhD": [
-          {
-            "id": "T-PHD-001",
-            "name": "PhD in Computer Science",
-            "modules": [
-              "Research Methodologies in Computer Science",
-              "Advanced Topics in AI",
-              "Dissertation Research"
-            ]
-          }
+          {"id": "T-PHD-001", "name": "PhD in Computer Science"}
         ],
         "Foundation": [
-          {
-            "id": "T-FDN-001",
-            "name": "Foundation in Information Technology",
-            "modules": [
-              "Introduction to IT",
-              "Basic Programming",
-              "Mathematics for IT"
-            ]
-          }
+          {"id": "T-FDN-001", "name": "Foundation in Information Technology"}
         ]
       },
       "intake_dates": {
@@ -125,86 +37,22 @@
       "area": "Engineering",
       "programs": {
         "Diploma": [
-          {
-            "id": "E-DI-001",
-            "name": "Diploma in Engineering",
-            "modules": [
-              "Engineering Mathematics",
-              "Engineering Drawing",
-              "Introduction to Materials Science"
-            ]
-          },
-          {
-            "id": "E-DI-002",
-            "name": "Diploma in Civil Engineering Technology",
-            "modules": [
-              "Structural Analysis",
-              "Construction Materials",
-              "Surveying"
-            ]
-          }
+          {"id": "E-DI-001", "name": "Diploma in Engineering"},
+          {"id": "E-DI-002", "name": "Diploma in Civil Engineering Technology"}
         ],
         "Degree": [
-          {
-            "id": "E-DEG-001",
-            "name": "Bachelor of Engineering in Electrical Engineering",
-            "modules": [
-              "Circuit Analysis",
-              "Electromagnetics",
-              "Power Systems"
-            ]
-          },
-          {
-            "id": "E-DEG-002",
-            "name": "Bachelor of Science in Mechanical Engineering",
-            "modules": [
-              "Thermodynamics",
-              "Fluid Mechanics",
-              "Mechanical Design"
-            ]
-          }
+          {"id": "E-DEG-001", "name": "Bachelor of Engineering in Electrical Engineering"},
+          {"id": "E-DEG-002", "name": "Bachelor of Science in Mechanical Engineering"}
         ],
         "Masters Degree": [
-          {
-            "id": "E-MDEG-001",
-            "name": "Master of Engineering in Electrical Engineering",
-            "modules": [
-              "Advanced Power Systems",
-              "Signal Processing",
-              "Control Systems"
-            ]
-          },
-          {
-            "id": "E-MDEG-002",
-            "name": "Master of Science in Civil Engineering",
-            "modules": [
-              "Advanced Structural Analysis",
-              "Geotechnical Engineering",
-              "Environmental Engineering"
-            ]
-          }
+          {"id": "E-MDEG-001", "name": "Master of Engineering in Electrical Engineering"},
+          {"id": "E-MDEG-002", "name": "Master of Science in Civil Engineering"}
         ],
         "PhD": [
-          {
-            "id": "E-PHD-001",
-            "name": "PhD in Mechanical Engineering",
-            "modules": [
-              "Advanced Dynamics",
-              "Computational Fluid Dynamics",
-              "Dissertation Research"
-            ]
-          }
+          {"id": "E-PHD-001", "name": "PhD in Mechanical Engineering"}
         ],
         "Foundation": [
-          {
-            "id": "E-FDN-001",
-            "name": "Foundation in Engineering",
-            "modules": [
-              "Basic Engineering Principles",
-              "Introduction to CAD",
-              "Mathematics for Engineers"
-            ]
-          }
+          {"id": "E-FDN-001", "name": "Foundation in Engineering"}
         ]
       },
       "intake_dates": {
@@ -219,77 +67,21 @@
       "area": "Hospitality",
       "programs": {
         "Diploma": [
-          {
-            "id": "H-DI-001",
-            "name": "Diploma in Hotel Management",
-            "modules": [
-              "Front Office Operations",
-              "Housekeeping Management",
-              "Food and Beverage Service"
-            ]
-          },
-          {
-            "id": "H-DI-002",
-            "name": "Diploma in Culinary Arts",
-            "modules": [
-              "Culinary Fundamentals",
-              "Baking and Pastry Arts",
-              "International Cuisine"
-            ]
-          }
+          {"id": "H-DI-001", "name": "Diploma in Hotel Management"},
+          {"id": "H-DI-002", "name": "Diploma in Culinary Arts"}
         ],
         "Degree": [
-          {
-            "id": "H-DEG-001",
-            "name": "Bachelor of Science in Hospitality Management",
-            "modules": [
-              "Hospitality Marketing",
-              "Event Management",
-              "Strategic Hospitality Management"
-            ]
-          },
-          {
-            "id": "H-DEG-002",
-            "name": "Bachelor of Business Administration in Hospitality Management",
-            "modules": [
-              "Financial Management in Hospitality",
-              "Human Resource Management",
-              "Business Ethics"
-            ]
-          }
+          {"id": "H-DEG-001", "name": "Bachelor of Science in Hospitality Management"},
+          {"id": "H-DEG-002", "name": "Bachelor of Business Administration in Hospitality Management"}
         ],
         "Masters Degree": [
-          {
-            "id": "H-MDEG-001",
-            "name": "Master of Science in Hospitality Management",
-            "modules": [
-              "Advanced Hospitality Operations",
-              "Hospitality Leadership",
-              "Research Methods in Hospitality"
-            ]
-          }
+          {"id": "H-MDEG-001", "name": "Master of Science in Hospitality Management"}
         ],
         "PhD": [
-          {
-            "id": "H-PHD-001",
-            "name": "PhD in Hospitality Management",
-            "modules": [
-              "Advanced Hospitality Research",
-              "Global Hospitality Trends",
-              "Dissertation Research"
-            ]
-          }
+          {"id": "H-PHD-001", "name": "PhD in Hospitality Management"}
         ],
         "Foundation": [
-          {
-            "id": "H-FDN-001",
-            "name": "Foundation in Hospitality",
-            "modules": [
-              "Introduction to Hospitality",
-              "Basic Food and Beverage Service",
-              "Hospitality Communication Skills"
-            ]
-          }
+          {"id": "H-FDN-001", "name": "Foundation in Hospitality"}
         ]
       },
       "intake_dates": {
@@ -304,95 +96,23 @@
       "area": "Business",
       "programs": {
         "Diploma": [
-          {
-            "id": "B-DI-001",
-            "name": "Diploma in Business Management",
-            "modules": [
-              "Principles of Management",
-              "Business Communication",
-              "Organizational Behavior"
-            ]
-          },
-          {
-            "id": "B-DI-002",
-            "name": "Diploma in Marketing",
-            "modules": [
-              "Marketing Fundamentals",
-              "Consumer Behavior",
-              "Digital Marketing"
-            ]
-          },
-          {
-            "id": "B-DI-003",
-            "name": "Diploma in Human Resource Management",
-            "modules": [
-              "Human Resource Planning",
-              "Recruitment and Selection",
-              "Employment Law"
-            ]
-          }
+          {"id": "B-DI-001", "name": "Diploma in Business Management"},
+          {"id": "B-DI-002", "name": "Diploma in Marketing"},
+          {"id": "B-DI-003", "name": "Diploma in Human Resource Management"}
         ],
         "Degree": [
-          {
-            "id": "B-DEG-001",
-            "name": "Bachelor of Business Administration",
-            "modules": [
-              "Financial Accounting",
-              "Business Law",
-              "Operations Management"
-            ]
-          },
-          {
-            "id": "B-DEG-002",
-            "name": "Bachelor of Commerce",
-            "modules": [
-              "Microeconomics",
-              "Marketing Management",
-              "Corporate Finance"
-            ]
-          }
+          {"id": "B-DEG-001", "name": "Bachelor of Business Administration"},
+          {"id": "B-DEG-002", "name": "Bachelor of Commerce"}
         ],
         "Masters Degree": [
-          {
-            "id": "B-MDEG-001",
-            "name": "Master of Business Administration",
-            "modules": [
-              "Strategic Management",
-              "Leadership and Organizational Change",
-              "Global Business Environment"
-            ]
-          },
-          {
-            "id": "B-MDEG-002",
-            "name": "Master of Science in Marketing",
-            "modules": [
-              "Marketing Strategy",
-              "Brand Management",
-              "Market Research"
-            ]
-          }
+          {"id": "B-MDEG-001", "name": "Master of Business Administration"},
+          {"id": "B-MDEG-002", "name": "Master of Science in Marketing"}
         ],
         "PhD": [
-          {
-            "id": "B-PHD-001",
-            "name": "PhD in Business Administration",
-            "modules": [
-              "Advanced Management Theory",
-              "Quantitative Research Methods",
-              "Dissertation Research"
-            ]
-          }
+          {"id": "B-PHD-001", "name": "PhD in Business Administration"}
         ],
         "Foundation": [
-          {
-            "id": "B-FDN-001",
-            "name": "Foundation in Business",
-            "modules": [
-              "Introduction to Business",
-              "Basic Economics",
-              "Business Mathematics"
-            ]
-          }
+          {"id": "B-FDN-001", "name": "Foundation in Business"}
         ]
       },
       "intake_dates": {
@@ -407,77 +127,21 @@
       "area": "Creative Arts",
       "programs": {
         "Diploma": [
-          {
-            "id": "CA-DI-001",
-            "name": "Diploma in Fashion Design",
-            "modules": [
-              "Fashion Illustration",
-              "Textile Studies",
-              "Pattern Making"
-            ]
-          },
-          {
-            "id": "CA-DI-002",
-            "name": "Diploma in Interior Design",
-            "modules": [
-              "Interior Design Principles",
-              "Space Planning",
-              "Materials and Finishes"
-            ]
-          }
+          {"id": "CA-DI-001", "name": "Diploma in Fashion Design"},
+          {"id": "CA-DI-002", "name": "Diploma in Interior Design"}
         ],
         "Degree": [
-          {
-            "id": "CA-DEG-001",
-            "name": "Bachelor of Fine Arts in Fashion Design",
-            "modules": [
-              "Advanced Fashion Design",
-              "Fashion Marketing",
-              "Costume Design"
-            ]
-          },
-          {
-            "id": "CA-DEG-002",
-            "name": "Bachelor of Fine Arts in Interior Design",
-            "modules": [
-              "Advanced Interior Design",
-              "Lighting Design",
-              "Sustainable Design"
-            ]
-          }
+          {"id": "CA-DEG-001", "name": "Bachelor of Fine Arts in Fashion Design"},
+          {"id": "CA-DEG-002", "name": "Bachelor of Fine Arts in Interior Design"}
         ],
         "Masters Degree": [
-          {
-            "id": "CA-MDEG-001",
-            "name": "Master of Fine Arts in Fashion Design",
-            "modules": [
-              "Fashion Collection Development",
-              "Advanced Textile Technology",
-              "Fashion Industry Analysis"
-            ]
-          }
+          {"id": "CA-MDEG-001", "name": "Master of Fine Arts in Fashion Design"}
         ],
         "PhD": [
-          {
-            "id": "CA-PHD-001",
-            "name": "PhD in Design Studies",
-            "modules": [
-              "Design Theory and Criticism",
-              "Advanced Research Methods in Design",
-              "Dissertation Research"
-            ]
-          }
+          {"id": "CA-PHD-001", "name": "PhD in Design Studies"}
         ],
         "Foundation": [
-          {
-            "id": "CA-FDN-001",
-            "name": "Foundation in Creative Arts",
-            "modules": [
-              "Introduction to Creative Arts",
-              "Basic Drawing Techniques",
-              "History of Art and Design"
-            ]
-          }
+          {"id": "CA-FDN-001", "name": "Foundation in Creative Arts"}
         ]
       },
       "intake_dates": {
@@ -488,6 +152,5 @@
         "Foundation": ["2/4/23", "7/7/24"]
       }
     }
-  ]
+  ],
 }
-
