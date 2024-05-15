@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement\src\main\java\com\mycompany\projectmanagement\ProjectManagement.java
 C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement\src\main\java\com\mycompany\projectmanagement\GUI\MainMenu.java
 C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement\src\main\java\com\mycompany\projectmanagement\GUI\Panel\StudentList.java
@@ -19,3 +20,11 @@ C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement
 C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement\src\main\java\com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel.java
 C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement\src\main\java\com\mycompany\projectmanagement\GUI\Panel\AccountPanel.java
 C:\Users\yizun\OneDrive\Documents\NetBeansProjects\Respository\ProjectManagement\src\main\java\com\mycompany\projectmanagement\GUI\Panel\StudentPanel.java
+=======
+C:\Users\Asus\IdeaProjects\ProjectManagement\ProjectManagement\src\main\java\com\mycompany\projectmanagement\ProjectManagement.java
+C:\Users\Asus\IdeaProjects\ProjectManagement\ProjectManagement\src\main\java\com\mycompany\projectmanagement\StudentList.java
+C:\Users\Asus\IdeaProjects\ProjectManagement\ProjectManagement\src\main\java\com\mycompany\projectmanagement\FileController.java
+C:\Users\Asus\IdeaProjects\ProjectManagement\ProjectManagement\src\main\java\com\mycompany\projectmanagement\StudentForm.java
+C:\Users\Asus\IdeaProjects\ProjectManagement\ProjectManagement\src\main\java\com\mycompany\projectmanagement\UserController.java
+C:\Users\Asus\IdeaProjects\ProjectManagement\ProjectManagement\src\main\java\com\mycompany\projectmanagement\Test.java
+>>>>>>> 7cd1c9c68458d533ffd6b135febba95d00d20c96
