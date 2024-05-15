@@ -1,3 +1,4 @@
+com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$3.class
 com\mycompany\projectmanagement\GUI\Panel\AccountList$1.class
 com\mycompany\projectmanagement\GUI\ChangePasswordForm$2.class
 com\mycompany\projectmanagement\GUI\Panel\StudentPanel$2.class
@@ -8,6 +9,7 @@ com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel.class
 com\mycompany\projectmanagement\GUI\Panel\AccountPanel.class
 com\mycompany\projectmanagement\GUI\Panel\AccountList.class
 com\mycompany\projectmanagement\GUI\Panel\LecturerPanel$3.class
+com\mycompany\projectmanagement\FileController$Assessment.class
 com\mycompany\projectmanagement\GUI\SecondMenu$4.class
 com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$4.class
 com\mycompany\projectmanagement\FileController$FileService.class
@@ -27,9 +29,11 @@ com\mycompany\projectmanagement\GUI\ResetPasswordForm$1.class
 com\mycompany\projectmanagement\GUI\MainMenu$5.class
 com\mycompany\projectmanagement\GUI\Panel\AccountList$2.class
 com\mycompany\projectmanagement\GUI\CheckEmailForm.class
+com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$2.class
 com\mycompany\projectmanagement\GUI\Panel\StudentPanel$3.class
 com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$1.class
 com\mycompany\projectmanagement\GUI\MainMenu$1.class
+com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$5.class
 com\mycompany\projectmanagement\GUI\LoginForm$2.class
 com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel.class
 com\mycompany\projectmanagement\GUI\Panel\AccountPanel$2.class
@@ -56,8 +60,8 @@ com\mycompany\projectmanagement\UserController.class
 com\mycompany\projectmanagement\GUI\LoginForm$3.class
 com\mycompany\projectmanagement\UserController$Student.class
 com\mycompany\projectmanagement\GUI\Panel\StudentPanel$4.class
+com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$1.class
 com\mycompany\projectmanagement\GUI\SecondMenu.class
-com\mycompany\projectmanagement\GUI\SecondMenu$6.class
 com\mycompany\projectmanagement\GUI\LoginForm$4.class
 com\mycompany\projectmanagement\GUI\Panel\AssessmentList.class
 com\mycompany\projectmanagement\GUI\Panel\LecturerPanel.class
@@ -73,11 +77,11 @@ com\mycompany\projectmanagement\UserController$Admin.class
 com\mycompany\projectmanagement\GUI\MainMenu$3.class
 com\mycompany\projectmanagement\GUI\Panel\AccountPanel$3.class
 com\mycompany\projectmanagement\GUI\ChangePasswordForm$1.class
+com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$6.class
 com\mycompany\projectmanagement\GUI\LoginForm.class
 com\mycompany\projectmanagement\GUI\MainMenu.class
 com\mycompany\projectmanagement\GUI\Panel\LecturerPanel$2.class
 com\mycompany\projectmanagement\GUI\Panel\StudentPanel$5.class
 com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$3.class
-com\mycompany\projectmanagement\GUI\SecondMenu$5.class
 com\mycompany\projectmanagement\GUI\MainMenu$6.class
 com\mycompany\projectmanagement\GUI\ResetPasswordForm$2.class
