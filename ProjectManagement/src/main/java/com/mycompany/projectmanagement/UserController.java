@@ -226,7 +226,7 @@ public class UserController {
         @Override
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content);
+            fs.updateData(fileName, keys, content,"ID");
 
         }
 
@@ -299,7 +299,7 @@ public class UserController {
         @Override
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content);
+            fs.updateData(fileName, keys, content,"ID");
 
         }
 
@@ -313,7 +313,7 @@ public class UserController {
 
         public Account() {
             this.file = new FileController.FileService();
-            this.keys = new String[]{"id", "email", "password", "role"};
+            this.keys = new String[]{"ID", "Email", "Password", "Role"};
         }
 
         public String getId() {
@@ -350,7 +350,7 @@ public class UserController {
         @Override
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content);
+            fs.updateData(fileName, keys, content,"ID");
         }
 
         public boolean checkConfidential(String email, String password) {

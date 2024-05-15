@@ -138,7 +138,7 @@ public class JSONHandler {
             // Add the module object to the array
             modulesArray.put(moduleObject);
         }
-
+        
         System.out.println(modulesArray);
 
         return modulesArray;

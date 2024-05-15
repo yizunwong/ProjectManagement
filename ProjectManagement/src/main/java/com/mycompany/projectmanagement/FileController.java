@@ -119,14 +119,14 @@ public interface FileController {
             return null;
         }
 
-        public void updateData(String fileName, String[] keys, String[] content) {
+        public void updateData(String fileName, String[] contentKeys, String[] content, String key) {
             jsonArray = (JSONArray) readData(fileName, "array");
-            jsonObj = jsonHandler.toJSONObject(keys, content);
-            String newId = jsonObj.getString("ID");
+            jsonObj = jsonHandler.toJSONObject(contentKeys, content);
+            String newId = jsonObj.getString(key);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject obj = jsonArray.getJSONObject(i);
-                String id = obj.getString("ID");
+                String id = obj.getString(key);
 
                 if (id.equals(newId)) {
                     // Check if any value has changed
@@ -142,22 +142,22 @@ public interface FileController {
 
         }
 
-        public void deleteData(String id, String fileName) {
+        public void deleteData(String id, String fileName, String key) {
             jsonArray = (JSONArray) readData(fileName, "array");
-            findAndRemoveById(jsonArray, id);
+            findAndRemoveById(jsonArray, id, key);
             write(jsonArray, fileName, false);
 
         }
 
-        public void moveData(String id, String role) {
+        public void moveData(String id, String role, String key) {
             JSONArray lecturerArray = (JSONArray) readData("lecturer.txt", "array");
             JSONArray projectManagerArray = (JSONArray) readData("project_manager.txt", "array");
 
             if (role.equalsIgnoreCase("project manager")) {
-                JSONObject removed = findAndRemoveById(lecturerArray, id);
+                JSONObject removed = findAndRemoveById(lecturerArray, id, key);
                 projectManagerArray.put(removed);
             } else {
-                JSONObject removed = findAndRemoveById(projectManagerArray, id);
+                JSONObject removed = findAndRemoveById(projectManagerArray, id, key);
                 lecturerArray.put(removed);
             }
 
@@ -167,22 +167,24 @@ public interface FileController {
         }
 
         //remove the object from array by id and return the removed object
-        private JSONObject findAndRemoveById(JSONArray jsonArray, String id) {
-            for (int i = 0; i < jsonArray.length(); i++) {
+        public JSONObject findAndRemoveById(JSONArray jsonArray, String id, String key) {
+            JSONObject removed = new JSONObject();
+            for (int i = jsonArray.length() - 1; i >= 0; i--) {
                 JSONObject obj = jsonArray.getJSONObject(i);
-                if (obj.getString("ID").equals(id)) {
-                    JSONObject removed = (JSONObject) jsonArray.remove(i);
-                    return removed;
+                if (obj.getString(key).equals(id)) {
+                    // Remove the object if the key matches the given ID
+                    removed = (JSONObject) jsonArray.remove(i);
                 }
             }
-            return null;
+            return removed;
         }
 
         public JSONArray searchData(String fileName, String valueToSearch, JSONArray dataArray) {
             JSONArray searchedArray = new JSONArray();
+            String searchValue = valueToSearch.toLowerCase();
             for (int i = 0; i < dataArray.length(); i++) {
                 JSONObject jsonObject = dataArray.getJSONObject(i);
-                if (containsValue(jsonObject, valueToSearch)) {
+                if (containsValue(jsonObject, searchValue)) {
                     searchedArray.put(jsonObject);
                 }
             }
@@ -192,7 +194,7 @@ public interface FileController {
         public boolean containsValue(JSONObject jsonObject, String valueToSearch) {
             for (String key : jsonObject.keySet()) {
                 Object value = jsonObject.get(key);
-                if (value instanceof String && ((String) value).contains(valueToSearch)) {
+                if (value instanceof String && ((String) value).toLowerCase().equals(valueToSearch)) {
                     return true;
                 }
             }
@@ -301,6 +303,17 @@ public interface FileController {
 
         }
 
+        public String findCourseID(String key, String course) {
+            JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
+
+            //return the specific course
+            List<String> programs = getValues(jsonObj, "areas.programs." + key + ".name", true);
+            int index = findIndexContainingValue(programs, course);
+            List<String> courseID = getValues(jsonObj, "areas.programs." + key + ".id", true);
+            return courseID.get(index);
+
+        }
+
         public static int findIndexContainingValue(List<String> list, String value) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).contains(value)) {
@@ -327,18 +340,45 @@ public interface FileController {
             }
         }
 
+        public String[] findModule(String key, String course) {
+            JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
+            System.out.println(key);
+
+            if (course == null || course.isEmpty() || ("-".equals(course))) {
+            } else {
+                List<String> programs = getValues(jsonObj, "name", false);
+                int index = findIndexContainingValue(programs, course);
+                System.out.println(index);
+
+                List<String> modules = getValues(jsonObj, "modules", false);
+                String module = modules.get(index);
+                String[] moduleArray = module.replaceAll("[\"\\[\\]]", "").split(",");
+                System.out.println(modules);
+                System.out.println(programs);
+                System.out.println(Arrays.toString(moduleArray));
+                return moduleArray;
+
+            }
+            return new String[]{"-"};
+
+        }
+
     }
 
     class Assessment {
 
+        public String assessment_id;
+        public String student_id;
+        public String course_id;
+        public String intake_date;
         public String[] modules;
+        public String module;
         public String assessment_type;
         public String supervisor;
         public String second_marker;
-        public String intake_date;
-        public String student_id;
-        public String course_id;
         private final String[] keys;
+        public String status;
+        public String due_time;
 
         public Assessment() {
             this.keys = new String[]{"assessment_id", "student_id", "course_id", "intake_date",
@@ -349,16 +389,32 @@ public interface FileController {
             this.modules = modules;
         }
 
-        public void setAssessment_type(String assessment_type) {
+        public void setModule(String module) {
+            this.module = module;
+        }
+
+        public void setSecondMarker(String second_marker) {
+            this.second_marker = second_marker;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public void setDueTime(String due_time) {
+            this.due_time = due_time;
+        }
+
+        public void setAssessmentID(String assessment_id) {
+            this.assessment_id = assessment_id;
+        }
+
+        public void setAssessmentType(String assessment_type) {
             this.assessment_type = assessment_type;
         }
 
         public void setSupervisor(String supervisor) {
             this.supervisor = supervisor;
-        }
-
-        public void setSecondMarker(String second_marker) {
-            this.second_marker = second_marker;
         }
 
         public void setIntakeDate(String intake_date) {
@@ -379,6 +435,51 @@ public interface FileController {
             fs.write(assessment, fileName, true);
 
         }
+
+        public String[] getAssessment() {
+            String[] assessment = {assessment_id, student_id, course_id, intake_date, module, assessment_type, supervisor, second_marker, status, due_time};
+            return assessment;
+
+        }
+
+        public void replaceData(String fileName, Student student) {
+            FileController.FileService fs = new FileController.FileService();
+            JSONArray assessment = generateModuleJSON(modules, student, course_id);
+            JSONArray dataArray = (JSONArray) fs.readData(fileName, "array");
+            JSONArray replacedArray = replaceObjects(assessment, dataArray);
+            System.out.println("replaced" + replacedArray);
+            fs.write(replacedArray, "assessment.txt", false);
+
+        }
+
+        public void updateFile(String fileName, String[] content) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(fileName, keys, content, "module");
+
+        }
+
+        static JSONArray replaceObjects(JSONArray newArray, JSONArray secondArray) {
+            for (int i = 0; i < newArray.length(); i++) {
+                JSONObject newObj = newArray.getJSONObject(i);
+                String assessmentId = newObj.getString("student_id");
+                for (int j = secondArray.length() - 1; j >= 0; j--) {
+                    JSONObject oldObj = secondArray.getJSONObject(j);
+                    if (oldObj.getString("student_id").equals(assessmentId)) {
+                        // Remove the object if student_id matches and objects are different
+                        if (!newObj.similar(oldObj)) {
+                            secondArray.remove(j);
+                        }
+                    }
+                }
+            }
+            // Add all newObj to secondArray after removing matched objects
+            for (int i = 0; i < newArray.length(); i++) {
+                JSONObject newObj = newArray.getJSONObject(i);
+                secondArray.put(newObj);
+            }
+            return secondArray;
+        }
+
     }
 
 }

@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI;
+package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.GUI.Panel.AccountList;
-import com.mycompany.projectmanagement.GUI.Panel.LecturerList;
-import com.mycompany.projectmanagement.GUI.Panel.StudentList;
+import com.mycompany.projectmanagement.gui.panel.AccountList;
+import com.mycompany.projectmanagement.gui.panel.LecturerList;
+import com.mycompany.projectmanagement.gui.panel.StudentList;
 
 /**
  *
@@ -33,9 +33,9 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        studentList = new com.mycompany.projectmanagement.GUI.Panel.StudentList();
-        lecturerList = new com.mycompany.projectmanagement.GUI.Panel.LecturerList();
-        accountList = new com.mycompany.projectmanagement.GUI.Panel.AccountList();
+        studentList = new com.mycompany.projectmanagement.gui.panel.StudentList();
+        lecturerList = new com.mycompany.projectmanagement.gui.panel.LecturerList();
+        accountList = new com.mycompany.projectmanagement.gui.panel.AccountList();
         jPanel2 = new javax.swing.JPanel();
         manageStudentBtn = new javax.swing.JButton();
         manageLecturerBtn = new javax.swing.JButton();
@@ -200,15 +200,15 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static com.mycompany.projectmanagement.GUI.Panel.AccountList accountList;
+    public static com.mycompany.projectmanagement.gui.panel.AccountList accountList;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTabbedPane jTabbedPane1;
-    public static com.mycompany.projectmanagement.GUI.Panel.LecturerList lecturerList;
+    public static com.mycompany.projectmanagement.gui.panel.LecturerList lecturerList;
     private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageLecturerBtn;
     private javax.swing.JButton managePMBtn;
     private javax.swing.JButton manageStudentBtn;
-    public static com.mycompany.projectmanagement.GUI.Panel.StudentList studentList;
+    public static com.mycompany.projectmanagement.gui.panel.StudentList studentList;
     // End of variables declaration//GEN-END:variables
 }

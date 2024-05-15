@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI.Panel;
+package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
@@ -183,8 +183,8 @@ public class AccountPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Data update successfully");
             FileController.FileService fs = new FileController.FileService();
-            fs.moveData(account.id, account.role);
-            fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt",null);
+            fs.moveData(account.id, account.role, "ID");
+            fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt", null);
         } else {
             JOptionPane.showMessageDialog(null, "Data update cancel");
         }
@@ -199,7 +199,7 @@ public class AccountPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         FileController.FileService fs = new FileController.FileService();
         getFieldData();
-        fs.deleteData(id, "account.txt");
+        fs.deleteData(id, "account.txt", "ID");
         fileName = switch (role.toLowerCase()) {
             case "student" ->
                 "student.txt";
@@ -208,8 +208,8 @@ public class AccountPanel extends javax.swing.JPanel {
             default ->
                 "project_manager.txt";
         };
-        fs.deleteData(id, fileName);
-        fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt",null);
+        fs.deleteData(id, fileName, "ID");
+        fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt", null);
 
     }//GEN-LAST:event_deleteBtnActionPerformed
 

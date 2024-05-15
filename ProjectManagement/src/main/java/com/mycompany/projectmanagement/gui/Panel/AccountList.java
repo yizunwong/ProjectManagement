@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI.Panel;
+package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
@@ -17,7 +17,7 @@ import org.json.JSONArray;
  */
 public class AccountList extends javax.swing.JPanel {
 
-    public final static String[] columns = {"id", "email", "password",
+    public final static String[] columns = {"ID", "Email", "Password",
         "role"};
     private final UserController userController;
 
@@ -48,7 +48,7 @@ public class AccountList extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        accountPanel1 = new com.mycompany.projectmanagement.GUI.Panel.AccountPanel();
+        accountPanel1 = new com.mycompany.projectmanagement.gui.panel.AccountPanel();
         searchField = new javax.swing.JTextField();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,7 +139,7 @@ public class AccountList extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.GUI.Panel.AccountPanel accountPanel1;
+    private com.mycompany.projectmanagement.gui.panel.AccountPanel accountPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
     public static javax.swing.JTable userTable;
