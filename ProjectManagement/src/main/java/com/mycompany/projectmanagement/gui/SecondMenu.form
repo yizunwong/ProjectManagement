@@ -37,7 +37,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel" name="assignAssessmentPanel2">
+        <Component class="com.mycompany.projectmanagement.GUI.panel.AssignAssessmentPanel" name="assignAssessmentPanel2">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>

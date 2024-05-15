@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.projectmanagement.gui;
+package com.mycompany.projectmanagement.GUI;
 
 import java.awt.Color;
 
@@ -34,8 +34,8 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        studentPanelBorder1 = new com.mycompany.projectmanagement.gui.StudentPanelBorder();
-        studentMenu2 = new com.mycompany.projectmanagement.gui.StudentMenu();
+        studentPanelBorder1 = new com.mycompany.projectmanagement.GUI.StudentPanelBorder();
+        studentMenu2 = new com.mycompany.projectmanagement.GUI.StudentMenu();
         Btn1 = new javax.swing.JButton();
         Btn2 = new javax.swing.JButton();
         Btn3 = new javax.swing.JButton();
@@ -337,7 +337,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private com.mycompany.projectmanagement.gui.StudentMenu studentMenu2;
-    private com.mycompany.projectmanagement.gui.StudentPanelBorder studentPanelBorder1;
+    private com.mycompany.projectmanagement.GUI.StudentMenu studentMenu2;
+    private com.mycompany.projectmanagement.GUI.StudentPanelBorder studentPanelBorder1;
     // End of variables declaration//GEN-END:variables
 }

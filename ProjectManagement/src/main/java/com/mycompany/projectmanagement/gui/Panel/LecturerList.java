@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.gui.panel;
+package com.mycompany.projectmanagement.GUI.Panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
@@ -56,7 +56,7 @@ public class LecturerList extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        lecturerPanel1 = new com.mycompany.projectmanagement.gui.panel.LecturerPanel();
+        lecturerPanel1 = new com.mycompany.projectmanagement.GUI.Panel.LecturerPanel();
         searchField = new javax.swing.JTextField();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -154,7 +154,7 @@ public class LecturerList extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    public static com.mycompany.projectmanagement.gui.panel.LecturerPanel lecturerPanel1;
+    public static com.mycompany.projectmanagement.GUI.Panel.LecturerPanel lecturerPanel1;
     private javax.swing.JTextField searchField;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables

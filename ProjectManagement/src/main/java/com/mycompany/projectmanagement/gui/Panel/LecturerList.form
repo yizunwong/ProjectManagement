@@ -82,7 +82,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.mycompany.projectmanagement.gui.panel.LecturerPanel" name="lecturerPanel1">
+    <Component class="com.mycompany.projectmanagement.GUI.panel.LecturerPanel" name="lecturerPanel1">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">

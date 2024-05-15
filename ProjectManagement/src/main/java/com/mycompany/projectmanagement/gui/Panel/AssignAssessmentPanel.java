@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.gui.panel;
+package com.mycompany.projectmanagement.GUI.Panel;
 
 import com.mycompany.projectmanagement.FileController;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentPanel.moduleComboBox;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentPanel.secondMarkerField;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentPanel.supervisorField;
+import static com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel.moduleComboBox;
+import static com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel.secondMarkerField;
+import static com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel.supervisorField;
 import com.mycompany.projectmanagement.UserController;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -61,7 +61,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
         lecturerSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        assessmentPanel1 = new com.mycompany.projectmanagement.gui.panel.AssessmentPanel();
+        assessmentPanel1 = new com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel();
         assignLecturerBtn = new javax.swing.JButton();
         assignSMBtn = new javax.swing.JButton();
 
@@ -261,7 +261,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.gui.panel.AssessmentPanel assessmentPanel1;
+    private com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel assessmentPanel1;
     private javax.swing.JButton assignLecturerBtn;
     private javax.swing.JButton assignSMBtn;
     public static javax.swing.JTable dataTable;
