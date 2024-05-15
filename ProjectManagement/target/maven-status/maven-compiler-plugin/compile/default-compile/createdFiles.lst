@@ -42,7 +42,6 @@ com\mycompany\projectmanagement\gui\panel\AssessmentList.class
 com\mycompany\projectmanagement\gui\panel\StudentPanel$6.class
 com\mycompany\projectmanagement\gui\panel\AccountPanel$1.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$6.class
-com\mycompany\projectmanagement\gui\Test.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$3.class
 com\mycompany\projectmanagement\gui\StudentMain$4.class
 com\mycompany\projectmanagement\UserController$Lecturer.class
