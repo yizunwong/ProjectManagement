@@ -38,9 +38,6 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Component class="com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel" name="assignAssessmentPanel2">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="tab1">
@@ -74,9 +71,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="assignAssessmentBtn" max="32767" attributes="0"/>
-                      <Component id="manageAssessmentBtn" max="32767" attributes="0"/>
+                      <Component id="manageStudentBtn" max="32767" attributes="0"/>
+                      <Component id="manageLecturerBtn" max="32767" attributes="0"/>
+                      <Component id="manageAccountBtn" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButton4" max="32767" attributes="0"/>
+                      <Component id="managePMBtn" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="31" max="32767" attributes="0"/>
               </Group>
@@ -86,31 +85,43 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-                  <Component id="assignAssessmentBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="manageStudentBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="manageAssessmentBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="manageLecturerBtn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="managePMBtn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="manageAccountBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="578" max="32767" attributes="0"/>
+                  <EmptySpace pref="496" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="assignAssessmentBtn">
+        <Component class="javax.swing.JButton" name="manageStudentBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Assign Assessment"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assignAssessmentBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageStudentBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="manageAssessmentBtn">
+        <Component class="javax.swing.JButton" name="manageLecturerBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Manage Assessment"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageAssessmentBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageLecturerBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="manageAccountBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Manage Account"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageAccountBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
@@ -119,6 +130,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="managePMBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Manage PM"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="managePMBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

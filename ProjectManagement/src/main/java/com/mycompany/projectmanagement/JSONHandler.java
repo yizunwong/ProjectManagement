@@ -4,7 +4,6 @@
  */
 package com.mycompany.projectmanagement;
 
-import com.mycompany.projectmanagement.UserController.Student;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -112,35 +111,5 @@ public class JSONHandler {
             userData.put(keys[i], content[i]);
         }
         return new JSONObject(userData);
-    }
-
-    public static JSONArray generateModuleJSON(String[] moduleNames, Student student, String course_id) {
-        // Create a JSONArray to hold module objects
-        JSONArray modulesArray = new JSONArray();
-
-        // Iterate over each module name
-        for (String moduleName : moduleNames) {
-            // Create a JSONObject for the module
-            JSONObject moduleObject = new JSONObject();
-
-            // Populate the module object with default keys and empty values
-            moduleObject.put("assessment_id", "INT-456");
-            moduleObject.put("student_id", student.id);
-            moduleObject.put("course_id", course_id);
-            moduleObject.put("intake_date", student.intake_date);
-            moduleObject.put("module", moduleName);
-            moduleObject.put("assessment_type", "");
-            moduleObject.put("supervisor", "");
-            moduleObject.put("second_marker", "");
-            moduleObject.put("status", "");
-            moduleObject.put("due_time", "");
-
-            // Add the module object to the array
-            modulesArray.put(moduleObject);
-        }
-        
-        System.out.println(modulesArray);
-
-        return modulesArray;
     }
 }

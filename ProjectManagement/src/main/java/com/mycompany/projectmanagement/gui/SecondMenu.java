@@ -5,7 +5,8 @@
 package com.mycompany.projectmanagement.GUI;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel;
+import com.mycompany.projectmanagement.GUI.Panel.AccountList;
+import com.mycompany.projectmanagement.GUI.Panel.StudentList;
 
 /**
  *
@@ -13,16 +14,13 @@ import com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel;
  */
 public class SecondMenu extends javax.swing.JFrame {
 
-
     /**
      * Creates new form MainMenu
      */
     public SecondMenu() {
         initComponents();
-
 //        setExtendedState(MainMenu.MAXIMIZED_BOTH);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,9 +34,11 @@ public class SecondMenu extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         assignAssessmentPanel2 = new com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel();
         jPanel2 = new javax.swing.JPanel();
-        assignAssessmentBtn = new javax.swing.JButton();
-        manageAssessmentBtn = new javax.swing.JButton();
+        manageStudentBtn = new javax.swing.JButton();
+        manageLecturerBtn = new javax.swing.JButton();
+        manageAccountBtn = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        managePMBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -50,17 +50,24 @@ public class SecondMenu extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        assignAssessmentBtn.setText("Assign Assessment");
-        assignAssessmentBtn.addActionListener(new java.awt.event.ActionListener() {
+        manageStudentBtn.setText("Assign Assessment");
+        manageStudentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignAssessmentBtnActionPerformed(evt);
+                manageStudentBtnActionPerformed(evt);
             }
         });
 
-        manageAssessmentBtn.setText("Manage Assessment");
-        manageAssessmentBtn.addActionListener(new java.awt.event.ActionListener() {
+        manageLecturerBtn.setText("Manage Assessment");
+        manageLecturerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageAssessmentBtnActionPerformed(evt);
+                manageLecturerBtnActionPerformed(evt);
+            }
+        });
+
+        manageAccountBtn.setText("Manage Account");
+        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageAccountBtnActionPerformed(evt);
             }
         });
 
@@ -71,6 +78,13 @@ public class SecondMenu extends javax.swing.JFrame {
             }
         });
 
+        managePMBtn.setText("Manage PM");
+        managePMBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managePMBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -78,21 +92,27 @@ public class SecondMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(assignAssessmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manageAssessmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manageStudentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageLecturerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(managePMBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(assignAssessmentBtn)
+                .addComponent(manageStudentBtn)
                 .addGap(18, 18, 18)
-                .addComponent(manageAssessmentBtn)
+                .addComponent(manageLecturerBtn)
+                .addGap(18, 18, 18)
+                .addComponent(managePMBtn)
+                .addGap(18, 18, 18)
+                .addComponent(manageAccountBtn)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addContainerGap(578, Short.MAX_VALUE))
+                .addContainerGap(496, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 840));
@@ -100,14 +120,20 @@ public class SecondMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void assignAssessmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignAssessmentBtnActionPerformed
+    private void manageStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(0);
         FileController.FileService fs = new FileController.FileService();
-        assignAssessmentPanel2.setFile("student.txt");
-        fs.showFileData(AssignAssessmentPanel.dataTable, AssignAssessmentPanel.student_columns, "student.txt", null);
+        fs.showFileData(StudentList.userTable, StudentList.columns, "student.txt", null);
 
-    }//GEN-LAST:event_assignAssessmentBtnActionPerformed
+    }//GEN-LAST:event_manageStudentBtnActionPerformed
+
+    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(2);
+        FileController.FileService fs = new FileController.FileService();
+        fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt", null);
+    }//GEN-LAST:event_manageAccountBtnActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -116,12 +142,22 @@ public class SecondMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void manageAssessmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAssessmentBtnActionPerformed
+    private void managePMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePMBtnActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
-        assignAssessmentPanel2.setFile("assessment.txt");
-        fs.showFileData(AssignAssessmentPanel.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null);
-    }//GEN-LAST:event_manageAssessmentBtnActionPerformed
+        // TODO add your handling code here:
+//        jTabbedPane1.setSelectedIndex(1);
+//        lecturerList.setFile("project_manager.txt");
+//        FileController.FileService fs = new FileController.FileService();
+//        fs.showFileData(LecturerList.userTable, LecturerList.columns, lecturerList.fileName, null);
+    }//GEN-LAST:event_managePMBtnActionPerformed
+
+    private void manageLecturerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLecturerBtnActionPerformed
+        // TODO add your handling code here:
+//        jTabbedPane1.setSelectedIndex(1);
+//        FileController.FileService fs = new FileController.FileService();
+//        lecturerList.setFile("lecturer.txt");
+//        fs.showFileData(LecturerList.userTable, LecturerList.columns, "lecturer.txt", null);
+    }//GEN-LAST:event_manageLecturerBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,11 +196,13 @@ public class SecondMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton assignAssessmentBtn;
-    public static com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel assignAssessmentPanel2;
+    private com.mycompany.projectmanagement.GUI.Panel.AssignAssessmentPanel assignAssessmentPanel2;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton manageAssessmentBtn;
+    private javax.swing.JButton manageAccountBtn;
+    private javax.swing.JButton manageLecturerBtn;
+    private javax.swing.JButton managePMBtn;
+    private javax.swing.JButton manageStudentBtn;
     // End of variables declaration//GEN-END:variables
 }

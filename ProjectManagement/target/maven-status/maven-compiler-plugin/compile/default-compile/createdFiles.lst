@@ -1,4 +1,11 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$3.class
+=======
+>>>>>>> 8e1e5fbe2d2a9c4e40597c1c5412bca50109faf1
+=======
+com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$3.class
+>>>>>>> 19e53b2d52c44d62e527b5c665a885f6180521bb
 com\mycompany\projectmanagement\GUI\StudentMain$2.class
 com\mycompany\projectmanagement\GUI\Panel\AccountList$1.class
 com\mycompany\projectmanagement\GUI\ChangePasswordForm$2.class
@@ -37,7 +44,14 @@ com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$2.class
 com\mycompany\projectmanagement\GUI\Panel\StudentPanel$3.class
 com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$1.class
 com\mycompany\projectmanagement\GUI\MainMenu$1.class
+<<<<<<< HEAD
+<<<<<<< HEAD
 com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$5.class
+=======
+>>>>>>> 8e1e5fbe2d2a9c4e40597c1c5412bca50109faf1
+=======
+com\mycompany\projectmanagement\GUI\Panel\AssignAssessmentPanel$5.class
+>>>>>>> 19e53b2d52c44d62e527b5c665a885f6180521bb
 com\mycompany\projectmanagement\GUI\StudentMain$5.class
 com\mycompany\projectmanagement\GUI\LoginForm$2.class
 com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel.class
@@ -67,7 +81,14 @@ com\mycompany\projectmanagement\GUI\LoginForm$3.class
 com\mycompany\projectmanagement\UserController$Student.class
 com\mycompany\projectmanagement\GUI\Panel\StudentPanel$4.class
 com\mycompany\projectmanagement\GUI\StudentMain$4.class
+<<<<<<< HEAD
+<<<<<<< HEAD
 com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$1.class
+=======
+>>>>>>> 8e1e5fbe2d2a9c4e40597c1c5412bca50109faf1
+=======
+com\mycompany\projectmanagement\GUI\Panel\AssessmentPanel$1.class
+>>>>>>> 19e53b2d52c44d62e527b5c665a885f6180521bb
 com\mycompany\projectmanagement\GUI\SecondMenu.class
 com\mycompany\projectmanagement\GUI\LoginForm$4.class
 com\mycompany\projectmanagement\GUI\Panel\AssessmentList.class
