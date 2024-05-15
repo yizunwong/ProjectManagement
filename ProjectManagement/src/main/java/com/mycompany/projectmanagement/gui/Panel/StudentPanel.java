@@ -5,6 +5,7 @@
 package com.mycompany.projectmanagement.GUI.Panel;
 
 import com.mycompany.projectmanagement.FileController;
+import com.mycompany.projectmanagement.FileController.Assessment;
 import com.mycompany.projectmanagement.FileController.Country;
 import com.mycompany.projectmanagement.FileController.Course;
 import com.mycompany.projectmanagement.FileController.ImageController;
@@ -14,8 +15,10 @@ import com.mycompany.projectmanagement.UserController.Student;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -26,9 +29,9 @@ import javax.swing.JOptionPane;
  */
 public class StudentPanel extends javax.swing.JPanel {
 
-    private String name, parent_name, ic, phone, gender, country, address, email, intake_date, id, formattedDate;
+    private String name, parent_name, ic, phone, gender, country, address, email, intake_date, id, formattedDate, course_id;
     private File imagePath;
-    private String[] courses;
+    private String[] courses, modules;
     private String selectedCourse;
     public String entry_level;
     private final UserController userController;
@@ -134,9 +137,12 @@ public class StudentPanel extends javax.swing.JPanel {
             gender = "Female";
         }
 
+        Course course = new Course();
+        course_id = course.findCourseID(entry_level, selectedCourse);
+        modules = course.findModule(entry_level, selectedCourse);
     }
 
-    public void setFieldData(Student student, Account account) {
+    public void setFieldData(Student student, Account account, Assessment assessment) {
         student.setName(name);
         student.setParent_name(parent_name);
         student.setIc(ic);
@@ -158,6 +164,8 @@ public class StudentPanel extends javax.swing.JPanel {
             student.setId(id);
         }
         account.setId(student.id);
+        assessment.setCourseID(course_id);
+        assessment.setModules(modules);
     }
 
     /**
@@ -444,11 +452,14 @@ public class StudentPanel extends javax.swing.JPanel {
 
         UserController.Account account = userController.new Account();
         UserController.Student student = userController.new Student();
+        FileController.Assessment assessment = new FileController.Assessment();
+
         getFieldData();
-        setFieldData(student, account);
+        setFieldData(student, account, assessment);
         student.saveFile("student.txt");
         account.setAccount("student");
         account.saveFile("account.txt");
+        assessment.saveFile("assessment", student);
         student.saveImage(selectedFile);
 
         FileController.FileService fs = new FileController.FileService();
@@ -467,12 +478,11 @@ public class StudentPanel extends javax.swing.JPanel {
     private void entryLevelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryLevelComboBoxActionPerformed
         // TODO add your handling code here:
         this.entry_level = entryLevelComboBox.getSelectedItem().toString();
-        Course cr = new Course();
-        System.out.println("b" + entry_level);
+        Course course = new Course();
         if ("-".equals(entry_level)) {
             intakeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"-"}));
         }
-        this.courses = cr.getCourse(entry_level);
+        this.courses = course.getCourse(entry_level);
         courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
     }//GEN-LAST:event_entryLevelComboBoxActionPerformed
 
@@ -481,7 +491,6 @@ public class StudentPanel extends javax.swing.JPanel {
         Course course = new Course();
         String[] intake = course.findIntake(selectedCourse, entry_level);
         intakeComboBox.setModel(new DefaultComboBoxModel<>(intake));
-        System.out.println("c" + entry_level);
     }//GEN-LAST:event_courseComboBoxActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
@@ -490,8 +499,9 @@ public class StudentPanel extends javax.swing.JPanel {
         if (result == JOptionPane.YES_OPTION) {
             UserController.Student student = userController.new Student();
             UserController.Account account = userController.new Account();
+            FileController.Assessment assessment = new FileController.Assessment();
             getFieldData();
-            setFieldData(student, account);
+            setFieldData(student, account, assessment);
             student.updateFile("student.txt", student.getStudent());
             student.saveImage(selectedFile);
 

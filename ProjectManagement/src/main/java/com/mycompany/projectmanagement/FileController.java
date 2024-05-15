@@ -4,7 +4,9 @@
  */
 package com.mycompany.projectmanagement;
 
+import static com.mycompany.projectmanagement.JSONHandler.generateModuleJSON;
 import static com.mycompany.projectmanagement.JSONHandler.getValues;
+import com.mycompany.projectmanagement.UserController.Student;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -28,7 +30,7 @@ public interface FileController {
 
     public void saveFile(String fileName);
 
-    public void updateFile(String fileName,String[] content);
+    public void updateFile(String fileName, String[] content);
 
     class FileService {
 
@@ -176,11 +178,12 @@ public interface FileController {
             return null;
         }
 
-        public JSONArray searchData(String fileName, String valueToSearch, JSONArray dataArray ) {
+        public JSONArray searchData(String fileName, String valueToSearch, JSONArray dataArray) {
             JSONArray searchedArray = new JSONArray();
+            String searchValue = valueToSearch.toLowerCase();
             for (int i = 0; i < dataArray.length(); i++) {
                 JSONObject jsonObject = dataArray.getJSONObject(i);
-                if (containsValue(jsonObject, valueToSearch)) {
+                if (containsValue(jsonObject, searchValue)) {
                     searchedArray.put(jsonObject);
                 }
             }
@@ -190,7 +193,7 @@ public interface FileController {
         public boolean containsValue(JSONObject jsonObject, String valueToSearch) {
             for (String key : jsonObject.keySet()) {
                 Object value = jsonObject.get(key);
-                if (value instanceof String && ((String) value).contains(valueToSearch)) {
+                if (value instanceof String && ((String) value).toLowerCase().equals(valueToSearch)) {
                     return true;
                 }
             }
@@ -299,6 +302,17 @@ public interface FileController {
 
         }
 
+        public String findCourseID(String key, String course) {
+            JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
+
+            //return the specific course
+            List<String> programs = getValues(jsonObj, "areas.programs." + key + ".name", true);
+            int index = findIndexContainingValue(programs, course);
+            List<String> courseID = getValues(jsonObj, "areas.programs." + key + ".id", true);
+            return courseID.get(index);
+
+        }
+
         public static int findIndexContainingValue(List<String> list, String value) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).contains(value)) {
@@ -325,6 +339,81 @@ public interface FileController {
             }
         }
 
+        public String[] findModule(String key, String course) {
+            JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
+            System.out.println(key);
+
+            if (course == null || course.isEmpty() || ("-".equals(course))) {
+            } else {
+                List<String> programs = getValues(jsonObj, "name", false);
+                int index = findIndexContainingValue(programs, course);
+                System.out.println(index);
+
+                List<String> modules = getValues(jsonObj, "modules", false);
+                String module = modules.get(index);
+                String[] moduleArray = module.replaceAll("[\"\\[\\]]", "").split(",");
+                System.out.println(modules);
+                System.out.println(programs);
+                System.out.println(Arrays.toString(moduleArray));
+                return moduleArray;
+
+            }
+            return new String[]{"-"};
+
+        }
+
+    }
+
+    class Assessment {
+
+        public String[] modules;
+        public String assessment_type;
+        public String supervisor;
+        public String second_marker;
+        public String intake_date;
+        public String student_id;
+        public String course_id;
+        private final String[] keys;
+
+        public Assessment() {
+            this.keys = new String[]{"assessment_id", "student_id", "course_id", "intake_date",
+                "module", "assessment_type", "supervisor", "second_marker", "status", "due_time"};
+        }
+
+        public void setModules(String[] modules) {
+            this.modules = modules;
+        }
+
+        public void setAssessment_type(String assessment_type) {
+            this.assessment_type = assessment_type;
+        }
+
+        public void setSupervisor(String supervisor) {
+            this.supervisor = supervisor;
+        }
+
+        public void setSecondMarker(String second_marker) {
+            this.second_marker = second_marker;
+        }
+
+        public void setIntakeDate(String intake_date) {
+            this.intake_date = intake_date;
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
+        }
+
+        public void setCourseID(String course_id) {
+            this.course_id = course_id;
+        }
+
+        public void saveFile(String fileName, Student student) {
+            FileController.FileService fs = new FileController.FileService();
+            JSONArray assessment = generateModuleJSON(modules, student, course_id);
+            fs.write(assessment,fileName, true);
+
+        }
     }
 
 }
