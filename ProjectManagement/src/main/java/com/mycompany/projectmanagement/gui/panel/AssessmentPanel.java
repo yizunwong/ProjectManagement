@@ -4,7 +4,10 @@
  */
 package com.mycompany.projectmanagement.gui.panel;
 
+import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.FileController.Assessment;
+import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.assessment_columns;
+import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.dataTable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -222,11 +225,14 @@ public class AssessmentPanel extends javax.swing.JPanel {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        
+
         Assessment assessment = new Assessment();
         getFieldData();
         setFieldData(assessment);
         assessment.updateFile("assessment.txt", assessment.getAssessment());
+
+        FileController.FileService fs = new FileController.FileService();
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
 
     }//GEN-LAST:event_submitBtnActionPerformed
 
