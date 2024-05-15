@@ -4,7 +4,6 @@
  */
 package com.mycompany.projectmanagement.GUI;
 
-import com.mycompany.projectmanagement.GUI.MainMenu;
 import com.mycompany.projectmanagement.UserController;
 
 /**
@@ -14,7 +13,6 @@ import com.mycompany.projectmanagement.UserController;
 public class LoginForm extends javax.swing.JFrame {
 
     private final UserController userController;
-
 
     /**
      * Creates new form LoginForm
@@ -129,9 +127,15 @@ public class LoginForm extends javax.swing.JFrame {
         UserController.Account account = userController.new Account();
         if (account.checkConfidential(email, pass)) {
             System.out.println(account.getRole());
-            MainMenu main = new MainMenu();
-            dispose();
-            main.setVisible(true);
+            if (account.getRole().equalsIgnoreCase("student")) {
+                StudentMain sm = new StudentMain();
+                dispose();
+                sm.setVisible(true);
+            } else if (account.getRole().equalsIgnoreCase("admin")) {
+                MainMenu main = new MainMenu();
+                dispose();
+                main.setVisible(true);
+            }
         } else {
             System.out.println("wrong pass");
         }

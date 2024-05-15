@@ -355,11 +355,10 @@ public class UserController {
         }
 
         public boolean checkConfidential(String email, String password) {
-            file.readData("account.txt", "array");
-            JSONArray jsonArray = file.getJSONArray();
+            JSONArray jsonArray = (JSONArray) file.readData("account.txt", "array");
 
-            List<String> existed_email = getValues(jsonArray, "Email", false);
-            List<String> existed_password = getValues(jsonArray, "Password", false);
+            List<String> existed_email = getValues(jsonArray, "email", false);
+            List<String> existed_password = getValues(jsonArray, "password", false);
 
             int index = existed_email.indexOf(email);
 
@@ -372,7 +371,7 @@ public class UserController {
                 Admin admin = new Admin();
                 if (email.equals(admin.getEmail())) {
                     if (password.equals(admin.getPassword())) {
-                        System.out.println("Admin");
+                        setRole("admin");
                         return true;
                     }
                 }

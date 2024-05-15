@@ -20,7 +20,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
-//        setExtendedState(MainMenu.MAXIMIZED_BOTH);
+        setExtendedState(MainMenu.MAXIMIZED_BOTH);
     }
 
     /**
