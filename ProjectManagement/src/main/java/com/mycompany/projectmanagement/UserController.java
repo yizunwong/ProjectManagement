@@ -10,9 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 import javax.swing.JFileChooser;
 import org.json.JSONArray;
+
 /**
  *
  * @author yizun
@@ -160,6 +160,16 @@ public class UserController {
             }
         }
 
+        public String countTotalUser() {
+            FileController.FileService fs = new FileController.FileService();
+            JSONArray dataArray = (JSONArray) fs.readData("account.txt", "array");
+            if (dataArray == null) {
+                return "0";
+            }
+            int count = dataArray.length();
+            return Integer.toString(count);
+        }
+
         public void setUploadPath() {
             JFileChooser fileChooser = new JFileChooser();
             String projectDirectory = System.getProperty("user.dir");
@@ -226,7 +236,7 @@ public class UserController {
         @Override
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content,"ID");
+            fs.updateData(fileName, keys, content, "ID");
 
         }
 
@@ -299,7 +309,7 @@ public class UserController {
         @Override
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content,"ID");
+            fs.updateData(fileName, keys, content, "ID");
 
         }
 
@@ -350,7 +360,7 @@ public class UserController {
         @Override
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content,"ID");
+            fs.updateData(fileName, keys, content, "ID");
         }
 
         public boolean checkConfidential(String email, String password) {
@@ -385,35 +395,6 @@ public class UserController {
             this.password = (id + "@" + result);
             this.email = (id + "@mail.edu.my");
             this.role = role;
-        }
-
-        public String generateUniqueId(String role) {
-
-            String prefix;
-            switch (role.toLowerCase()) {
-                case "student" ->
-                    prefix = "TP";
-                case "lecturer", "project manager" ->
-                    prefix = "LC";
-                default -> {
-                    prefix = null;
-                }
-            }
-
-            Random random = new Random();
-            file.readData("account.txt", "array");
-            JSONArray jsonArray = file.getJSONArray();
-            List<String> existed_id = getValues(jsonArray, "ID", false);
-
-            int randomInRange;
-            String newId;
-            do {
-                randomInRange = random.nextInt(9999);
-                newId = prefix + randomInRange;
-            } while (existed_id.contains(newId));
-
-            existed_id.add(newId);
-            return newId;
         }
 
     }

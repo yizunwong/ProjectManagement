@@ -4,7 +4,7 @@
  */
 package com.mycompany.projectmanagement;
 
-import com.mycompany.projectmanagement.UserController.Student;
+import com.mycompany.projectmanagement.FileController.Assessment;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -114,20 +114,22 @@ public class JSONHandler {
         return new JSONObject(userData);
     }
 
-    public static JSONArray generateModuleJSON(String[] moduleNames, Student student, String course_id) {
+    public static JSONArray generateModuleJSON(Assessment assessment) {
         // Create a JSONArray to hold module objects
         JSONArray modulesArray = new JSONArray();
+        FileController.FileService fs = new FileController.FileService();
 
         // Iterate over each module name
-        for (String moduleName : moduleNames) {
+        for (String moduleName : assessment.modules) {
             // Create a JSONObject for the module
             JSONObject moduleObject = new JSONObject();
+            String assessment_id = fs.generateUniqueId("assessment", "assessment.txt", "assessment_id");
 
             // Populate the module object with default keys and empty values
-            moduleObject.put("assessment_id", "INT-456");
-            moduleObject.put("student_id", student.id);
-            moduleObject.put("course_id", course_id);
-            moduleObject.put("intake_date", student.intake_date);
+            moduleObject.put("assessment_id", assessment_id);
+            moduleObject.put("student_id", assessment.student_id);
+            moduleObject.put("course_id", assessment.course_id);
+            moduleObject.put("intake_date", assessment.intake_date);
             moduleObject.put("module", moduleName);
             moduleObject.put("assessment_type", "");
             moduleObject.put("supervisor", "");
@@ -138,9 +140,32 @@ public class JSONHandler {
             // Add the module object to the array
             modulesArray.put(moduleObject);
         }
-        
+
         System.out.println(modulesArray);
 
         return modulesArray;
     }
+
+    static JSONArray replaceObjects(JSONArray newArray, JSONArray secondArray) {
+        for (int i = 0; i < newArray.length(); i++) {
+            JSONObject newObj = newArray.getJSONObject(i);
+            String assessmentId = newObj.getString("student_id");
+            for (int j = secondArray.length() - 1; j >= 0; j--) {
+                JSONObject oldObj = secondArray.getJSONObject(j);
+                if (oldObj.getString("student_id").equals(assessmentId)) {
+                    // Remove the object if student_id matches and objects are different
+                    if (!newObj.similar(oldObj)) {
+                        secondArray.remove(j);
+                    }
+                }
+            }
+        }
+        // Add all newObj to secondArray after removing matched objects
+        for (int i = 0; i < newArray.length(); i++) {
+            JSONObject newObj = newArray.getJSONObject(i);
+            secondArray.put(newObj);
+        }
+        return secondArray;
+    }
+
 }

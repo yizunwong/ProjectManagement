@@ -1,1 +1,9 @@
-{"Role":"student","ID":"TP1186","Email":"TP1186@mail.edu.my","Password":"TP1186@0501"}
+{"Role":"lecturer","Email":"LC746@mail.edu.my","ID":"LC746","Password":"LC746@0507"}
+{"Role":"student","Email":"TP4652@mail.edu.my","ID":"TP4652","Password":"TP4652@0502"}
+{"Role":"student","Email":"TP9801@mail.edu.my","ID":"TP9801","Password":"TP9801@0502"}
+{"Role":"lecturer","Email":"LC9983@mail.edu.my","ID":"LC9983","Password":"LC9983@0508"}
+{"Role":"student","Email":"TP9729@mail.edu.my","ID":"TP9729","Password":"TP9729@0507"}
+{"Role":"student","Email":"TP2174@mail.edu.my","ID":"TP2174","Password":"TP2174@0507"}
+{"Role":"student","Email":"TP5151@mail.edu.my","ID":"TP5151","Password":"TP5151@0507"}
+{"Role":"student","Email":"TP6387@mail.edu.my","ID":"TP6387","Password":"TP6387@0507"}
+{"Role":"student","Email":"TP8743@mail.edu.my","ID":"TP8743","Password":"TP8743@0508"}

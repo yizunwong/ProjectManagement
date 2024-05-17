@@ -6,16 +6,20 @@ package com.mycompany.projectmanagement;
 
 import static com.mycompany.projectmanagement.JSONHandler.generateModuleJSON;
 import static com.mycompany.projectmanagement.JSONHandler.getValues;
-import com.mycompany.projectmanagement.UserController.Student;
+import static com.mycompany.projectmanagement.JSONHandler.replaceObjects;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -71,8 +75,7 @@ public interface FileController {
         public void writeData(String fileName, String[] keys, String[] content) {
             jsonObj = jsonHandler.toJSONObject(keys, content);
             //Read the content from file and check is exists or not
-            readData(fileName, "array");
-            jsonArray = getJSONArray();
+            jsonArray = (JSONArray) readData(fileName, "array");
             boolean alreadyExists = checkExists(jsonArray, jsonObj);
 
             //if not exists write into file
@@ -122,24 +125,26 @@ public interface FileController {
         public void updateData(String fileName, String[] contentKeys, String[] content, String key) {
             jsonArray = (JSONArray) readData(fileName, "array");
             jsonObj = jsonHandler.toJSONObject(contentKeys, content);
-            String newId = jsonObj.getString(key);
+            updateJsonArrayIfObjectChanged(jsonArray, jsonObj, key);
+            write(jsonArray, fileName, false);
+
+        }
+
+        public void updateJsonArrayIfObjectChanged(JSONArray jsonArray, JSONObject jsonObj, String key) {
+            String compareKey = jsonObj.getString(key);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject obj = jsonArray.getJSONObject(i);
-                String id = obj.getString(key);
+                String objKey = obj.getString(key);
 
-                if (id.equals(newId)) {
+                if (objKey.equals(compareKey)) {
                     // Check if any value has changed
                     if (!obj.similar(jsonObj)) {
                         // Update the object
                         jsonArray.put(i, jsonObj);
                     }
                 }
-
             }
-
-            write(jsonArray, fileName, false);
-
         }
 
         public void deleteData(String id, String fileName, String key) {
@@ -194,8 +199,16 @@ public interface FileController {
         public boolean containsValue(JSONObject jsonObject, String valueToSearch) {
             for (String key : jsonObject.keySet()) {
                 Object value = jsonObject.get(key);
-                if (value instanceof String && ((String) value).toLowerCase().equals(valueToSearch)) {
-                    return true;
+                // Check specific field if it's gender
+                if ("gender".equalsIgnoreCase(key)) {
+                    if (value instanceof String && ((String) value).equalsIgnoreCase(valueToSearch)) {
+                        return true;
+                    }
+                } else {
+                    // Generic check for other string fields
+                    if (value instanceof String && ((String) value).toLowerCase().contains(valueToSearch)) {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -235,6 +248,62 @@ public interface FileController {
             }
 
             return model;
+        }
+
+        public String generateUniqueId(String dataType, String fileName, String key) {
+
+            String prefix;
+            switch (dataType.toLowerCase()) {
+                case "student" ->
+                    prefix = "TP";
+                case "lecturer", "project manager" ->
+                    prefix = "LC";
+                case "assessment" ->
+                    prefix = "ASMT";
+                default -> {
+                    prefix = null;
+                }
+            }
+
+            Random random = new Random();
+            jsonArray = (JSONArray) readData(fileName, "array");
+            List<String> existed_id = getValues(jsonArray, key, false);
+
+            int randomInRange;
+            String newId;
+            do {
+                randomInRange = random.nextInt(9999);
+                newId = prefix + randomInRange;
+            } while (existed_id.contains(newId));
+
+            existed_id.add(newId);
+            return newId;
+        }
+
+        public HashMap<String, Integer> countOccurrences(String filename, String key, String[] expectedValues) {
+            FileController.FileService fs = new FileController.FileService();
+            jsonArray = (JSONArray) fs.readData(filename, "array");
+
+            // Initialize the counts hashmap with default values of 0 for all expected values
+            HashMap<String, Integer> counts = new HashMap<>();
+            for (String value : expectedValues) {
+                counts.put(value, 0);
+            }
+
+            if (jsonArray == null) {
+                return counts;
+            }
+
+            // Count the occurrences of each expected value
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String value = jsonObject.optString(key);
+                if (counts.containsKey(value)) {
+                    counts.put(value, counts.get(value) + 1);
+                }
+            }
+
+            return counts;
         }
     }
 
@@ -314,6 +383,7 @@ public interface FileController {
 
         }
 
+
         public static int findIndexContainingValue(List<String> list, String value) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).contains(value)) {
@@ -325,9 +395,16 @@ public interface FileController {
 
         public String[] findIntake(String course, String key) {
             JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
+            if (jsonObj == null) {
+                // Handle the case where jsonObj is null, such as logging an error or throwing an exception
+                System.out.println("Error: Unable to read JSON data from file.");
+                return new String[0]; // Or any appropriate action
+            }
 
-            if (key == null || key.isEmpty() || ("-".equals(key))) {
-                return new String[]{"-"};
+            if (key == null | ("-".equals(key))) {
+                List<String> intake = getValues(jsonObj, "areas.intake_dates", true);
+
+                return intake.toArray(String[]::new);
             } else {
                 List<String> programs = getValues(jsonObj, "programs", false);
                 int index = findIndexContainingValue(programs, course);
@@ -342,9 +419,20 @@ public interface FileController {
 
         public String[] findModule(String key, String course) {
             JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
-            System.out.println(key);
+            if (jsonObj == null) {
+                // Handle the case where jsonObj is null, such as logging an error or throwing an exception
+                System.out.println("Error: Unable to read JSON data from file.");
+                return new String[0]; // Or any appropriate action
+            }
+            if (key == null | ("-".equals(key))) {
+                List<String> modulesNestedList = getValues(jsonObj, "modules", false);
+                List<String> moduleList = new ArrayList<>();
+                modulesNestedList.stream()
+                        .map(module -> module.replaceAll("[\"\\[\\]]", "").split(","))
+                        .flatMap(Arrays::stream)
+                        .forEach(moduleList::add);
+                return moduleList.toArray(String[]::new);
 
-            if (course == null || course.isEmpty() || ("-".equals(course))) {
             } else {
                 List<String> programs = getValues(jsonObj, "name", false);
                 int index = findIndexContainingValue(programs, course);
@@ -353,13 +441,27 @@ public interface FileController {
                 List<String> modules = getValues(jsonObj, "modules", false);
                 String module = modules.get(index);
                 String[] moduleArray = module.replaceAll("[\"\\[\\]]", "").split(",");
-                System.out.println(modules);
-                System.out.println(programs);
-                System.out.println(Arrays.toString(moduleArray));
                 return moduleArray;
 
             }
-            return new String[]{"-"};
+        }
+
+    }
+
+    class Department {
+
+        public String[] findDepartment() {
+            FileController.FileService fs = new FileController.FileService();
+            JSONObject jsonObj = (JSONObject) fs.readData("course.txt", "object");
+            if (jsonObj == null) {
+                // Handle the case where jsonObj is null, such as logging an error or throwing an exception
+                System.out.println("Error: Unable to read JSON data from file.");
+                return new String[0]; // Or any appropriate action
+            }
+
+            //return the specific course
+            List<String> departmentNames = getValues(jsonObj, "areas.area", true);
+            return departmentNames.toArray(String[]::new);
 
         }
 
@@ -429,10 +531,10 @@ public interface FileController {
             this.course_id = course_id;
         }
 
-        public void saveFile(String fileName, Student student) {
+        public void saveFile(String fileName, Assessment assessment) {
             FileController.FileService fs = new FileController.FileService();
-            JSONArray assessment = generateModuleJSON(modules, student, course_id);
-            fs.write(assessment, fileName, true);
+            JSONArray assessmentArray = generateModuleJSON(assessment);
+            fs.write(assessmentArray, fileName, true);
 
         }
 
@@ -442,11 +544,11 @@ public interface FileController {
 
         }
 
-        public void replaceData(String fileName, Student student) {
+        public void replaceData(String fileName, Assessment assessment) {
             FileController.FileService fs = new FileController.FileService();
-            JSONArray assessment = generateModuleJSON(modules, student, course_id);
+            JSONArray assessmentArray = generateModuleJSON(assessment);
             JSONArray dataArray = (JSONArray) fs.readData(fileName, "array");
-            JSONArray replacedArray = replaceObjects(assessment, dataArray);
+            JSONArray replacedArray = replaceObjects(assessmentArray, dataArray);
             System.out.println("replaced" + replacedArray);
             fs.write(replacedArray, "assessment.txt", false);
 
@@ -454,30 +556,36 @@ public interface FileController {
 
         public void updateFile(String fileName, String[] content) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(fileName, keys, content, "module");
+            fs.updateData(fileName, keys, content, "assessment_id");
 
         }
 
-        static JSONArray replaceObjects(JSONArray newArray, JSONArray secondArray) {
-            for (int i = 0; i < newArray.length(); i++) {
-                JSONObject newObj = newArray.getJSONObject(i);
-                String assessmentId = newObj.getString("student_id");
-                for (int j = secondArray.length() - 1; j >= 0; j--) {
-                    JSONObject oldObj = secondArray.getJSONObject(j);
-                    if (oldObj.getString("student_id").equals(assessmentId)) {
-                        // Remove the object if student_id matches and objects are different
-                        if (!newObj.similar(oldObj)) {
-                            secondArray.remove(j);
+        public void updateFileByModule(Assessment assessment) {
+            FileController.FileService fs = new FileController.FileService();
+            JSONArray jsonArray = (JSONArray) fs.readData("assessment.txt", "array");
+
+            // Create a map with the new values for each field
+            Map<String, String> newValuesMap = new HashMap<>();
+            newValuesMap.put("second_marker", assessment.second_marker);
+            newValuesMap.put("due_time", assessment.due_time);
+            newValuesMap.put("assessment_type", assessment.assessment_type);
+            newValuesMap.put("supervisor", assessment.supervisor);
+            newValuesMap.put("status", assessment.status);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                if (jsonObject.getString("module").equals(assessment.module) && jsonObject.getString("intake_date").equals(assessment.intake_date)) {
+                    for (String field : newValuesMap.keySet()) {
+                        String newValue = newValuesMap.get(field);
+                        if (newValue != null && !jsonObject.getString(field).equals(newValue)) {
+                            jsonObject.put(field, newValue);
                         }
                     }
                 }
             }
-            // Add all newObj to secondArray after removing matched objects
-            for (int i = 0; i < newArray.length(); i++) {
-                JSONObject newObj = newArray.getJSONObject(i);
-                secondArray.put(newObj);
-            }
-            return secondArray;
+
+            fs.write(jsonArray, "assessment.txt", false);
         }
 
     }

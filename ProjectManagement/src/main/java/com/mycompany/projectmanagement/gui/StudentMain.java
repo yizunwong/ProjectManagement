@@ -265,23 +265,23 @@ public class StudentMain extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
-        jTabbedPane2.setSelectedIndex(0);
-    }//GEN-LAST:event_Btn1ActionPerformed
-
-    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
-        jTabbedPane2.setSelectedIndex(1);
-    }//GEN-LAST:event_Btn2ActionPerformed
-
-    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
-        jTabbedPane2.setSelectedIndex(2);
-    }//GEN-LAST:event_Btn3ActionPerformed
-
     private void Btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn4ActionPerformed
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
         dispose();
     }//GEN-LAST:event_Btn4ActionPerformed
+
+    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
+        jTabbedPane2.setSelectedIndex(2);
+    }//GEN-LAST:event_Btn3ActionPerformed
+
+    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
+        jTabbedPane2.setSelectedIndex(1);
+    }//GEN-LAST:event_Btn2ActionPerformed
+
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        jTabbedPane2.setSelectedIndex(0);
+    }//GEN-LAST:event_Btn1ActionPerformed
 
     /**
      * @param args the command line arguments
