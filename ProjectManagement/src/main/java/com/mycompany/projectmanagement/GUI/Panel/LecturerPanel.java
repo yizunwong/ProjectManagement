@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI.Panel;
+package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.FileController.Country;
@@ -238,7 +238,6 @@ public class LecturerPanel extends javax.swing.JPanel {
         });
 
         avatarImageIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        avatarImageIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\default-avatar-icon-of-social-media-user-vector.jpg")); // NOI18N
         avatarImageIcon.setMaximumSize(new java.awt.Dimension(120, 120));
 
         countryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

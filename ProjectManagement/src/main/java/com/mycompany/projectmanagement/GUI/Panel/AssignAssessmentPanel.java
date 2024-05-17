@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.projectmanagement.GUI.Panel;
+package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -24,6 +25,8 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
         fs.showFileData(userTable, student_columns, "student.txt", null);
         fs.showFileData(userTable1, lecturer_columns, "lecturer.txt", null);
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +43,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
         searchField1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         userTable1 = new javax.swing.JTable();
-        assessmentPanel1 = new com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel();
+        assessmentPanel1 = new com.mycompany.projectmanagement.gui.panel.AssessmentPanel();
 
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -165,7 +168,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.GUI.Panel.AssessmentPanel assessmentPanel1;
+    private com.mycompany.projectmanagement.gui.panel.AssessmentPanel assessmentPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField searchField;

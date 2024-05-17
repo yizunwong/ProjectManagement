@@ -7,12 +7,14 @@ package com.mycompany.projectmanagement;
 import static com.mycompany.projectmanagement.JSONHandler.generateModuleJSON;
 import static com.mycompany.projectmanagement.JSONHandler.getValues;
 import com.mycompany.projectmanagement.UserController.Student;
+import static com.mycompany.projectmanagement.UserController.User.dob;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -313,8 +315,10 @@ public interface FileController {
         public String[] findIntake(String course, String key) {
             JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
 
-            if (key == null || key.isEmpty() || ("-".equals(key))) {
-                return new String[]{"-"};
+            if (key == null | ("-".equals(key))) {
+                List<String> intake = getValues(jsonObj, "areas.intake_dates", true);
+
+                return intake.toArray(String[]::new);
             } else {
                 List<String> programs = getValues(jsonObj, "programs", false);
                 int index = findIndexContainingValue(programs, course);
@@ -324,6 +328,35 @@ public interface FileController {
                 String dates = intake_date.get(index);
                 String[] date = dates.replaceAll("[\"\\[\\]]", "").split(",");
                 return date;
+            }
+        }
+
+        public String[] findModule(String key, String course) {
+            JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
+            if (jsonObj == null) {
+                // Handle the case where jsonObj is null, such as logging an error or throwing an exception
+                System.out.println("Error: Unable to read JSON data from file.");
+                return new String[0]; // Or any appropriate action
+            }
+            if (course == null | ("-".equals(course))) {
+                List<String> modulesNestedList = getValues(jsonObj, "modules", false);
+                List<String> moduleList = new ArrayList<>();
+                modulesNestedList.stream()
+                        .map(module -> module.replaceAll("[\"\\[\\]]", "").split(","))
+                        .flatMap(Arrays::stream)
+                        .forEach(moduleList::add);
+                return moduleList.toArray(String[]::new);
+
+            } else {
+                List<String> programs = getValues(jsonObj, "name", false);
+                int index = findIndexContainingValue(programs, course);
+                System.out.println(index);
+
+                List<String> modules = getValues(jsonObj, "modules", false);
+                String module = modules.get(index);
+                String[] moduleArray = module.replaceAll("[\"\\[\\]]", "").split(",");
+                return moduleArray;
+
             }
         }
 
@@ -379,6 +412,72 @@ public interface FileController {
             fs.write(assessment, fileName, true);
 
         }
+    }
+
+    class Submission {
+
+        public String module;
+        public String student_id;
+        public String assessment_type;
+        public String supervisor;
+        public String second_marker;
+        public String due_date;
+        public String filepath;
+        public String Rid;
+        public final String[] keys;
+
+        public Submission() {
+            this.keys = new String[]{"ID", "student_id", "assessment_type", "supervisor", "second_marker", "due_date", "module", "file_path"};
+        }
+
+        public void setModule(String module) {
+            this.module = module;
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
+        }
+
+        public void setAssessmentType(String assessment_type) {
+            this.assessment_type = assessment_type;
+        }
+
+        public void setSupervisor(String supervisor) {
+            this.supervisor = supervisor;
+        }
+
+        public void setSecondMarker(String second_marker) {
+            this.second_marker = second_marker;
+        }
+
+        public void setDueDate(String due_date) {
+            this.due_date = due_date;
+        }
+
+        public void setFilePath(String file_path) {
+            this.filepath = file_path;
+        }
+        
+        public void setReportID(String Rid){
+            this.Rid = Rid;
+        }
+
+        public String[] getSubmission() {
+            String[] submission = {Rid, student_id, assessment_type, supervisor, second_marker, due_date, module, filepath};
+            return submission;
+        }
+
+        public void saveFile(String fileName, Submission submission) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.writeData(fileName, keys, getSubmission());
+
+        }
+
+        public void updateFile(String reporttxt, String[] submission) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(reporttxt, keys, submission);
+        }
+
     }
 
 }

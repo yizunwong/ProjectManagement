@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-{"Parent Name":"","Email":"","Address":"","Gender":"Female","Phone.no":"","Name":"","Entry Level":"Diploma","Intake Date":"22/1/23","ImagePath":"C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\Respository\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg","Country":"Andorra","IC":"","ID":"TP1589","Birth Date":"2024/05/29","Course":"Diploma in Web Development"}
-{"Parent Name":"","Email":"","Address":"","Gender":"Female","Phone.no":"","Name":"","Entry Level":"Diploma","Intake Date":"22/1/23","ImagePath":"C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\Respository\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\5big.png","Country":"Andorra","IC":"","ID":"TP2319","Birth Date":"2024/05/06","Course":"Diploma in Web Development"}
-<<<<<<< HEAD
-=======
-{"Parent Name":"","Email":"","Address":"","Gender":"Female","Phone.no":"","Name":"","Entry Level":"-","Intake Date":"-","ImagePath":"C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\Respository\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg","Country":"Andorra","IC":"","ID":"TP1367","Birth Date":"2024/05/20","Course":"-"}
->>>>>>> 8e1e5fbe2d2a9c4e40597c1c5412bca50109faf1
-=======
->>>>>>> 19e53b2d52c44d62e527b5c665a885f6180521bb

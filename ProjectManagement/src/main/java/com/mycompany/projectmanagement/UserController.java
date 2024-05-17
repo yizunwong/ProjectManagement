@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JFileChooser;
 import org.json.JSONArray;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5d82183f6bb9b6b0a5e3079da0f700a02503217c
 /**
  *
  * @author yizun

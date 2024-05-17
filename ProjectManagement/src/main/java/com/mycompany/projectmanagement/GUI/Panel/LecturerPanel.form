@@ -277,9 +277,6 @@
     <Component class="javax.swing.JLabel" name="avatarImageIcon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\yizun\OneDrive\Documents\NetBeansProjects\ProjectManagement\src\main\java\com\mycompany\projectmanagement\default-avatar-icon-of-social-media-user-vector.jpg"/>
-        </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[120, 120]"/>
         </Property>
