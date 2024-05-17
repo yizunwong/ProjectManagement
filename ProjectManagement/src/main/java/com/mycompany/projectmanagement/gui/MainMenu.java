@@ -5,9 +5,12 @@
 package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.gui.panel.AccountList;
-import com.mycompany.projectmanagement.gui.panel.LecturerList;
-import com.mycompany.projectmanagement.gui.panel.StudentList;
+import com.mycompany.projectmanagement.gui.panel.AccountPanel;
+import com.mycompany.projectmanagement.gui.panel.LecturerPanel;
+import com.mycompany.projectmanagement.gui.panel.PieChart;
+import com.mycompany.projectmanagement.gui.panel.StudentPanel;
+import java.awt.Color;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,12 +18,20 @@ import com.mycompany.projectmanagement.gui.panel.StudentList;
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    private final ArrayList<PieChart.PieChartData> pieChartData;
+
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
-        setExtendedState(MainMenu.MAXIMIZED_BOTH);
+        this.pieChartData = new ArrayList<>();
+        pieChartData.add(new PieChart.PieChartData("Role Percentage", "account.txt", "Role", new String[]{"student", "lecturer", "project manager"}));
+        pieChartData.add(new PieChart.PieChartData("Entry Level Percentage", "student.txt", "Entry Level", new String[]{"Diploma", "Degree", "Masters Degree", "PhD", "Foundation"}));
+        pieChartData.add(new PieChart.PieChartData("Student Gender Percentage", "student.txt", "Gender", new String[]{"Male", "Female"}));
+        adminDashboard1.pieChart1.setData(pieChartData);
+        adminDashboard1.pieChart1.refreshPieChart(pieChartData);
+
     }
 
     /**
@@ -32,27 +43,34 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        header1 = new com.mycompany.projectmanagement.gui.Header();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        studentList = new com.mycompany.projectmanagement.gui.panel.StudentList();
-        lecturerList = new com.mycompany.projectmanagement.gui.panel.LecturerList();
-        accountList = new com.mycompany.projectmanagement.gui.panel.AccountList();
+        adminDashboard1 = new com.mycompany.projectmanagement.gui.panel.AdminDashboard();
+        studentList = new com.mycompany.projectmanagement.gui.panel.StudentPanel();
+        lecturerList = new com.mycompany.projectmanagement.gui.panel.LecturerPanel();
+        accountList = new com.mycompany.projectmanagement.gui.panel.AccountPanel();
         jPanel2 = new javax.swing.JPanel();
         manageStudentBtn = new javax.swing.JButton();
         manageLecturerBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        signOutBtn = new javax.swing.JButton();
         managePMBtn = new javax.swing.JButton();
+        dashboarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        header1.setBackground(new java.awt.Color(51, 51, 51));
+        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1770, -1));
+
+        jTabbedPane1.addTab("tab4", adminDashboard1);
         jTabbedPane1.addTab("tab1", studentList);
         jTabbedPane1.addTab("tab2", lecturerList);
         jTabbedPane1.addTab("tab3", accountList);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 1590, 670));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 1590, 800));
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         manageStudentBtn.setText("Manage Student");
@@ -76,10 +94,10 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Sign Out");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        signOutBtn.setText("Sign Out");
+        signOutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                signOutBtnActionPerformed(evt);
             }
         });
 
@@ -90,24 +108,34 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        dashboarBtn.setText("Dashboard");
+        dashboarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboarBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(manageStudentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manageLecturerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manageAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(managePMBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dashboarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(managePMBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(signOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageLecturerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageAccountBtn))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
+                .addGap(138, 138, 138)
+                .addComponent(dashboarBtn)
+                .addGap(18, 18, 18)
                 .addComponent(manageStudentBtn)
                 .addGap(18, 18, 18)
                 .addComponent(manageLecturerBtn)
@@ -116,53 +144,62 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(manageAccountBtn)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addComponent(signOutBtn)
+                .addContainerGap(460, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 670));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 830));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void manageLecturerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLecturerBtnActionPerformed
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane1.setSelectedIndex(2);
         FileController.FileService fs = new FileController.FileService();
         lecturerList.setFile("lecturer.txt");
-        fs.showFileData(LecturerList.userTable, LecturerList.columns, "lecturer.txt", null);
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null);
     }//GEN-LAST:event_manageLecturerBtnActionPerformed
 
     private void manageStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentBtnActionPerformed
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(0);
+        jTabbedPane1.setSelectedIndex(1);
         FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentList.userTable, StudentList.columns, "student.txt", null);
+        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null);
 
     }//GEN-LAST:event_manageStudentBtnActionPerformed
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(2);
+        jTabbedPane1.setSelectedIndex(3);
         FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt", null);
+        fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null);
     }//GEN-LAST:event_manageAccountBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
         // TODO add your handling code here:
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_signOutBtnActionPerformed
 
     private void managePMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePMBtnActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane1.setSelectedIndex(2);
         lecturerList.setFile("project_manager.txt");
         FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(LecturerList.userTable, LecturerList.columns, lecturerList.fileName, null);
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null);
     }//GEN-LAST:event_managePMBtnActionPerformed
+
+    private void dashboarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboarBtnActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(0);
+        adminDashboard1.initialCard();
+        adminDashboard1.pieChart1.refreshPieChart(pieChartData);
+        FileController.FileService fs = new FileController.FileService();
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null);
+    }//GEN-LAST:event_dashboarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,20 +232,24 @@ public class MainMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainMenu().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static com.mycompany.projectmanagement.gui.panel.AccountList accountList;
-    private javax.swing.JButton jButton4;
+    public static com.mycompany.projectmanagement.gui.panel.AccountPanel accountList;
+    private com.mycompany.projectmanagement.gui.panel.AdminDashboard adminDashboard1;
+    private javax.swing.JButton dashboarBtn;
+    private com.mycompany.projectmanagement.gui.Header header1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTabbedPane jTabbedPane1;
-    public static com.mycompany.projectmanagement.gui.panel.LecturerList lecturerList;
+    public static com.mycompany.projectmanagement.gui.panel.LecturerPanel lecturerList;
     private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageLecturerBtn;
     private javax.swing.JButton managePMBtn;
     private javax.swing.JButton manageStudentBtn;
-    public static com.mycompany.projectmanagement.gui.panel.StudentList studentList;
+    private javax.swing.JButton signOutBtn;
+    public static com.mycompany.projectmanagement.gui.panel.StudentPanel studentList;
     // End of variables declaration//GEN-END:variables
 }

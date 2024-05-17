@@ -5,13 +5,15 @@
 package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentPanel.moduleComboBox;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentPanel.secondMarkerField;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentPanel.supervisorField;
+import com.mycompany.projectmanagement.FileController.Course;
+import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.secondMarkerField;
+import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.supervisorField;
 import com.mycompany.projectmanagement.UserController;
+import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.intakeComboBox;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import org.json.JSONArray;
+import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.moduleComboBox;
 
 /**
  *
@@ -23,27 +25,31 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
     public final static String[] lecturer_columns = {"ID", "Name", "IC", "Gender", "Email", "Department", "Education"};
     public final static String[] assessment_columns = {"assessment_id", "student_id", "course_id", "intake_date", "module", "assessment_type",
         "supervisor", "second_marker", "status", "due_time"};
-    private String fileName;
     private String selectedLecturer;
     private final UserController userController;
+    private String entry_level;
+    private String[] courses;
+    private String selectedCourse;
 
     /**
      * Creates new form AssignAssessmentPanel
      */
     public AssignAssessmentPanel() {
-        this.fileName = "student.txt";
         initComponents();
         FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(dataTable, student_columns, "student.txt", null);
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
         fs.showFileData(userTable, lecturer_columns, "lecturer.txt", null);
         this.userController = new UserController();
 
     }
 
-    public void setFile(String fileName) {
-        this.fileName = fileName;
-        assessmentPanel1.setFile(fileName);
 
+    private void initializeComboBox() {
+        FileController.Course cr = new FileController.Course();
+        String[] modules = cr.findModule(null, null);
+        String[] intake_dates = cr.findIntake(null, null);
+        intakeComboBox.setModel(new DefaultComboBoxModel<>(intake_dates));
+        moduleComboBox.setModel(new DefaultComboBoxModel<>(modules));
     }
 
     /**
@@ -55,19 +61,21 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        studentSearchField = new javax.swing.JTextField();
+        assessmentSearchField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
         lecturerSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        assessmentPanel1 = new com.mycompany.projectmanagement.gui.panel.AssessmentPanel();
+        assessmentPanel1 = new com.mycompany.projectmanagement.gui.panel.AssessmentForm();
         assignLecturerBtn = new javax.swing.JButton();
         assignSMBtn = new javax.swing.JButton();
+        entryLevelComboBox = new javax.swing.JComboBox<>();
+        courseComboBox = new javax.swing.JComboBox<>();
 
-        studentSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+        assessmentSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                studentSearchFieldKeyPressed(evt);
+                assessmentSearchFieldKeyPressed(evt);
             }
         });
 
@@ -129,65 +137,82 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
             }
         });
 
+        entryLevelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Foundation", "Diploma", "Degree", "Masters Degree", "PhD" }));
+        entryLevelComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entryLevelComboBoxActionPerformed(evt);
+            }
+        });
+
+        courseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
+        courseComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lecturerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(assignLecturerBtn)
-                                .addGap(18, 18, 18)
-                                .addComponent(assignSMBtn))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(studentSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(assessmentPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lecturerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assessmentPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(assignLecturerBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(assignSMBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(assessmentSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(entryLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(studentSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assessmentSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entryLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(assignSMBtn)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lecturerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(assignLecturerBtn)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lecturerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(assignLecturerBtn)
+                    .addComponent(assignSMBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(assessmentPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(assessmentPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void studentSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_studentSearchFieldKeyPressed
+    private void assessmentSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_assessmentSearchFieldKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String searchValue = studentSearchField.getText();
+            String searchValue = assessmentSearchField.getText();
             System.out.println(searchValue);
             FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "fileName");
-            if (fileName.equalsIgnoreCase("assessment.txt")) {
-                fs.showFileData(userTable, student_columns, "student.txt", searchedArray);
-            } else {
-                fs.showFileData(userTable, assessment_columns, fileName, searchedArray);
-            }
+            JSONArray searchedArray = user.seachUser(searchValue, "assessment.txt");
+            fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray);
+            System.out.println(searchedArray);
 
         }
-    }//GEN-LAST:event_studentSearchFieldKeyPressed
+    }//GEN-LAST:event_assessmentSearchFieldKeyPressed
 
     private void dataTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataTableMouseClicked
         int rowIndex = dataTable.getSelectedRow(); // Get the selected row index
@@ -202,17 +227,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
                 rowData[columnIndex] = dataTable.getModel().getValueAt(rowIndex, columnIndex);
             }
 
-            // Pass the data to the edit form
-            if (fileName.equalsIgnoreCase("student.txt")) {
-                FileController.Course cr = new FileController.Course();
-                String entry_level = rowData[5].toString();
-                String course = rowData[6].toString();
-                String[] modules = cr.findModule(entry_level, course);
-                moduleComboBox.setModel(new DefaultComboBoxModel<>(modules));
-            } else {
-
-                assessmentPanel1.setData(rowData);
-            }
+            assessmentPanel1.setData(rowData);
 
         }
     }//GEN-LAST:event_dataTableMouseClicked
@@ -224,7 +239,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
             System.out.println(searchValue);
             FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, fileName);
+            JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt");
             fs.showFileData(userTable, lecturer_columns, "lecturer.txt", searchedArray);
 
         }
@@ -243,7 +258,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 rowData[columnIndex] = userTable.getModel().getValueAt(rowIndex, columnIndex);
             }
-            this.selectedLecturer = (String) rowData[1];
+            this.selectedLecturer = (String) rowData[0];
         }
     }//GEN-LAST:event_userTableMouseClicked
 
@@ -259,16 +274,42 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_assignSMBtnActionPerformed
 
+    private void entryLevelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryLevelComboBoxActionPerformed
+        // TODO add your handling code here:
+        FileController.FileService fs = new FileController.FileService();
+
+        this.entry_level = entryLevelComboBox.getSelectedItem().toString();
+        Course course = new Course();
+        if ("-".equals(entry_level)) {
+            initializeComboBox();
+            fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
+
+        }
+        this.courses = course.getCourse(entry_level);
+        courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
+    }//GEN-LAST:event_entryLevelComboBoxActionPerformed
+
+    private void courseComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseComboBoxActionPerformed
+        this.selectedCourse = courseComboBox.getSelectedItem().toString();
+        Course course = new Course();
+        String[] modules = course.findModule(entry_level, selectedCourse);
+        moduleComboBox.setModel(new DefaultComboBoxModel<>(modules));
+        String[] intake = course.findIntake(selectedCourse, entry_level);
+        intakeComboBox.setModel(new DefaultComboBoxModel<>(intake));
+    }//GEN-LAST:event_courseComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.gui.panel.AssessmentPanel assessmentPanel1;
+    private com.mycompany.projectmanagement.gui.panel.AssessmentForm assessmentPanel1;
+    private javax.swing.JTextField assessmentSearchField;
     private javax.swing.JButton assignLecturerBtn;
     private javax.swing.JButton assignSMBtn;
+    private javax.swing.JComboBox<String> courseComboBox;
     public static javax.swing.JTable dataTable;
+    private javax.swing.JComboBox<String> entryLevelComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField lecturerSearchField;
-    private javax.swing.JTextField studentSearchField;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

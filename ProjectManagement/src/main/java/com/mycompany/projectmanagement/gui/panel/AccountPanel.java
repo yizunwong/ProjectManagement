@@ -6,7 +6,10 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
-import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
+import org.json.JSONArray;
+//import java.awt.event.ActionEvent;
+//import javax.swing.Timer;
 
 /**
  *
@@ -14,45 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class AccountPanel extends javax.swing.JPanel {
 
-    private String id, role, email, password, fileName;
+    public final static String[] columns = {"ID", "Email", "Password",
+        "Role"};
     private final UserController userController;
 
-    /**
-     * Creates new form AccountPanel
-     */
+
     public AccountPanel() {
         initComponents();
         this.userController = new UserController();
-        initComponents();
-
-    }
-
-    public void setData(Object[] rowData) {
-        idField.setText(rowData[0].toString());
-        emailField.setText(rowData[1].toString());
-        passwordField.setText(rowData[2].toString());
-        roleComboBox.setSelectedItem(rowData[3].toString());
-    }
-
-    public void resetField() {
-        idField.setText("");
-        passwordField.setText("");
-        emailField.setText("");
-        roleComboBox.setSelectedItem("");
-    }
-
-    public void getFieldData() {
-        id = idField.getText().trim();
-        role = roleComboBox.getSelectedItem().toString();
-        email = emailField.getText().trim();
-        password = passwordField.getText().trim();
-    }
-
-    public void setFieldData(UserController.Account account) {
-        account.setId(id);
-        account.setRole(role);
-        account.setEmail(email);
-        account.setPassword(password);
 
     }
 
@@ -65,48 +37,34 @@ public class AccountPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        updateBtn = new javax.swing.JButton();
-        resetBtn = new javax.swing.JButton();
-        idField = new javax.swing.JTextField();
-        roleLabel = new javax.swing.JLabel();
-        passwordLabel = new javax.swing.JLabel();
-        passwordField = new javax.swing.JTextField();
-        idLabel = new javax.swing.JLabel();
-        emailField = new javax.swing.JTextField();
-        emailLabel = new javax.swing.JLabel();
-        roleComboBox = new javax.swing.JComboBox<>();
-        deleteBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        userTable = new javax.swing.JTable();
+        accountPanel1 = new com.mycompany.projectmanagement.gui.panel.AccountForm();
+        searchField = new javax.swing.JTextField();
 
-        updateBtn.setText("Update");
-        updateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateBtnActionPerformed(evt);
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+            }
+        ));
+        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTableMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(userTable);
 
-        resetBtn.setText("Reset");
-        resetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetBtnActionPerformed(evt);
-            }
-        });
+        accountPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        idField.setEditable(false);
-
-        roleLabel.setText("Role :");
-
-        passwordLabel.setText("Password : ");
-
-        idLabel.setText("ID :");
-
-        emailLabel.setText("Email :");
-
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student", "lecturer", "project manager" }));
-
-        deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchFieldKeyPressed(evt);
             }
         });
 
@@ -115,116 +73,66 @@ public class AccountPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(roleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(idLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                            .addComponent(roleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(passwordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(resetBtn)
-                .addGap(34, 34, 34)
-                .addComponent(updateBtn)
-                .addGap(29, 29, 29)
-                .addComponent(deleteBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(accountPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idLabel)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordLabel)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetBtn)
-                    .addComponent(updateBtn)
-                    .addComponent(deleteBtn))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(accountPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        // TODO add your handling code here:
+    private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
+        int rowIndex = userTable.getSelectedRow(); // Get the selected row index
 
-        int result = JOptionPane.showConfirmDialog(null, "Update Data?", "", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            UserController.Account account = userController.new Account();
-            getFieldData();
-            setFieldData(account);
-            account.setId(id);
-            account.setRole(account.role);
-            account.updateFile("account.txt", account.getAccount());
+        // Ensure a valid row is selected
+        if (rowIndex != -1) {
+            int columnCount = userTable.getColumnCount(); // Get the number of columns
 
-            JOptionPane.showMessageDialog(null, "Data update successfully");
-            FileController.FileService fs = new FileController.FileService();
-            fs.moveData(account.id, account.role, "ID");
-            fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt", null);
-        } else {
-            JOptionPane.showMessageDialog(null, "Data update cancel");
+            // Retrieve data from the table model for the clicked row
+            Object[] rowData = new Object[columnCount];
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                rowData[columnIndex] = userTable.getModel().getValueAt(rowIndex, columnIndex);
+            }
+
+            // Pass the data to the edit form
+            accountPanel1.setData(rowData);
         }
-    }//GEN-LAST:event_updateBtnActionPerformed
+    }//GEN-LAST:event_userTableMouseClicked
 
-    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
         // TODO add your handling code here:
-        resetField();
-    }//GEN-LAST:event_resetBtnActionPerformed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String searchValue = searchField.getText();
+            System.out.println(searchValue);
+            FileController.FileService fs = new FileController.FileService();
+            UserController.User user = userController.new User();
+            JSONArray searchedArray = user.seachUser(searchValue, "account.txt");
+            fs.showFileData(userTable, columns, "account.txt", searchedArray);
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
-        getFieldData();
-        fs.deleteData(id, "account.txt", "ID");
-        fileName = switch (role.toLowerCase()) {
-            case "student" ->
-                "student.txt";
-            case "lecturer" ->
-                "lecturer.txt";
-            default ->
-                "project_manager.txt";
-        };
-        fs.deleteData(id, fileName, "ID");
-        fs.showFileData(AccountList.userTable, AccountList.columns, "account.txt", null);
-
-    }//GEN-LAST:event_deleteBtnActionPerformed
+        }
+    }//GEN-LAST:event_searchFieldKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JTextField emailField;
-    private javax.swing.JLabel emailLabel;
-    private javax.swing.JTextField idField;
-    private javax.swing.JLabel idLabel;
-    private javax.swing.JTextField passwordField;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JButton resetBtn;
-    private javax.swing.JComboBox<String> roleComboBox;
-    private javax.swing.JLabel roleLabel;
-    private javax.swing.JButton updateBtn;
+    private com.mycompany.projectmanagement.gui.panel.AccountForm accountPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField searchField;
+    public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }
