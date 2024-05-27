@@ -4,28 +4,29 @@
  */
 package com.mycompany.projectmanagement.gui;
 
+import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-public class StudentPanelBorder extends javax.swing.JPanel {
+public class LecturerMenu extends javax.swing.JPanel {
 
-
-    public StudentPanelBorder() {
+    public LecturerMenu() {
         initComponents();
         setOpaque(false);
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+    protected void paintComponent(Graphics grphcs) {
+        Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
+        GradientPaint g = new GradientPaint(0, 0, Color.decode("#000000"), 0, getHeight(), Color.decode("#808080"));
+        g2.setPaint(g);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        super.paintComponent(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.paintComponent(grphcs); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
-    
     
     /**
      * This method is called from within the constructor to initialize the form.

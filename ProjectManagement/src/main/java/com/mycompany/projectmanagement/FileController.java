@@ -383,7 +383,6 @@ public interface FileController {
 
         }
 
-
         public static int findIndexContainingValue(List<String> list, String value) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).contains(value)) {
@@ -586,6 +585,288 @@ public interface FileController {
             }
 
             fs.write(jsonArray, "assessment.txt", false);
+        }
+
+    }
+
+    class Submission {
+
+        public String module;
+        public String student_id;
+        public String assessment_type;
+        public String supervisor;
+        public String second_marker;
+        public String due_date;
+        public String filepath;
+        public String Rid;
+        public String mark;
+        public String grade;
+        public String feedback;
+        public final String[] keys;
+
+        public Submission() {
+            this.keys = new String[]{"ID", "student_id", "assessment_type", "supervisor", "second_marker", "due_date", "module", "file_path", "mark", "grade", "feedback"};
+        }
+
+        public void setModule(String module) {
+            this.module = module;
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
+        }
+
+        public void setAssessmentType(String assessment_type) {
+            this.assessment_type = assessment_type;
+        }
+
+        public void setSupervisor(String supervisor) {
+            this.supervisor = supervisor;
+        }
+
+        public void setSecondMarker(String second_marker) {
+            this.second_marker = second_marker;
+        }
+
+        public void setDueDate(String due_date) {
+            this.due_date = due_date;
+        }
+
+        public void setFilePath(String file_path) {
+            this.filepath = file_path;
+        }
+
+        public void setReportID(String Rid) {
+            this.Rid = Rid;
+        }
+
+        public void setMark(String mark) {
+            this.mark = mark;
+        }
+
+        public void setGrade(String grade) {
+            this.grade = grade;
+        }
+
+        public void setFeedback(String feedback) {
+            this.feedback = feedback;
+        }
+        
+        public String[] getSubmission() {
+            String[] submission = {Rid, student_id, assessment_type, supervisor, second_marker, due_date, module, filepath, mark, grade, feedback};
+            return submission;
+        }
+
+        public void saveFile(String fileName) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.writeData(fileName, keys, getSubmission());
+
+        }
+
+        public void updateFile(String reporttxt, String[] submission) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(reporttxt, keys, submission, "ID");
+        }
+
+    }
+
+    class Booking {
+
+        public String module;
+        public String request_date;
+        public String lecturer;
+        public String request_id;
+        public String status;
+        public String student_id;
+        public String remark;
+        public final String[] keys;
+
+        public Booking() {
+            this.keys = new String[]{"Request_ID", "Student_ID", "Request_Date", "Module", "Lecturer", "Status", "Remark"};
+        }
+
+        public void setRequestID(String request_id) {
+            this.request_id = request_id;
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
+        }
+
+        public void setRequestDate(String request_date) {
+            this.request_date = request_date;
+        }
+
+        public void setModule(String module) {
+            this.module = module;
+        }
+
+        public void setLecturer(String lecturer) {
+            this.lecturer = lecturer;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public String[] getBooking() {
+            String[] booking = {request_id, student_id, request_date, module, lecturer, status, remark};
+            return booking;
+        }
+
+        public void saveFile(String fileName) {
+            FileController.FileService fs = new FileController.FileService();
+            System.out.println(Arrays.toString(getBooking()));
+            fs.writeData(fileName, keys, getBooking());
+        }
+
+        public void updateFile(String requesttxt, String[] booking) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(requesttxt, keys, booking, "Request_ID");
+        }
+
+    }
+
+    class VerifyBooking {
+
+        public String module;
+        public String request_date;
+        public String lecturer;
+        public String request_id;
+        public String status;
+        public String student_id;
+        public String presentation_id;
+        public String remark;
+        public final String[] keys;
+
+        public VerifyBooking() {
+            this.keys = new String[]{"Presentation_ID", "Request_ID", "Student_ID", "Request_Date", "Module", "Lecturer", "Status", "Remark"};
+        }
+
+        public void setPresentationID(String presentation_id) {
+            this.presentation_id = presentation_id;
+        }
+
+        public void setRequestID(String request_id) {
+            this.request_id = request_id;
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
+        }
+
+        public void setRequestDate(String request_date) {
+            this.request_date = request_date;
+        }
+
+        public void setModule(String module) {
+            this.module = module;
+        }
+
+        public void setLecturer(String lecturer) {
+            this.lecturer = lecturer;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public String[] getVerifyBooking() {
+            String[] verifybooking = {presentation_id, request_id, student_id, request_date, module, lecturer, status, remark};
+            return verifybooking;
+        }
+
+        public void saveFile(String fileName) {
+            FileController.FileService fs = new FileController.FileService();
+            System.out.println(Arrays.toString(getVerifyBooking()));
+            fs.writeData(fileName, keys, getVerifyBooking());
+        }
+
+        public void updateFile(String reporttxt, String[] submission) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(reporttxt, keys, submission, "Request_ID");
+        }
+
+        public String[] getBooking() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+    }
+
+    class Marking {
+
+        public String module;
+        public String student_id;
+        public String assessment_type;
+        public String supervisor;
+        public String second_marker;
+        public String due_date;
+        public String filepath;
+        public String Rid;
+        public String mark;
+        public String grade;
+        public String feedback;
+        public final String[] keys;
+
+        public Marking() {
+            this.keys = new String[]{"ID", "student_id", "assessment_type", "supervisor", "second_marker", "due_date", "module", "file_path", "mark", "grade", "feedback"};
+        }
+
+        public void setModule(String module) {
+            this.module = module;
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
+        }
+
+        public void setAssessmentType(String assessment_type) {
+            this.assessment_type = assessment_type;
+        }
+
+        public void setSupervisor(String supervisor) {
+            this.supervisor = supervisor;
+        }
+
+        public void setSecondMarker(String second_marker) {
+            this.second_marker = second_marker;
+        }
+
+        public void setDueDate(String due_date) {
+            this.due_date = due_date;
+        }
+
+        public void setFilePath(String file_path) {
+            this.filepath = file_path;
+        }
+
+        public void setReportID(String Rid) {
+            this.Rid = Rid;
+        }
+
+        public void setMark(String mark) {
+            this.mark = mark;
+        }
+
+        public void setGrade(String grade) {
+            this.grade = grade;
+        }
+
+        public void setFeedback(String feedback) {
+            this.feedback = feedback;
+        }
+
+        public String[] getSubmission() {
+            String[] submission = {Rid, student_id, assessment_type, supervisor, second_marker, due_date, module, filepath, mark, grade, feedback};
+            return submission;
         }
 
     }

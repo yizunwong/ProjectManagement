@@ -8,10 +8,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-public class StudentPanelBorder extends javax.swing.JPanel {
+public class LecturerPanelBorder extends javax.swing.JPanel {
 
-
-    public StudentPanelBorder() {
+    public LecturerPanelBorder() {
         initComponents();
         setOpaque(false);
     }

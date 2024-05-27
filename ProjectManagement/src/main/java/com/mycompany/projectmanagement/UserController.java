@@ -21,10 +21,7 @@ public class UserController {
 
     public class User implements FileController {
 
-        public File getSelectedFile() {
-            return selectedFile;
-        }
-
+        private File reportPath;
         public String id;
         public String email;
         public String name;
@@ -46,6 +43,14 @@ public class UserController {
             this.country = "";
             this.imagePath = null;
 
+        }
+
+        public File getReportPath() {
+            return reportPath;
+        }
+
+        public File getSelectedFile() {
+            return selectedFile;
         }
 
         public void setId(String id) {
@@ -160,6 +165,28 @@ public class UserController {
             }
         }
 
+        public void saveReport(File selectedFile) {
+            if (selectedFile != null) {
+                try {
+                    FileOutputStream fos;
+                    try (FileInputStream fis = new FileInputStream(selectedFile)) {
+                        fos = new FileOutputStream(reportPath);
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = fis.read(buffer)) != -1) {
+                            fos.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    fos.close();
+                    System.out.println(imagePath);
+
+                } catch (IOException e) {
+                }
+
+            } else {
+            }
+        }
+
         public String countTotalUser() {
             FileController.FileService fs = new FileController.FileService();
             JSONArray dataArray = (JSONArray) fs.readData("account.txt", "array");
@@ -179,6 +206,19 @@ public class UserController {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 this.selectedFile = fileChooser.getSelectedFile(); // Get the selected file
                 this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\" + selectedFile.getName());
+                System.out.println(selectedFile);
+            }
+        }
+
+        public void setReportPath() {
+            JFileChooser fileChooser = new JFileChooser();
+            String projectDirectory = System.getProperty("user.dir");
+            fileChooser.setCurrentDirectory(new File(""));
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                this.selectedFile = fileChooser.getSelectedFile(); // Get the selected file
+                this.reportPath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\report\\" + selectedFile.getName());
                 System.out.println(selectedFile);
             }
         }
