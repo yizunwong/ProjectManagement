@@ -30,15 +30,16 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
     private String entry_level;
     private String[] courses;
     private String selectedCourse;
+    private final FileController.FileService fs;
 
     /**
      * Creates new form AssignAssessmentPanel
      */
     public AssignAssessmentPanel() {
         initComponents();
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
-        fs.showFileData(userTable, lecturer_columns, "lecturer.txt", null);
+        this.fs = new FileController.FileService();
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null,0);
+        fs.showFileData(userTable, lecturer_columns, "lecturer.txt", null,1);
         this.userController = new UserController();
 
     }
@@ -204,12 +205,9 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = assessmentSearchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             JSONArray searchedArray = user.seachUser(searchValue, "assessment.txt");
-            fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray);
-            System.out.println(searchedArray);
+            fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
 
         }
     }//GEN-LAST:event_assessmentSearchFieldKeyPressed
@@ -236,11 +234,9 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = lecturerSearchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt");
-            fs.showFileData(userTable, lecturer_columns, "lecturer.txt", searchedArray);
+            fs.showFileData(userTable, lecturer_columns, "lecturer.txt", searchedArray,1);
 
         }
     }//GEN-LAST:event_lecturerSearchFieldKeyPressed
@@ -276,13 +272,11 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
 
     private void entryLevelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryLevelComboBoxActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
-
         this.entry_level = entryLevelComboBox.getSelectedItem().toString();
         Course course = new Course();
         if ("-".equals(entry_level)) {
             initializeComboBox();
-            fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
+            fs.showFileData(dataTable, assessment_columns, "assessment.txt", null,0);
 
         }
         this.courses = course.getCourse(entry_level);

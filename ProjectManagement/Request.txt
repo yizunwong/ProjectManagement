@@ -1,9 +1,0 @@
-{"Status":"Cancelled","Request_ID":"REQ0456","Student_ID":"065643","Module":"Advanced Management Theory","Lecturer":"LC9983","Request_Date":"2024/05/24,04:00","Remark":"-"}
-{"Status":"Accepted","Request_ID":"REQ0999","Student_ID":"345678","Module":"Dissertation Research","Lecturer":"LC9983","Request_Date":"2024/05/07,03:30","Remark":"-"}
-{"Status":"Accepted","Request_ID":"REQ0123","Student_ID":"016288","Module":"Organizational Behavior","Lecturer":"LC746","Request_Date":"2024/05/31,14:00","Remark":"-"}
-{"Status":"Cancelled","Request_ID":"REQ0555","Student_ID":"003280","Module":"Power Systems","Lecturer":"LC746","Request_Date":"2024/05/13,15:00","Remark":"-"}
-{"Status":"Rejected","Request_ID":"REQ3280","Student_ID":"003280","Module":"Operating Systems","Lecturer":"LC9983","Request_Date":"2024/05/18,17:00","Remark":"feeling uncomfortable, gotta reject this, sry :("}
-{"Status":"Accepted","Request_ID":"REQ3285","Student_ID":"003285","Module":"Engineering Drawing","Lecturer":"LC746","Request_Date":"2024/05/02,08:00","Remark":"-"}
-{"Status":"Cancelled","Request_ID":"REQ1314","Student_ID":"131456","Module":"Marketing Fundamentals","Lecturer":"LC9983","Request_Date":"2024/05/23,23:00","Remark":"-"}
-{"Status":"Pending","Request_ID":"REQ0943","Student_ID":"483924","Module":"Advanced Textile Technology","Lecturer":"LC746","Request_Date":"2024/05/29,04:30","Remark":"-"}
-{"Status":"Pending","Request_ID":"REQ0579","Student_ID":"003283","Module":"Mechanical Design","Lecturer":"LC9983","Request_Date":"2024/05/24,15:00","Remark":"-"}

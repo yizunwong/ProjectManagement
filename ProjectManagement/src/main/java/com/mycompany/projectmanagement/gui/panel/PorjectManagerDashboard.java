@@ -25,6 +25,7 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
     private String selectedCourse;
     private String[] courses;
     private JSONArray searchedArray;
+    public final FileController.FileService fs;
 
     /**
      * Creates new form PorjectManagerDashboard
@@ -32,17 +33,17 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
     public PorjectManagerDashboard() {
         initComponents();
         this.userController = new UserController();
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
+        this.fs = new FileController.FileService();
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null,0);
         initialCard();
         initializeComboBox();
     }
 
     public final void initialCard() {
-        FileController.FileService fs = new FileController.FileService();
         String[] status = {"In Progress"};
         HashMap<String, Integer> assessment = fs.countOccurrences("assessment.txt", "status", status);
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Total Project", assessment.get("In Progress").toString(), "Project that is active"));
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), 
+                "Total Project", assessment.get("In Progress").toString(), "Project that is in-progress"));
 
     }
 
@@ -132,12 +133,9 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = assessmentSearchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             searchedArray = user.seachUser(searchValue, "assessment.txt");
-            fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray);
-            System.out.println(searchedArray);
+            fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
 
         }
     }//GEN-LAST:event_assessmentSearchFieldKeyPressed
@@ -148,23 +146,20 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
 
     private void intakeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intakeComboBoxActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
         String intake_date = intakeComboBox.getSelectedItem().toString();
         UserController.User user = userController.new User();
         searchedArray = user.seachUser(intake_date, "assessment.txt");
-        fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray);
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
 
     }//GEN-LAST:event_intakeComboBoxActionPerformed
 
     private void entryLevelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryLevelComboBoxActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
-
         this.entry_level = entryLevelComboBox.getSelectedItem().toString();
         Course course = new Course();
         if ("-".equals(entry_level)) {
             initializeComboBox();
-            fs.showFileData(dataTable, assessment_columns, "assessment.txt", null);
+            fs.showFileData(dataTable, assessment_columns, "assessment.txt", null,0);
 
         }
         this.courses = course.getCourse(entry_level);
@@ -173,13 +168,12 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
 
     private void courseComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseComboBoxActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
         UserController.User user = userController.new User();
         this.selectedCourse = courseComboBox.getSelectedItem().toString();
         Course course = new Course();
         String courseID = course.findCourseID(entry_level, selectedCourse);
         searchedArray = user.seachUser(courseID, "assessment.txt");
-        fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray);
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
     }//GEN-LAST:event_courseComboBoxActionPerformed
 
 

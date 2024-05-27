@@ -9,7 +9,6 @@ import com.mycompany.projectmanagement.gui.panel.AccountPanel;
 import com.mycompany.projectmanagement.gui.panel.LecturerPanel;
 import com.mycompany.projectmanagement.gui.panel.PieChart;
 import com.mycompany.projectmanagement.gui.panel.StudentPanel;
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -19,19 +18,22 @@ import java.util.ArrayList;
 public class MainMenu extends javax.swing.JFrame {
 
     private final ArrayList<PieChart.PieChartData> pieChartData;
+    private final FileController.FileService fs;
 
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
+        this.fs = new FileController.FileService();
         this.pieChartData = new ArrayList<>();
         pieChartData.add(new PieChart.PieChartData("Role Percentage", "account.txt", "Role", new String[]{"student", "lecturer", "project manager"}));
         pieChartData.add(new PieChart.PieChartData("Entry Level Percentage", "student.txt", "Entry Level", new String[]{"Diploma", "Degree", "Masters Degree", "PhD", "Foundation"}));
         pieChartData.add(new PieChart.PieChartData("Student Gender Percentage", "student.txt", "Gender", new String[]{"Male", "Female"}));
         adminDashboard1.pieChart1.setData(pieChartData);
         adminDashboard1.pieChart1.refreshPieChart(pieChartData);
-
+        
+        
     }
 
     /**
@@ -156,24 +158,21 @@ public class MainMenu extends javax.swing.JFrame {
     private void manageLecturerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLecturerBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
-        FileController.FileService fs = new FileController.FileService();
         lecturerList.setFile("lecturer.txt");
-        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null);
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null, 1);
     }//GEN-LAST:event_manageLecturerBtnActionPerformed
 
     private void manageStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(1);
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null);
+        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
 
     }//GEN-LAST:event_manageStudentBtnActionPerformed
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(3);
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null);
+        fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null, 0);
     }//GEN-LAST:event_manageAccountBtnActionPerformed
 
     private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
@@ -188,8 +187,7 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
         lecturerList.setFile("project_manager.txt");
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null);
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null, 1);
     }//GEN-LAST:event_managePMBtnActionPerformed
 
     private void dashboarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboarBtnActionPerformed
@@ -197,8 +195,7 @@ public class MainMenu extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(0);
         adminDashboard1.initialCard();
         adminDashboard1.pieChart1.refreshPieChart(pieChartData);
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null);
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null, 1);
     }//GEN-LAST:event_dashboarBtnActionPerformed
 
     /**
@@ -232,7 +229,7 @@ public class MainMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainMenu().setVisible(true);
-                
+
             }
         });
     }

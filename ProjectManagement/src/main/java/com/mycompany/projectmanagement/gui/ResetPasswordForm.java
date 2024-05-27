@@ -4,8 +4,8 @@
  */
 package com.mycompany.projectmanagement.gui;
 
-import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +24,7 @@ public class ResetPasswordForm extends javax.swing.JFrame {
     public ResetPasswordForm() {
         this.userController = new UserController();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -37,18 +38,23 @@ public class ResetPasswordForm extends javax.swing.JFrame {
 
         emailField = new javax.swing.JTextField();
         emailLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        loginLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         emailLabel.setText("Email :");
 
-        jButton1.setText("Reset");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        resetBtn.setText("Reset");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                resetBtnActionPerformed(evt);
             }
         });
+
+        loginLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loginLabel.setText("Reset Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,60 +63,69 @@ public class ResetPasswordForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(resetBtn))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(emailLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(jButton1)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loginLabel)
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(11, 11, 11)
+                .addComponent(loginLabel)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jButton1)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(resetBtn)
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
-        String email = emailField.getText().trim();
-        UserController.User user = userController.new User();
-        JSONArray accountArray = user.seachUser(email, "account.txt");
-        JSONObject accountObj = accountArray.getJSONObject(0);
-        String id = accountObj.getString("ID");
-        String role = accountObj.getString("Role");
-        fileName = switch (role.toLowerCase()) {
-            case "student" ->
-                "student.txt";
-            case "lecturer" ->
-                "lecturer.txt";
-            case "project manager" ->
-                "project_manager.txt";
-            default ->
-                "account.txt";
-        };
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure want to reset password", "", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            String email = emailField.getText().trim();
+            UserController.User user = userController.new User();
+            JSONArray accountArray = user.seachUser(email, "account.txt");
+            JSONObject accountObj = accountArray.getJSONObject(0);
+            String id = accountObj.getString("ID");
+            String role = accountObj.getString("Role");
+            fileName = switch (role.toLowerCase()) {
+                case "student" ->
+                    "student.txt";
+                case "lecturer" ->
+                    "lecturer.txt";
+                case "project manager" ->
+                    "project_manager.txt";
+                default ->
+                    "account.txt";
+            };
 
-        JSONArray searchedArray = user.seachUser(id, fileName);
-        JSONObject serachedObj = searchedArray.getJSONObject(0);
-        String dob = serachedObj.getString("Birth Date");
+            JSONArray searchedArray = user.seachUser(id, fileName);
+            JSONObject serachedObj = searchedArray.getJSONObject(0);
+            String dob = serachedObj.getString("Birth Date");
 
-        UserController.Account account = userController.new Account();
-        user.setDob(dob);
-        account.setId(id);
-        account.setAccount(role);
-        account.updateFile("account.txt", account.getAccount());
+            UserController.Account account = userController.new Account();
+            user.setDob(dob);
+            account.setId(id);
+            account.setAccount(role);
+            account.updateFile("account.txt", account.getAccount());
+        } else {
+            JOptionPane.showMessageDialog(null, "Password reset cancel");
+        }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_resetBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,6 +165,7 @@ public class ResetPasswordForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel loginLabel;
+    private javax.swing.JButton resetBtn;
     // End of variables declaration//GEN-END:variables
 }

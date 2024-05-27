@@ -5,6 +5,7 @@
 package com.mycompany.projectmanagement;
 
 import static com.mycompany.projectmanagement.JSONHandler.getValues;
+import static com.mycompany.projectmanagement.JSONHandler.toJSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -21,7 +23,10 @@ public class UserController {
 
     public class User implements FileController {
 
-        private File reportPath;
+        public File getSelectedFile() {
+            return selectedFile;
+        }
+
         public String id;
         public String email;
         public String name;
@@ -34,6 +39,7 @@ public class UserController {
         public String address;
         public String[] keys;
         private File selectedFile;
+        public final FileController.FileService fs;
 
         public User() {
             this.name = "";
@@ -42,15 +48,8 @@ public class UserController {
             this.gender = "";
             this.country = "";
             this.imagePath = null;
+            this.fs = new FileController.FileService();
 
-        }
-
-        public File getReportPath() {
-            return reportPath;
-        }
-
-        public File getSelectedFile() {
-            return selectedFile;
         }
 
         public void setId(String id) {
@@ -130,15 +129,12 @@ public class UserController {
         }
 
         public JSONArray seachUser(String searchValue, String fileName) {
-            FileController.FileService fs = new FileController.FileService();
             JSONArray dataArray = (JSONArray) fs.readData(fileName, "array");
             JSONArray searchedArray = fs.searchData(fileName, searchValue, dataArray);
             return searchedArray;
         }
 
         public void saveImage(File selectedFile) {
-            System.out.println(selectedFile);
-            System.out.println(imagePath);
             String projectDirectory = System.getProperty("user.dir");
 
             if (selectedFile != null) {
@@ -154,7 +150,6 @@ public class UserController {
                             }
                         }
                         fos.close();
-                        System.out.println(imagePath);
 
                     } catch (IOException e) {
                     }
@@ -165,30 +160,7 @@ public class UserController {
             }
         }
 
-        public void saveReport(File selectedFile) {
-            if (selectedFile != null) {
-                try {
-                    FileOutputStream fos;
-                    try (FileInputStream fis = new FileInputStream(selectedFile)) {
-                        fos = new FileOutputStream(reportPath);
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = fis.read(buffer)) != -1) {
-                            fos.write(buffer, 0, bytesRead);
-                        }
-                    }
-                    fos.close();
-                    System.out.println(imagePath);
-
-                } catch (IOException e) {
-                }
-
-            } else {
-            }
-        }
-
         public String countTotalUser() {
-            FileController.FileService fs = new FileController.FileService();
             JSONArray dataArray = (JSONArray) fs.readData("account.txt", "array");
             if (dataArray == null) {
                 return "0";
@@ -206,31 +178,9 @@ public class UserController {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 this.selectedFile = fileChooser.getSelectedFile(); // Get the selected file
                 this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\" + selectedFile.getName());
-                System.out.println(selectedFile);
             }
         }
 
-        public void setReportPath() {
-            JFileChooser fileChooser = new JFileChooser();
-            String projectDirectory = System.getProperty("user.dir");
-            fileChooser.setCurrentDirectory(new File(""));
-            int returnValue = fileChooser.showOpenDialog(null);
-
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                this.selectedFile = fileChooser.getSelectedFile(); // Get the selected file
-                this.reportPath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\report\\" + selectedFile.getName());
-                System.out.println(selectedFile);
-            }
-        }
-
-//        public String findID(String fileName) {
-//            FileService fs =  new FileService();
-//            fs.readData(fileName, "array");
-//            JSONArray jsonArray = fs.getJSONArray();
-//            List<String> programNames = getValues(jsonArray, "id", true);
-//            System.out.println(programNames);
-//            return null;
-//        }
         @Override
         public void saveFile(String fileName) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -269,13 +219,12 @@ public class UserController {
 
         @Override
         public void saveFile(String fileName) {
-            FileController.FileService fs = new FileController.FileService();
-            fs.writeData(fileName, keys, getLecturer());
+            JSONObject jsonObj = toJSONObject(keys, getLecturer());
+            fs.write(jsonObj, fileName, true);
         }
 
         @Override
         public void updateFile(String fileName, String[] content) {
-            FileController.FileService fs = new FileController.FileService();
             fs.updateData(fileName, keys, content, "ID");
 
         }
@@ -342,13 +291,12 @@ public class UserController {
 
         @Override
         public void saveFile(String fileName) {
-            FileController.FileService fs = new FileController.FileService();
-            fs.writeData(fileName, keys, getStudent());
+            JSONObject jsonObj = toJSONObject(keys, getStudent());
+            fs.write(jsonObj, fileName, true);
         }
 
         @Override
         public void updateFile(String fileName, String[] content) {
-            FileController.FileService fs = new FileController.FileService();
             fs.updateData(fileName, keys, content, "ID");
 
         }
@@ -393,27 +341,28 @@ public class UserController {
 
         @Override
         public void saveFile(String fileName) {
-            FileController.FileService fs = new FileController.FileService();
-            fs.writeData(fileName, keys, getAccount());
+            JSONObject jsonObj = toJSONObject(keys, getAccount());
+            fs.write(jsonObj, fileName, true);
         }
 
         @Override
         public void updateFile(String fileName, String[] content) {
-            FileController.FileService fs = new FileController.FileService();
             fs.updateData(fileName, keys, content, "ID");
         }
 
         public boolean checkConfidential(String email, String password) {
             JSONArray jsonArray = (JSONArray) file.readData("account.txt", "array");
 
-            List<String> existed_email = getValues(jsonArray, "email", false);
-            List<String> existed_password = getValues(jsonArray, "password", false);
+            List<String> existed_email = getValues(jsonArray, "Email", false);
+            List<String> existed_password = getValues(jsonArray, "Password", false);
 
             int index = existed_email.indexOf(email);
 
             if (index != -1) {
                 if (existed_password.get(index).equals(password)) {
-                    setRole("student");
+                    JSONArray searchedArray = seachUser(email, "account.txt");
+                    JSONObject searchedObj = searchedArray.getJSONObject(0);
+                    setRole(searchedObj.getString("Role"));
                     return true;
                 }
             } else {

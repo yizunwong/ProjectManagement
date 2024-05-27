@@ -6,6 +6,10 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
+import static com.mycompany.projectmanagement.Validator.validateEmail;
+import static com.mycompany.projectmanagement.Validator.validatePassword;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,7 +39,6 @@ public class AccountForm extends javax.swing.JPanel {
     }
 
     public void resetField() {
-        idField.setText("");
         passwordField.setText("");
         emailField.setText("");
         roleComboBox.setSelectedItem("");
@@ -54,6 +57,13 @@ public class AccountForm extends javax.swing.JPanel {
         account.setEmail(email);
         account.setPassword(password);
 
+    }
+
+    public List<String> validateField() {
+        List<String> errors = new ArrayList<>();
+        validateEmail(email, errors);
+        validatePassword(password, errors);
+        return errors;
     }
 
     /**
@@ -177,14 +187,20 @@ public class AccountForm extends javax.swing.JPanel {
             UserController.Account account = userController.new Account();
             getFieldData();
             setFieldData(account);
-            account.setId(id);
-            account.setRole(account.role);
-            account.updateFile("account.txt", account.getAccount());
+            List<String> errors = validateField();
+            if (errors.isEmpty()) {
+                account.setId(id);
+                account.setRole(account.role);
+                account.updateFile("account.txt", account.getAccount());
 
-            JOptionPane.showMessageDialog(null, "Data update successfully");
-            FileController.FileService fs = new FileController.FileService();
-            fs.moveData(account.id, account.role, "ID");
-            fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null);
+                JOptionPane.showMessageDialog(null, "Data update successfully");
+                FileController.FileService fs = new FileController.FileService();
+                fs.moveData(account.id, account.role, "ID");
+                fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null,0);
+            } else {
+                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Data update cancel");
         }
@@ -197,19 +213,24 @@ public class AccountForm extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
-        getFieldData();
-        fs.deleteData(id, "account.txt", "ID");
-        fileName = switch (role.toLowerCase()) {
-            case "student" ->
-                "student.txt";
-            case "lecturer" ->
-                "lecturer.txt";
-            default ->
-                "project_manager.txt";
-        };
-        fs.deleteData(id, fileName, "ID");
-        fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null);
+        int result = JOptionPane.showConfirmDialog(null, "Delete Data?", "", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            FileController.FileService fs = new FileController.FileService();
+            getFieldData();
+            fs.deleteData(id, "account.txt", "ID");
+            fileName = switch (role.toLowerCase()) {
+                case "student" ->
+                    "student.txt";
+                case "lecturer" ->
+                    "lecturer.txt";
+                default ->
+                    "project_manager.txt";
+            };
+            fs.deleteData(id, fileName, "ID");
+            fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null,0);
+        } else {
+            JOptionPane.showMessageDialog(null, "Data delete cancel");
+        }
 
     }//GEN-LAST:event_deleteBtnActionPerformed
 

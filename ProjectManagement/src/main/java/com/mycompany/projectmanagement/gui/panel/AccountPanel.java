@@ -8,8 +8,6 @@ import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import java.awt.event.KeyEvent;
 import org.json.JSONArray;
-//import java.awt.event.ActionEvent;
-//import javax.swing.Timer;
 
 /**
  *
@@ -119,11 +117,10 @@ public class AccountPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
-            System.out.println(searchValue);
             FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             JSONArray searchedArray = user.seachUser(searchValue, "account.txt");
-            fs.showFileData(userTable, columns, "account.txt", searchedArray);
+            fs.showFileData(userTable, columns, "account.txt", searchedArray,0);
 
         }
     }//GEN-LAST:event_searchFieldKeyPressed

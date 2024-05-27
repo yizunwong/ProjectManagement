@@ -31,7 +31,7 @@ public class AdminDashboard extends javax.swing.JPanel {
 
     public final void initialCard() {
         FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(userTable, columns, "account.txt", null);
+        fs.showFileData(userTable, columns, "account.txt", null,0);
         UserController.User user = userController.new User();
         String total_member = user.countTotalUser();
         String[] status = {"In Progress"};
@@ -75,11 +75,6 @@ public class AdminDashboard extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
             }
         ));
-        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                userTableMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(userTable);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 1520, 380));
@@ -97,18 +92,12 @@ public class AdminDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
-            System.out.println(searchValue);
             FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             JSONArray searchedArray = user.seachUser(searchValue, "assessment.txt");
-            fs.showFileData(userTable, columns, "assessment.txt", searchedArray);
-
+            fs.showFileData(userTable, columns, "assessment.txt", searchedArray,0);
         }
     }//GEN-LAST:event_searchFieldKeyPressed
-
-    private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
-
-    }//GEN-LAST:event_userTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

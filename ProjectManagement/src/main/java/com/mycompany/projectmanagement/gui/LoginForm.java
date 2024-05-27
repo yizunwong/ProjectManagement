@@ -5,6 +5,12 @@
 package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.UserController;
+import static com.mycompany.projectmanagement.Validator.validateEmail;
+import static com.mycompany.projectmanagement.Validator.validateJSONArray;
+import static com.mycompany.projectmanagement.Validator.validatePassword;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +26,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         this.userController = new UserController();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -48,12 +55,6 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel2.setText("Password :");
 
-        emailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
-
         submitBtn.setText("Submit");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +81,7 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(emailLabel))
@@ -101,7 +102,7 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(loginLabel)
-                .addGap(59, 59, 59)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -113,7 +114,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(submitBtn)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,31 +122,34 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
+        UserController.Account account = userController.new Account();
 
         String email = emailField.getText().trim();
         String pass = passwordField.getText().trim();
-        UserController.Account account = userController.new Account();
-        if (account.checkConfidential(email, pass)) {
-            System.out.println(account.getRole());
-            if (account.getRole().equalsIgnoreCase("student")) {
-                StudentMain sm = new StudentMain();
-                dispose();
-                sm.setVisible(true);
-            } else if (account.getRole().equalsIgnoreCase("admin")) {
-                MainMenu main = new MainMenu();
-                dispose();
-                main.setVisible(true);
+        List<String> errors = new ArrayList<>();
+        validateEmail(email, errors);
+        validatePassword(pass, errors);
+
+        if (errors.isEmpty()) {
+            if (account.checkConfidential(email, pass)) {
+                if (account.getRole().equalsIgnoreCase("student")) {
+                    StudentMain sm = new StudentMain();
+                    dispose();
+                    sm.setVisible(true);
+                } else if (account.getRole().equalsIgnoreCase("admin")) {
+                    MainMenu main = new MainMenu();
+                    dispose();
+                    main.setVisible(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Password is wrong", "Password Not Match", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            System.out.println("wrong pass");
+            JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
         }
 
     }//GEN-LAST:event_submitBtnActionPerformed
-
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_emailFieldActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:

@@ -4,9 +4,13 @@
  */
 package com.mycompany.projectmanagement.gui;
 
-import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
-import java.util.Arrays;
+import static com.mycompany.projectmanagement.Validator.validateEmail;
+import static com.mycompany.projectmanagement.Validator.validateJSONArray;
+import static com.mycompany.projectmanagement.Validator.validatePassword;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +28,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     public ChangePasswordForm() {
         this.userController = new UserController();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -35,7 +40,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        backBtn = new javax.swing.JLabel();
         submitBtn = new javax.swing.JButton();
         emailLabel = new javax.swing.JLabel();
         loginLabel = new javax.swing.JLabel();
@@ -49,8 +54,13 @@ public class ChangePasswordForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel1.setText("Back?");
+        backBtn.setForeground(new java.awt.Color(51, 153, 255));
+        backBtn.setText("Back?");
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
 
         submitBtn.setText("Submit");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -94,11 +104,11 @@ public class ChangePasswordForm extends javax.swing.JFrame {
                         .addComponent(loginLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
-                        .addComponent(jLabel1))
+                        .addComponent(backBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
+                                .addGap(64, 64, 64)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(emailLabel)
@@ -124,7 +134,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(loginLabel)
-                .addGap(43, 43, 43)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,7 +147,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(CPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(backBtn)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
@@ -151,34 +161,66 @@ public class ChangePasswordForm extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
-        UserController.Account account = userController.new Account();
-        String email = emailField.getText().trim();
-        UserController.User user = userController.new User();
-        JSONArray searchedArray = user.seachUser(email, "account.txt");
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure want to change password", "", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            UserController.Account account = userController.new Account();
+            String email = emailField.getText().trim();
+            UserController.User user = userController.new User();
+            JSONArray searchedArray = user.seachUser(email, "account.txt");
 
-        JSONObject searchedObj = searchedArray.getJSONObject(0);
-        account.setId(searchedObj.getString("ID"));
-        account.setRole(searchedObj.getString("Role"));
-        account.setEmail(searchedObj.getString("Email"));
+            char[] password = PasswordField.getPassword();
+            char[] cpassword = CPasswordField.getPassword();
+            String passwordString = new String(password);
+            String cpasswordString = new String(cpassword);
 
-        char[] password = CPasswordField.getPassword();
-        String passwordString = new String(password);
-        account.setPassword(passwordString);
-        account.updateFile("account.txt", account.getAccount());
+            List<String> errors = new ArrayList<>();
+            validateEmail(email, errors);
+            validateJSONArray(searchedArray, "Email", errors);
+            validatePassword(passwordString, errors);
+            if (errors.isEmpty()) {
+                if (passwordString.equalsIgnoreCase(cpasswordString)) {
+                    JSONObject searchedObj = searchedArray.getJSONObject(0);
+                    account.setId(searchedObj.getString("ID"));
+                    account.setRole(searchedObj.getString("Role"));
+                    account.setEmail(searchedObj.getString("Email"));
+                    account.setPassword(passwordString);
+                    account.updateFile("account.txt", account.getAccount());
+                    JOptionPane.showMessageDialog(null, "Password has been successfully changed.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Confirm password is wrong", "Password Not Match", JOptionPane.WARNING_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Password change cancel");
+
+        }
 
 
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void chkEmailBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEmailBtnActionPerformed
         // TODO add your handling code here:
+        CheckEmailForm checkEmailForm = new CheckEmailForm();
+        dispose();
+        checkEmailForm.setVisible(true);
     }//GEN-LAST:event_chkEmailBtnActionPerformed
 
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
-        UserController.Account account = userController.new Account();
-        account.setAccount("student");
-
+        ResetPasswordForm resetPasswordForm = new ResetPasswordForm();
+        dispose();
+        resetPasswordForm.setVisible(true);
     }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        // TODO add your handling code here:
+        LoginForm login = new LoginForm();
+        dispose();
+        login.setVisible(true);
+    }//GEN-LAST:event_backBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -219,10 +261,10 @@ public class ChangePasswordForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField CPasswordField;
     private javax.swing.JPasswordField PasswordField;
+    private javax.swing.JLabel backBtn;
     private javax.swing.JButton chkEmailBtn;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel loginLabel;

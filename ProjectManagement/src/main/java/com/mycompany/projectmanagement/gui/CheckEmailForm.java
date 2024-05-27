@@ -6,6 +6,12 @@ package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
+import static com.mycompany.projectmanagement.Validator.validateIC;
+import static com.mycompany.projectmanagement.Validator.validateJSONArray;
+import static com.mycompany.projectmanagement.Validator.validateString;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,6 +29,7 @@ public class CheckEmailForm extends javax.swing.JFrame {
     public CheckEmailForm() {
         initComponents();
         this.userController = new UserController();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -39,6 +46,8 @@ public class CheckEmailForm extends javax.swing.JFrame {
         icField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        backBtn = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,29 +62,49 @@ public class CheckEmailForm extends javax.swing.JFrame {
 
         jLabel2.setText("IC: ");
 
+        backBtn.setForeground(new java.awt.Color(51, 153, 255));
+        backBtn.setText("Back?");
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("Check Student Email");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                    .addComponent(icField))
-                .addGap(88, 88, 88))
             .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(jButton1)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(icField)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(backBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(jButton1)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -83,9 +112,11 @@ public class CheckEmailForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(icField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                .addGap(18, 18, 18)
+                .addComponent(backBtn)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(40, 40, 40))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -95,23 +126,42 @@ public class CheckEmailForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         FileController.FileService fs = new FileController.FileService();
         String name = nameField.getText().trim();
+        String ic = icField.getText().trim();
+
         UserController.User user = userController.new User();
         JSONArray searchedArray = user.seachUser(name, "student.txt");
-        System.out.println(searchedArray);
-        
-        String ic = icField.getText().trim();
-        JSONArray icArray = fs.searchData("student.txt", ic, searchedArray);
-        JSONObject searchedObj = icArray.getJSONObject(0);
-        String id = searchedObj.getString("ID");
-        
-        JSONArray account = user.seachUser(id, "account.txt");
-        JSONObject accountObj = account.getJSONObject(0);
-        String email = accountObj.getString("Email");
 
-        System.out.println(email);
+        JSONArray icArray = fs.searchData("student.txt", ic, searchedArray);
+
+        List<String> errors = new ArrayList<>();
+        validateString(name, "Name", errors);
+        validateJSONArray(searchedArray, "Name", errors);
+        validateIC(ic, errors);
+        validateJSONArray(icArray, "IC", errors);
+
+        if (errors.isEmpty()) {
+            JSONObject searchedObj = icArray.getJSONObject(0);
+            String id = searchedObj.getString("ID");
+
+            JSONArray account = user.seachUser(id, "account.txt");
+            JSONObject accountObj = account.getJSONObject(0);
+            String email = accountObj.getString("Email");
+
+            JOptionPane.showMessageDialog(null, email, "Your student email", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        // TODO add your handling code here:
+        ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+        dispose();
+        changePasswordForm.setVisible(true);
+    }//GEN-LAST:event_backBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -149,10 +199,12 @@ public class CheckEmailForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel backBtn;
     private javax.swing.JTextField icField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
 }

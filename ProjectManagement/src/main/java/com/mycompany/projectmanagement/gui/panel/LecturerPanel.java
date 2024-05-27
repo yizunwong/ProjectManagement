@@ -4,12 +4,14 @@
  */
 package com.mycompany.projectmanagement.gui.panel;
 
+import com.mycompany.projectmanagement.ExcelController;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
-//import java.awt.event.ActionEvent;
-//import javax.swing.Timer;
 
 /**
  *
@@ -22,14 +24,13 @@ public class LecturerPanel extends javax.swing.JPanel {
         "Department", "Education", "ImagePath"};
     public String fileName;
     private final UserController userController;
+    private final FileController.FileService fs;
 
-//    private final Timer timer;
-    /**
-     * Creates new form Student
-     */
     public LecturerPanel() {
         initComponents();
         this.userController = new UserController();
+        this.fs = new FileController.FileService();
+
     }
 
     public void setFile(String fileName) {
@@ -51,6 +52,7 @@ public class LecturerPanel extends javax.swing.JPanel {
         userTable = new javax.swing.JTable();
         lecturerPanel1 = new com.mycompany.projectmanagement.gui.panel.LecturerForm();
         searchField = new javax.swing.JTextField();
+        importBtn = new javax.swing.JButton();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,6 +80,13 @@ public class LecturerPanel extends javax.swing.JPanel {
             }
         });
 
+        importBtn.setText("Import Excel Data");
+        importBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,25 +98,29 @@ public class LecturerPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lecturerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(importBtn)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(importBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lecturerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
         int rowIndex = userTable.getSelectedRow(); // Get the selected row index
-        System.out.println(fileName);
         // Ensure a valid row is selected
         if (rowIndex != -1) {
             int columnCount = userTable.getColumnCount(); // Get the number of columns
@@ -133,17 +146,27 @@ public class LecturerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt");
-            fs.showFileData(userTable, columns, fileName, searchedArray);
+            fs.showFileData(userTable, columns, fileName, searchedArray,1);
 
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 
+    private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
+        // TODO add your handling code here:
+        ExcelController excelController = new ExcelController();
+        try {
+            excelController.processExcelFile("/com/mycompany/projectmanagement/excel/lecturer.xlsx", "lecturer.txt", "lecturer");
+            fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null,1);
+        } catch (IOException ex) {
+            Logger.getLogger(StudentPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_importBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
     public static com.mycompany.projectmanagement.gui.panel.LecturerForm lecturerPanel1;
     private javax.swing.JTextField searchField;

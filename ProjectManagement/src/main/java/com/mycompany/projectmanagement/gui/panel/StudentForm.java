@@ -9,17 +9,26 @@ import com.mycompany.projectmanagement.FileController.Assessment;
 import com.mycompany.projectmanagement.FileController.Country;
 import com.mycompany.projectmanagement.FileController.Course;
 import com.mycompany.projectmanagement.FileController.ImageController;
+import static com.mycompany.projectmanagement.JSONHandler.toJSONObject;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.UserController.Account;
 import com.mycompany.projectmanagement.UserController.Student;
+import static com.mycompany.projectmanagement.Validator.validateDate;
+import static com.mycompany.projectmanagement.Validator.validateEmail;
+import static com.mycompany.projectmanagement.Validator.validatePhone;
+import static com.mycompany.projectmanagement.Validator.validateString;
+import static com.mycompany.projectmanagement.Validator.validateIC;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.json.JSONObject;
 
 /**
  *
@@ -28,6 +37,7 @@ import javax.swing.JOptionPane;
 public class StudentForm extends javax.swing.JPanel {
 
     private String name, parent_name, ic, phone, gender, country, address, email, intake_date, id, formattedDate, course_id;
+    private Date dob;
     private File imagePath;
     private String[] courses, modules;
     private String selectedCourse;
@@ -35,6 +45,7 @@ public class StudentForm extends javax.swing.JPanel {
     private final UserController userController;
     private final String projectDirectory;
     private File selectedFile;
+    private final FileController.FileService fs;
 
     /**
      * Creates new form EditPanel
@@ -47,6 +58,9 @@ public class StudentForm extends javax.swing.JPanel {
         initializeCountryComboBox();
         this.userController = new UserController();
         dobChooser.setLocale(Locale.ENGLISH);
+        maleBtn.setSelected(true);
+        this.fs = new FileController.FileService();
+
     }
 
     private void initializeCountryComboBox() {
@@ -105,7 +119,7 @@ public class StudentForm extends javax.swing.JPanel {
         dobChooser.setDate(null);
         entryLevelComboBox.setSelectedItem("-");
         courseComboBox.setSelectedItem("-");
-        intakeComboBox.setSelectedItem("-");
+        intakeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"-"}));
 
         this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
         updateAvatarImageIcon(imagePath);
@@ -113,7 +127,6 @@ public class StudentForm extends javax.swing.JPanel {
     }
 
     public void getFieldData() {
-        Date dob;
         id = idField.getText().trim();
         name = nameField.getText().trim();
         ic = icField.getText().trim();
@@ -122,9 +135,6 @@ public class StudentForm extends javax.swing.JPanel {
         country = countryComboBox.getSelectedItem().toString();
         address = addressField.getText().trim();
         email = emailField.getText().trim();
-        dob = dobChooser.getDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        formattedDate = dateFormat.format(dob);
         entry_level = entryLevelComboBox.getSelectedItem().toString();
         selectedCourse = courseComboBox.getSelectedItem().toString();
         intake_date = intakeComboBox.getSelectedItem().toString();
@@ -135,14 +145,20 @@ public class StudentForm extends javax.swing.JPanel {
             gender = "Female";
         }
 
-        Course course = new Course();
-        course_id = course.findCourseID(entry_level, selectedCourse);
-        modules = course.findModule(entry_level, selectedCourse);
+        dob = dobChooser.getDate();
+        if (dob != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            formattedDate = dateFormat.format(dob);
+        }
+        if (!selectedCourse.equalsIgnoreCase("-") && !entry_level.equalsIgnoreCase("-")) {
+            Course course = new Course();
+            course_id = course.findCourseID(entry_level, selectedCourse);
+            modules = course.findModule(entry_level, selectedCourse);
+        }
+
     }
 
     public void setFieldData(Student student, Account account, Assessment assessment) {
-        FileController.FileService fs = new FileController.FileService();
-
         student.setName(name);
         student.setParent_name(parent_name);
         student.setIc(ic);
@@ -168,6 +184,22 @@ public class StudentForm extends javax.swing.JPanel {
         assessment.setStudentID(student.id);
         assessment.setModules(modules);
         assessment.setIntakeDate(intake_date);
+    }
+
+    public List<String> validateField() {
+        List<String> errors = new ArrayList<>();
+        validateString(name, "Name", errors);
+        validateString(parent_name, "Parent Name", errors);
+        validateIC(ic, errors);
+        validatePhone(phone, errors);
+        validateString(country, "Country", errors);
+        validateString(address, "Address", errors);
+        validateEmail(email, errors);
+        validateDate(dob, errors);
+        validateString(entry_level, "Entry Level", errors);
+        validateString(selectedCourse, "Course", errors);
+        validateString(intake_date, "Intake Date", errors);
+        return errors;
     }
 
     /**
@@ -458,14 +490,26 @@ public class StudentForm extends javax.swing.JPanel {
 
         getFieldData();
         setFieldData(student, account, assessment);
-        student.saveFile("student.txt");
-        account.setAccount("student");
-        account.saveFile("account.txt");
-        assessment.saveFile("assessment.txt", assessment);
-        student.saveImage(selectedFile);
+        List<String> errors = validateField();
+        JSONObject jsonOBj = toJSONObject(student.keys, student.getStudent());
+        boolean alreadyExists = fs.checkExists("student.txt", jsonOBj);
+        if (errors.isEmpty()) {
+            if (!alreadyExists) {
+                student.saveFile("student.txt");
+                account.setAccount("student");
+                account.saveFile("account.txt");
+                assessment.saveFile("assessment.txt", assessment);
+                student.saveImage(selectedFile);
+            } else {
+                JOptionPane.showMessageDialog(null, "Data Exists", "Duplciate Data", JOptionPane.WARNING_MESSAGE);
 
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
+        }
+
+        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void fileUploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileUploadBtnActionPerformed
@@ -504,13 +548,24 @@ public class StudentForm extends javax.swing.JPanel {
             FileController.Assessment assessment = new FileController.Assessment();
             getFieldData();
             setFieldData(student, account, assessment);
-            student.updateFile("student.txt", student.getStudent());
-            assessment.replaceData("assessment.txt", assessment);
-            student.saveImage(selectedFile);
+            List<String> errors = validateField();
+            JSONObject jsonOBj = toJSONObject(student.keys, student.getStudent());
+            boolean alreadyExists = fs.checkExists("student.txt", jsonOBj);
+            if (errors.isEmpty()) {
+                if (!alreadyExists) {
+                    student.updateFile("student.txt", student.getStudent());
+                    assessment.replaceData("assessment.txt", assessment);
+                    student.saveImage(selectedFile);
 
-            JOptionPane.showMessageDialog(null, "Data update successfully");
-            FileController.FileService fs = new FileController.FileService();
-            fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null);
+                    JOptionPane.showMessageDialog(null, "Data update successfully");
+                    fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data Exists", "Duplciate Data", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Data update cancel");
@@ -524,13 +579,12 @@ public class StudentForm extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        FileController.FileService fs = new FileController.FileService();
         getFieldData();
         fs.deleteData(id, "student.txt", "ID");
         fs.deleteData(id, "account.txt", "ID");
         fs.deleteData(id, "assessment.txt", "student_id");
 
-        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null);
+        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
     }//GEN-LAST:event_deleteBtnActionPerformed
 
 

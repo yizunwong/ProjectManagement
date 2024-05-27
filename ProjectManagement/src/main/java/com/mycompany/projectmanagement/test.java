@@ -4,17 +4,10 @@
  */
 package com.mycompany.projectmanagement;
 
-import com.mycompany.projectmanagement.FileController.Course;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import org.json.JSONObject;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,72 +15,26 @@ import org.json.JSONObject;
  */
 public class test {
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            List<TimelineEvent> events = new ArrayList<>();
-            events.add(new TimelineEvent("Event 1", 2000));
-            events.add(new TimelineEvent("Event 2", 2005));
-            events.add(new TimelineEvent("Event 3", 2010));
-            events.add(new TimelineEvent("Event 4", 2015));
-            events.add(new TimelineEvent("Event 5", 2020));
-
-            JFrame frame = new JFrame("Timeline Visualization");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new TimelinePanel(events));
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
-}
-
-class TimelineEvent {
-
-    String description;
-    int year;
-
-    TimelineEvent(String description, int year) {
-        this.description = description;
-        this.year = year;
-    }
-}
-
-class TimelinePanel extends JPanel {
-
-    private List<TimelineEvent> events;
-
-    public TimelinePanel(List<TimelineEvent> events) {
-        this.events = events;
+    public void main(String[] args) {
+        viewFile();
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
+    private void viewFile() {
+        String filePath = "C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\Respository\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\images.jpg";
+        File file = new File(filePath);
 
-        int width = getWidth();
-        int height = getHeight();
-        int margin = 50;
-        int startX = margin;
-        int endX = width - margin;
-        int y = height / 2;
-
-        // Draw timeline line
-        g2d.drawLine(startX, y, endX, y);
-
-        // Draw events
-        int eventCount = events.size();
-        int spacing = (endX - startX) / (eventCount - 1);
-        for (int i = 0; i < eventCount; i++) {
-            TimelineEvent event = events.get(i);
-            int x = startX + i * spacing;
-            g2d.fillOval(x - 5, y - 5, 10, 10);
-            g2d.drawString(event.description + " (" + event.year + ")", x - 20, y - 10);
+        if (file.exists()) {
+            try {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(file);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Desktop is not supported. Cannot open the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error opening file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "File does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(800, 200);
     }
 }

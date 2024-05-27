@@ -1,15 +1,9 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.projectmanagement.gui;
 
-import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.gui.panel.RequestDateList;
-import com.mycompany.projectmanagement.gui.panel.StudentDashboardList;
-import com.mycompany.projectmanagement.gui.panel.SubmissionList;
-import static com.mycompany.projectmanagement.gui.panel.SubmissionList.SubmissionTable;
-import static com.mycompany.projectmanagement.gui.panel.SubmissionList.columns;
 import java.awt.Color;
 
 /**
@@ -18,14 +12,10 @@ import java.awt.Color;
  */
 public class StudentMain extends javax.swing.JFrame {
 
-    int mouseX, mouseY;
-    
+
     public StudentMain() {
         initComponents();
-        setBackground(new Color(0, 0, 0, 0));
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null);
-        fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null);
+        setBackground(new Color(0,0,0,0));
     }
 
     /**
@@ -50,10 +40,13 @@ public class StudentMain extends javax.swing.JFrame {
         Btn2 = new javax.swing.JButton();
         Btn3 = new javax.swing.JButton();
         Btn4 = new javax.swing.JButton();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        studentDashboardList1 = new com.mycompany.projectmanagement.gui.panel.StudentDashboardList();
-        submissionList1 = new com.mycompany.projectmanagement.gui.panel.SubmissionList();
-        requestDateList1 = new com.mycompany.projectmanagement.gui.panel.RequestDateList();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         jTabbedPane1.setOpaque(true);
 
@@ -123,35 +116,25 @@ public class StudentMain extends javax.swing.JFrame {
         studentPanelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         studentPanelBorder1.setForeground(new java.awt.Color(255, 255, 255));
         studentPanelBorder1.setPreferredSize(new java.awt.Dimension(1761, 672));
-        studentPanelBorder1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                studentPanelBorder1MouseDragged(evt);
-            }
-        });
-        studentPanelBorder1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                studentPanelBorder1MousePressed(evt);
-            }
-        });
         studentPanelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         studentMenu2.setPreferredSize(new java.awt.Dimension(200, 672));
 
-        Btn1.setText("Dashboard");
+        Btn1.setText("Form1");
         Btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn1ActionPerformed(evt);
             }
         });
 
-        Btn2.setText("Submit Report");
+        Btn2.setText("Form2");
         Btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn2ActionPerformed(evt);
             }
         });
 
-        Btn3.setText("Request Presentation");
+        Btn3.setText("Form3");
         Btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn3ActionPerformed(evt);
@@ -185,56 +168,102 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(Btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(112, 112, 112)
                 .addComponent(Btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
-        studentPanelBorder1.add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, -1, 750));
+        studentPanelBorder1.add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, -1, 670));
 
-        studentDashboardList1.setOpaque(false);
-        jTabbedPane3.addTab("tab1", studentDashboardList1);
+        jPanel4.setOpaque(false);
 
-        submissionList1.setOpaque(false);
-        jTabbedPane3.addTab("tab2", submissionList1);
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Form 1");
 
-        requestDateList1.setOpaque(false);
-        jTabbedPane3.addTab("tab3", requestDateList1);
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(667, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(154, 154, 154)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(454, Short.MAX_VALUE))
+        );
 
-        studentPanelBorder1.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 1430, 740));
+        jTabbedPane2.addTab("tab1", jPanel4);
+
+        jPanel5.setOpaque(false);
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 48)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Form 2");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(611, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(193, 193, 193))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(454, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("tab2", jPanel5);
+
+        jPanel6.setOpaque(false);
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 3, 48)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Form 3");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(198, 198, 198)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(674, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(474, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("tab3", jPanel6);
+
+        studentPanelBorder1.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, -43, 1040, 710));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(studentPanelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 1700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(studentPanelBorder1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1253, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(studentPanelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(studentPanelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null);
-        fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null);
-        jTabbedPane3.setSelectedIndex(0);
-//        SubmissionTable.revalidate();
-//        SubmissionTable.repaint();
-    }//GEN-LAST:event_Btn1ActionPerformed
-
-    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
-        jTabbedPane3.setSelectedIndex(1);
-    }//GEN-LAST:event_Btn2ActionPerformed
-
-    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
-        jTabbedPane3.setSelectedIndex(2);
-    }//GEN-LAST:event_Btn3ActionPerformed
 
     private void Btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn4ActionPerformed
         LoginForm loginForm = new LoginForm();
@@ -242,14 +271,17 @@ public class StudentMain extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Btn4ActionPerformed
 
-    private void studentPanelBorder1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MouseDragged
-        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
-    }//GEN-LAST:event_studentPanelBorder1MouseDragged
+    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
+        jTabbedPane2.setSelectedIndex(2);
+    }//GEN-LAST:event_Btn3ActionPerformed
 
-    private void studentPanelBorder1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MousePressed
-        mouseX = evt.getX();
-        mouseY = evt.getY();
-    }//GEN-LAST:event_studentPanelBorder1MousePressed
+    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
+        jTabbedPane2.setSelectedIndex(1);
+    }//GEN-LAST:event_Btn2ActionPerformed
+
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        jTabbedPane2.setSelectedIndex(0);
+    }//GEN-LAST:event_Btn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,15 +326,18 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private com.mycompany.projectmanagement.gui.panel.RequestDateList requestDateList1;
-    private com.mycompany.projectmanagement.gui.panel.StudentDashboardList studentDashboardList1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private com.mycompany.projectmanagement.gui.StudentMenu studentMenu2;
     private com.mycompany.projectmanagement.gui.StudentPanelBorder studentPanelBorder1;
-    private com.mycompany.projectmanagement.gui.panel.SubmissionList submissionList1;
     // End of variables declaration//GEN-END:variables
 }

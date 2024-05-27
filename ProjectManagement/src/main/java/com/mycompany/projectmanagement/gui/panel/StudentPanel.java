@@ -4,9 +4,12 @@
  */
 package com.mycompany.projectmanagement.gui.panel;
 
+import com.mycompany.projectmanagement.ExcelController;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 //import java.awt.event.ActionEvent;
 //import javax.swing.Timer;
@@ -22,22 +25,16 @@ public class StudentPanel extends javax.swing.JPanel {
         "Entry Level", "Course", "Intake Date", "ImagePath"};
 //    private final Timer timer;
     private final UserController userController;
+    private final FileController.FileService fs;
 
     /**
      * Creates new form Student
      */
     public StudentPanel() {
         initComponents();
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(userTable, columns, "student.txt", null);
+        this.fs = new FileController.FileService();
+        fs.showFileData(userTable, columns, "student.txt", null,4);
         this.userController = new UserController();
-
-//        //refresh table every 30 seconds
-//        timer = new Timer(30000, (ActionEvent e) -> {
-//            // Code to refresh your JTable data
-//            fs.showFileData(userTable, columns, "student.txt");
-//        });
-//        timer.start();
     }
 
     /**
@@ -53,6 +50,7 @@ public class StudentPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
+        importBtn = new javax.swing.JButton();
 
         studentPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -80,6 +78,13 @@ public class StudentPanel extends javax.swing.JPanel {
             }
         });
 
+        importBtn.setText("Import Excel Data");
+        importBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,22 +93,27 @@ public class StudentPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(importBtn))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(importBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-                    .addComponent(studentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(studentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,17 +139,28 @@ public class StudentPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
             JSONArray searchedArray = user.seachUser(searchValue, "student.txt");
-            fs.showFileData(userTable, columns, "student.txt", searchedArray);
+            fs.showFileData(userTable, columns, "student.txt", searchedArray,1);
 
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 
+    private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
+        // TODO add your handling code here:
+        ExcelController excelController = new ExcelController();
+        try {
+            excelController.processExcelFile("/com/mycompany/projectmanagement/excel/student.xlsx", "student.txt", "student");
+            fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "File not found", "File Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_importBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
     public static com.mycompany.projectmanagement.gui.panel.StudentForm studentPanel;

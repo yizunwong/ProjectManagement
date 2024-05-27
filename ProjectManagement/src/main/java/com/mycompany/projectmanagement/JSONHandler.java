@@ -6,9 +6,12 @@ package com.mycompany.projectmanagement;
 
 import com.mycompany.projectmanagement.FileController.Assessment;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,7 +108,7 @@ public class JSONHandler {
         }
     }
 
-    public JSONObject toJSONObject(String[] keys, String[] content) {
+    public static JSONObject toJSONObject(String[] keys, String[] content) {
         Map<String, String> userData = new LinkedHashMap<>(); // Use LinkedHashMap here
 
         for (int i = 0; i < keys.length; i++) {
@@ -141,8 +144,6 @@ public class JSONHandler {
             modulesArray.put(moduleObject);
         }
 
-        System.out.println(modulesArray);
-
         return modulesArray;
     }
 
@@ -166,6 +167,105 @@ public class JSONHandler {
             secondArray.put(newObj);
         }
         return secondArray;
+    }
+
+    public static JSONObject treeToJson(DefaultMutableTreeNode root) {
+        JSONArray areasArray = new JSONArray();
+        Enumeration<TreeNode> areaNodes = root.children();
+        while (areaNodes.hasMoreElements()) {
+            DefaultMutableTreeNode areaNode = (DefaultMutableTreeNode) areaNodes.nextElement();
+            JSONObject areaJson = createAreaJson(areaNode);
+            areasArray.put(areaJson);
+        }
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("areas", areasArray);
+        FileController.FileService fs = new FileController.FileService();
+        fs.write(resultJson, "course.txt", false);
+        return resultJson;
+    }
+
+    private static JSONObject createAreaJson(DefaultMutableTreeNode areaNode) {
+        JSONObject areaJson = new JSONObject();
+        areaJson.put("area", areaNode.getUserObject().toString());
+        areaJson.put("programs", createProgramsJson(areaNode));
+        areaJson.put("intake_dates", createIntakeDatesJson(areaNode));
+        return areaJson;
+    }
+
+    private static JSONObject createProgramsJson(DefaultMutableTreeNode areaNode) {
+        JSONObject programsJson = new JSONObject();
+        Enumeration<TreeNode> programTypeNodes = areaNode.children();
+        while (programTypeNodes.hasMoreElements()) {
+            DefaultMutableTreeNode programTypeNode = (DefaultMutableTreeNode) programTypeNodes.nextElement();
+            String programType = programTypeNode.getUserObject().toString();
+            programsJson.put(programType, createProgramArray(programTypeNode));
+        }
+        return programsJson;
+    }
+
+    private static JSONArray createProgramArray(DefaultMutableTreeNode programTypeNode) {
+        JSONArray programArray = new JSONArray();
+        Enumeration<TreeNode> programNodes = programTypeNode.children();
+        while (programNodes.hasMoreElements()) {
+            DefaultMutableTreeNode programNode = (DefaultMutableTreeNode) programNodes.nextElement();
+            if ("Intake Dates".equals(programNode.getUserObject().toString())) {
+                continue; // Intake Dates handled separately
+            }
+            programArray.put(createProgramJson(programNode));
+        }
+        return programArray;
+    }
+
+    private static JSONObject createProgramJson(DefaultMutableTreeNode programNode) {
+        JSONObject programJson = new JSONObject();
+        programJson.put("name", programNode.getUserObject().toString());
+        Enumeration<TreeNode> programDetailNodes = programNode.children();
+        while (programDetailNodes.hasMoreElements()) {
+            DefaultMutableTreeNode detailNode = (DefaultMutableTreeNode) programDetailNodes.nextElement();
+            if ("Course ID".equals(detailNode.getUserObject().toString())) {
+                programJson.put("id", detailNode.getFirstChild().toString());
+            } else if ("Modules".equals(detailNode.getUserObject().toString())) {
+                programJson.put("modules", createModulesArray(detailNode));
+            }
+        }
+        return programJson;
+    }
+
+    private static JSONArray createModulesArray(DefaultMutableTreeNode detailNode) {
+        JSONArray modulesArray = new JSONArray();
+        Enumeration<TreeNode> moduleNodes = detailNode.children();
+        while (moduleNodes.hasMoreElements()) {
+            DefaultMutableTreeNode moduleNode = (DefaultMutableTreeNode) moduleNodes.nextElement();
+            modulesArray.put(moduleNode.getUserObject().toString());
+        }
+        return modulesArray;
+    }
+
+    private static JSONObject createIntakeDatesJson(DefaultMutableTreeNode areaNode) {
+        JSONObject intakeDatesJson = new JSONObject();
+        Enumeration<TreeNode> programTypeNodes = areaNode.children();
+        while (programTypeNodes.hasMoreElements()) {
+            DefaultMutableTreeNode programTypeNode = (DefaultMutableTreeNode) programTypeNodes.nextElement();
+            Enumeration<TreeNode> programNodes = programTypeNode.children();
+            while (programNodes.hasMoreElements()) {
+                DefaultMutableTreeNode programNode = (DefaultMutableTreeNode) programNodes.nextElement();
+                if ("Intake Dates".equals(programNode.getUserObject().toString())) {
+                    String programType = programTypeNode.getUserObject().toString();
+                    intakeDatesJson.put(programType, createIntakeDatesArray(programNode));
+                }
+            }
+        }
+        return intakeDatesJson;
+    }
+
+    private static JSONArray createIntakeDatesArray(DefaultMutableTreeNode programNode) {
+        JSONArray intakeDatesArray = new JSONArray();
+        Enumeration<TreeNode> dateNodes = programNode.children();
+        while (dateNodes.hasMoreElements()) {
+            DefaultMutableTreeNode dateNode = (DefaultMutableTreeNode) dateNodes.nextElement();
+            intakeDatesArray.put(dateNode.getUserObject().toString());
+        }
+        return intakeDatesArray;
     }
 
 }

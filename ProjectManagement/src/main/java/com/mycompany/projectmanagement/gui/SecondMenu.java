@@ -5,7 +5,6 @@
 package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
-import static com.mycompany.projectmanagement.gui.MainMenu.jTabbedPane1;
 import com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel;
 import com.mycompany.projectmanagement.gui.panel.PieChart;
 import com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard;
@@ -18,12 +17,14 @@ import java.util.ArrayList;
 public class SecondMenu extends javax.swing.JFrame {
 
     private final ArrayList<PieChart.PieChartData> pieChartData;
+    private final FileController.FileService fs;
 
     /**
      * Creates new form MainMenu
      */
     public SecondMenu() {
         initComponents();
+        this.fs = new FileController.FileService();
         this.pieChartData = new ArrayList<>();
         pieChartData.add(new PieChart.PieChartData("Type Percentage", "assessment.txt", "assessment_type",
                 new String[]{"Internship Report", "Investigation Report", "CP1", "CP2", "RMCP", "FYP"}));
@@ -31,8 +32,6 @@ public class SecondMenu extends javax.swing.JFrame {
                 new String[]{"In Progress", "Submitted", "Late", "Under Review", "Completed"}));
         porjectManagerDashboard1.pieChart1.setData(pieChartData);
         porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData);
-
-//        setExtendedState(MainMenu.MAXIMIZED_BOTH);
     }
 
     /**
@@ -123,16 +122,14 @@ public class SecondMenu extends javax.swing.JFrame {
     private void manageAssessmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAssessmentBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(1);
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(AssignAssessmentPanel.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null);
+        fs.showFileData(AssignAssessmentPanel.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
     }//GEN-LAST:event_manageAssessmentBtnActionPerformed
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         jTabbedPane1.setSelectedIndex(0);
         porjectManagerDashboard1.initialCard();
         porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData);
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null);
+        fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
 
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
