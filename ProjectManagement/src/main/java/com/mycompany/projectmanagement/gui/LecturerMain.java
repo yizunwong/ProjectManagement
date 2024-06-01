@@ -8,6 +8,8 @@ import java.awt.Color;
 
 public class LecturerMain extends javax.swing.JFrame {
 
+    int mouseX, mouseY;
+
     public LecturerMain() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -28,7 +30,6 @@ public class LecturerMain extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         lecturerDashboardList2 = new com.mycompany.projectmanagement.gui.panel.LecturerDashboardList();
         verifyBookingList1 = new com.mycompany.projectmanagement.gui.panel.VerifyBookingList();
@@ -36,11 +37,20 @@ public class LecturerMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1720, 851));
 
         lecturerPanelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         lecturerPanelBorder1.setForeground(new java.awt.Color(255, 255, 255));
         lecturerPanelBorder1.setPreferredSize(new java.awt.Dimension(1720, 700));
+        lecturerPanelBorder1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                lecturerPanelBorder1MouseDragged(evt);
+            }
+        });
+        lecturerPanelBorder1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lecturerPanelBorder1MousePressed(evt);
+            }
+        });
 
         jButton1.setText("DashBoard");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -70,13 +80,6 @@ public class LecturerMain extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("View Presentation");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout lecturerMenu1Layout = new javax.swing.GroupLayout(lecturerMenu1);
         lecturerMenu1.setLayout(lecturerMenu1Layout);
         lecturerMenu1Layout.setHorizontalGroup(
@@ -85,7 +88,6 @@ public class LecturerMain extends javax.swing.JFrame {
             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         lecturerMenu1Layout.setVerticalGroup(
             lecturerMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,9 +98,7 @@ public class LecturerMain extends javax.swing.JFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(125, 125, 125)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(355, Short.MAX_VALUE))
         );
@@ -165,9 +165,14 @@ public class LecturerMain extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jTabbedPane1.setSelectedIndex(3);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void lecturerPanelBorder1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lecturerPanelBorder1MousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_lecturerPanelBorder1MousePressed
+
+    private void lecturerPanelBorder1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lecturerPanelBorder1MouseDragged
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+    }//GEN-LAST:event_lecturerPanelBorder1MouseDragged
 
     /**
      * @param args the command line arguments
@@ -209,7 +214,6 @@ public class LecturerMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.mycompany.projectmanagement.gui.panel.LecturerDashboardList lecturerDashboardList2;
     private com.mycompany.projectmanagement.gui.LecturerMenu lecturerMenu1;

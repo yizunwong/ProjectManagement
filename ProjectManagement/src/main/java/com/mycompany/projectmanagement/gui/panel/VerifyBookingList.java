@@ -6,6 +6,8 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
+import java.awt.event.KeyEvent;
+import org.json.JSONArray;
 
 
 public class VerifyBookingList extends javax.swing.JPanel {
@@ -33,7 +35,7 @@ public class VerifyBookingList extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         PresentationTable = new javax.swing.JTable();
-        VerifyBookingField = new javax.swing.JTextField();
+        SearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         BookingTable = new javax.swing.JTable();
         verifyBookingPanel2 = new com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel();
@@ -51,9 +53,14 @@ public class VerifyBookingList extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(PresentationTable);
 
-        VerifyBookingField.addActionListener(new java.awt.event.ActionListener() {
+        SearchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerifyBookingFieldActionPerformed(evt);
+                SearchFieldActionPerformed(evt);
+            }
+        });
+        SearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SearchFieldKeyPressed(evt);
             }
         });
 
@@ -85,7 +92,7 @@ public class VerifyBookingList extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(VerifyBookingField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -99,7 +106,7 @@ public class VerifyBookingList extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(VerifyBookingField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(verifyBookingPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -108,9 +115,9 @@ public class VerifyBookingList extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void VerifyBookingFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerifyBookingFieldActionPerformed
+    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
        
-    }//GEN-LAST:event_VerifyBookingFieldActionPerformed
+    }//GEN-LAST:event_SearchFieldActionPerformed
 
     private void BookingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BookingTableMouseClicked
         int rowIndex = BookingTable.getSelectedRow(); // Get the selected row index
@@ -130,11 +137,23 @@ public class VerifyBookingList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_BookingTableMouseClicked
 
+    private void SearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String searchValue = SearchField.getText();
+            System.out.println(searchValue);
+            FileController.FileService fs = new FileController.FileService();
+            UserController.User user = userController.new User();
+            JSONArray searchedArray = user.seachUser(searchValue, "Request.txt");
+            fs.showFileData(VerifyBookingList.BookingTable, VerifyBookingList.columns, "Request.txt", searchedArray,0);
+            System.out.println(searchedArray);
+        }
+    }//GEN-LAST:event_SearchFieldKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable BookingTable;
     public static javax.swing.JTable PresentationTable;
-    private javax.swing.JTextField VerifyBookingField;
+    private javax.swing.JTextField SearchField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel verifyBookingPanel2;
