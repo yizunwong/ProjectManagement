@@ -1091,9 +1091,20 @@ public interface FileController {
             this.feedback = feedback;
         }
 
-        public String[] getSubmission() {
+        public String[] getMarking() {
             String[] submission = {Rid, student_id, assessment_type, supervisor, second_marker, due_date, module, filepath, mark, grade, feedback};
             return submission;
+        }
+
+        public void saveFile(String fileName) {
+            FileController.FileService fs = new FileController.FileService();
+            JSONObject jsonObj = toJSONObject(keys, getMarking());
+            fs.write(jsonObj, fileName, true);
+        }
+
+        public void updateFile(String presentationtxt, String[] marking) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(presentationtxt, keys, marking, "ID");
         }
 
     }

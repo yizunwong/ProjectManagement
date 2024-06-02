@@ -123,6 +123,7 @@ com\mycompany\projectmanagement\gui\panel\VerifyBookingList.class
 com\mycompany\projectmanagement\gui\SecondMenu$1.class
 com\mycompany\projectmanagement\gui\panel\LecturerPanel$3.class
 com\mycompany\projectmanagement\gui\panel\AccountForm$1.class
+com\mycompany\projectmanagement\gui\panel\MarkList$2.class
 com\mycompany\projectmanagement\FileController$Submission.class
 com\mycompany\projectmanagement\gui\panel\SubmissionPanel$3.class
 com\mycompany\projectmanagement\gui\MainMenu$7.class
@@ -158,6 +159,7 @@ com\mycompany\projectmanagement\gui\ChangePasswordForm$2.class
 com\mycompany\projectmanagement\gui\LecturerMain.class
 com\mycompany\projectmanagement\gui\panel\LecturerForm$6.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel.class
+com\mycompany\projectmanagement\gui\panel\MarkList$3.class
 com\mycompany\projectmanagement\gui\panel\VerifyBookingPanel$1.class
 com\mycompany\projectmanagement\FileController$Course.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$7.class
