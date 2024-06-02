@@ -7,34 +7,42 @@ package com.mycompany.projectmanagement;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author yizun
  */
-public class test {
+import javax.swing.*;
 
-    public void main(String[] args) {
-        viewFile();
+public class test {
+    private JFrame frame;
+
+    public test() {
+        // Create the frame
+        frame = new JFrame("No Title Bar Window Example");
+        frame.setSize(300, 200);
+
+        // Set undecorated property to true to remove title bar
+        frame.setUndecorated(true);
+
+        // Set close operation
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Add some content
+        JLabel label = new JLabel("This is a window without a title bar!");
+        frame.add(label);
+
+        // Make the window visible
+        frame.setVisible(true);
     }
 
-    private void viewFile() {
-        String filePath = "C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\Respository\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\images.jpg";
-        File file = new File(filePath);
-
-        if (file.exists()) {
-            try {
-                if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(file);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Desktop is not supported. Cannot open the file.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Error opening file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new test();
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "File does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        });
     }
 }

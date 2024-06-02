@@ -19,6 +19,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private final ArrayList<PieChart.PieChartData> pieChartData;
     private final FileController.FileService fs;
+    int mouseX, mouseY;
 
     /**
      * Creates new form MainMenu
@@ -32,8 +33,7 @@ public class MainMenu extends javax.swing.JFrame {
         pieChartData.add(new PieChart.PieChartData("Student Gender Percentage", "student.txt", "Gender", new String[]{"Male", "Female"}));
         adminDashboard1.pieChart1.setData(pieChartData);
         adminDashboard1.pieChart1.refreshPieChart(pieChartData);
-        
-        
+
     }
 
     /**
@@ -60,9 +60,20 @@ public class MainMenu extends javax.swing.JFrame {
         dashboarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header1.setBackground(new java.awt.Color(51, 51, 51));
+        header1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header1MouseDragged(evt);
+            }
+        });
+        header1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header1MousePressed(evt);
+            }
+        });
         getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1770, -1));
 
         jTabbedPane1.addTab("tab4", adminDashboard1);
@@ -197,6 +208,17 @@ public class MainMenu extends javax.swing.JFrame {
         adminDashboard1.pieChart1.refreshPieChart(pieChartData);
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null, 1);
     }//GEN-LAST:event_dashboarBtnActionPerformed
+
+    private void header1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MouseDragged
+        // TODO add your handling code here:
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+    }//GEN-LAST:event_header1MouseDragged
+
+    private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed
+        // TODO add your handling code here:
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_header1MousePressed
 
     /**
      * @param args the command line arguments

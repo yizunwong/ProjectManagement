@@ -6,7 +6,6 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.FileController.Marking;
-import com.mycompany.projectmanagement.UserController;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -35,12 +34,10 @@ public class MarkPanel extends javax.swing.JPanel {
     private String mark;
     private String grade;
     private String feedback;
-    private final UserController userController;
 
     public MarkPanel() {
         initComponents();
         initializeComboBox();
-        this.userController = new UserController();
     }
 
     private void initializeComboBox() {
@@ -329,25 +326,11 @@ public class MarkPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ViewBtnActionPerformed
 
     private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBtnActionPerformed
-        Marking marking = new Marking();
-        UserController.User user = userController.new User();
-
-        getFieldData();
-        setFieldData(marking);
-        marking.saveFile("Marking.txt");
-
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(MarkList.MarkingTable, MarkList.columns, "Marking.txt", null,0);
+        // TODO add your handling code here:
     }//GEN-LAST:event_SubmitBtnActionPerformed
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
-        Marking marking = new Marking();
-        getFieldData();
-        setFieldData(marking);
-        marking.updateFile("Marking.txt", marking.getMarking());
-
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(MarkList.MarkingTable, MarkList.columns, "Marking.txt", null,0);
+        // TODO add your handling code here:
     }//GEN-LAST:event_UpdateBtnActionPerformed
 
 

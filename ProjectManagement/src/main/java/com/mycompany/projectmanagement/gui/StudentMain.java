@@ -8,8 +8,6 @@ import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.gui.panel.RequestDateList;
 import com.mycompany.projectmanagement.gui.panel.StudentDashboardList;
 import com.mycompany.projectmanagement.gui.panel.SubmissionList;
-import static com.mycompany.projectmanagement.gui.panel.SubmissionList.SubmissionTable;
-import static com.mycompany.projectmanagement.gui.panel.SubmissionList.columns;
 import java.awt.Color;
 
 /**
@@ -22,7 +20,6 @@ public class StudentMain extends javax.swing.JFrame {
     
     public StudentMain() {
         initComponents();
-        setBackground(new Color(0, 0, 0, 0));
         FileController.FileService fs = new FileController.FileService();
         fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null,0);
         fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null,0);
@@ -212,29 +209,12 @@ public class StudentMain extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(studentPanelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(studentPanelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null,0);
-        fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null,0);
-        jTabbedPane3.setSelectedIndex(0);
-//        SubmissionTable.revalidate();
-//        SubmissionTable.repaint();
-    }//GEN-LAST:event_Btn1ActionPerformed
-
-    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
-        jTabbedPane3.setSelectedIndex(1);
-    }//GEN-LAST:event_Btn2ActionPerformed
-
-    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
-        jTabbedPane3.setSelectedIndex(2);
-    }//GEN-LAST:event_Btn3ActionPerformed
 
     private void Btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn4ActionPerformed
         LoginForm loginForm = new LoginForm();
@@ -242,14 +222,31 @@ public class StudentMain extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Btn4ActionPerformed
 
-    private void studentPanelBorder1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MouseDragged
-        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
-    }//GEN-LAST:event_studentPanelBorder1MouseDragged
+    private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
+        jTabbedPane3.setSelectedIndex(2);
+    }//GEN-LAST:event_Btn3ActionPerformed
+
+    private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
+        jTabbedPane3.setSelectedIndex(1);
+    }//GEN-LAST:event_Btn2ActionPerformed
+
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        FileController.FileService fs = new FileController.FileService();
+        fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null,0);
+        fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null,0);
+        jTabbedPane3.setSelectedIndex(0);
+        //        SubmissionTable.revalidate();
+        //        SubmissionTable.repaint();
+    }//GEN-LAST:event_Btn1ActionPerformed
 
     private void studentPanelBorder1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MousePressed
         mouseX = evt.getX();
         mouseY = evt.getY();
     }//GEN-LAST:event_studentPanelBorder1MousePressed
+
+    private void studentPanelBorder1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MouseDragged
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+    }//GEN-LAST:event_studentPanelBorder1MouseDragged
 
     /**
      * @param args the command line arguments

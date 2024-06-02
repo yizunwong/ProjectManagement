@@ -4,11 +4,6 @@
  */
 package com.mycompany.projectmanagement.gui.panel;
 
-import com.mycompany.projectmanagement.FileController;
-import static com.mycompany.projectmanagement.gui.panel.RequestDateList.BookingTable;
-import static com.mycompany.projectmanagement.gui.panel.SubmissionList.SubmissionTable;
-import static com.mycompany.projectmanagement.gui.panel.SubmissionList.columns;
-
 /**
  *
  * @author Asus

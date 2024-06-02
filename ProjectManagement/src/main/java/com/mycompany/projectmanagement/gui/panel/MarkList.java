@@ -5,9 +5,6 @@
 package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.UserController;
-import java.awt.event.KeyEvent;
-import org.json.JSONArray;
 
 /**
  *
@@ -16,14 +13,11 @@ import org.json.JSONArray;
 public class MarkList extends javax.swing.JPanel {
 
     public final static String[] columns = {"ID", "student_id", "assessment_type", "module", "supervisor", "second_marker", "due_date", "file_path", "mark", "grade", "feedback"};
-    public UserController userController;
     
     public MarkList() {
         initComponents();
-        this.userController =  new UserController();
         FileController.FileService fs = new FileController.FileService();
         fs.showFileData(SubmissionTable, columns, "Report.txt", null,0);
-        fs.showFileData(MarkingTable, columns, "Marking.txt", null,0);
     }
 
     /**
@@ -39,7 +33,7 @@ public class MarkList extends javax.swing.JPanel {
         MarkingTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         SubmissionTable = new javax.swing.JTable();
-        SearchField = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         markPanel1 = new com.mycompany.projectmanagement.gui.panel.MarkPanel();
 
         MarkingTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -53,11 +47,6 @@ public class MarkList extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        MarkingTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MarkingTableMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(MarkingTable);
 
         SubmissionTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -78,12 +67,6 @@ public class MarkList extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(SubmissionTable);
 
-        SearchField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                SearchFieldKeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,7 +74,7 @@ public class MarkList extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -105,7 +88,7 @@ public class MarkList extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(markPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -132,43 +115,13 @@ public class MarkList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_SubmissionTableMouseClicked
 
-    private void SearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String searchValue = SearchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
-            UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "Report.txt");
-            fs.showFileData(MarkList.SubmissionTable, MarkList.columns, "Report.txt", searchedArray,0);
-            System.out.println(searchedArray);
-        }
-    }//GEN-LAST:event_SearchFieldKeyPressed
-
-    private void MarkingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MarkingTableMouseClicked
-        int SelectedRow = MarkingTable.getSelectedRow(); // Get the selected row index
-        // Ensure a valid row is selected
-        if (SelectedRow != -1) {
-            int columnCount = MarkingTable.getColumnCount(); // Get the number of columns
-
-            // Retrieve data from the table model for the clicked row
-            Object[] rowData = new Object[columnCount];
-            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-                rowData[columnIndex] = MarkingTable.getModel().getValueAt(SelectedRow, columnIndex);
-            }
-
-            // Pass the data to the edit form
-            markPanel1.setMarkingData(rowData);
-
-        }
-    }//GEN-LAST:event_MarkingTableMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTable MarkingTable;
-    private javax.swing.JTextField SearchField;
-    public static javax.swing.JTable SubmissionTable;
+    private javax.swing.JTable MarkingTable;
+    private javax.swing.JTable SubmissionTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private com.mycompany.projectmanagement.gui.panel.MarkPanel markPanel1;
     // End of variables declaration//GEN-END:variables
 }
