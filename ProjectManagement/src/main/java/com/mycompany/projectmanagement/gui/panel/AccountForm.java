@@ -191,7 +191,7 @@ public class AccountForm extends javax.swing.JPanel {
             if (errors.isEmpty()) {
                 account.setId(id);
                 account.setRole(account.role);
-                account.updateFile("account.txt", account.getAccount());
+                account.updateTextFile("account.txt");
 
                 JOptionPane.showMessageDialog(null, "Data update successfully");
                 FileController.FileService fs = new FileController.FileService();

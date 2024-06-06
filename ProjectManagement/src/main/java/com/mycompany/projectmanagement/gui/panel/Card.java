@@ -45,7 +45,7 @@ public class Card extends javax.swing.JPanel {
         color2 = Color.WHITE;
     }
 
-    public void setData(Model_Card data) {
+    public void setData(ModelCard data) {
         lbIcon.setIcon(data.getIcon());
         lbTitle.setText(data.getTitle());
         lbValues.setText(data.getValues());

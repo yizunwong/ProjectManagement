@@ -20,7 +20,7 @@ public class SecondMenu extends javax.swing.JFrame {
     private final FileController.FileService fs;
 
     /**
-     * Creates new form MainMenu
+     * Creates new form AdminMenu
      */
     public SecondMenu() {
         initComponents();
@@ -30,8 +30,8 @@ public class SecondMenu extends javax.swing.JFrame {
                 new String[]{"Internship Report", "Investigation Report", "CP1", "CP2", "RMCP", "FYP"}));
         pieChartData.add(new PieChart.PieChartData("Status Percentage", "assessment.txt", "status",
                 new String[]{"In Progress", "Submitted", "Late", "Under Review", "Completed"}));
-        porjectManagerDashboard1.pieChart1.setData(pieChartData);
-        porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData);
+        porjectManagerDashboard1.pieChart1.setData(pieChartData, null);
+        porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData, null);
     }
 
     /**
@@ -46,10 +46,10 @@ public class SecondMenu extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         porjectManagerDashboard1 = new com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard();
         assignAssessmentPanel2 = new com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel();
-        jPanel2 = new javax.swing.JPanel();
+        studentMenu2 = new com.mycompany.projectmanagement.gui.StudentMenu();
         dashboardBtn = new javax.swing.JButton();
         manageAssessmentBtn = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        signoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -57,10 +57,9 @@ public class SecondMenu extends javax.swing.JFrame {
         jTabbedPane1.addTab("tab2", porjectManagerDashboard1);
         jTabbedPane1.addTab("tab1", assignAssessmentPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 1610, 900));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 1610, 900));
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        studentMenu2.setPreferredSize(new java.awt.Dimension(200, 672));
 
         dashboardBtn.setText("Dashboard");
         dashboardBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -76,48 +75,44 @@ public class SecondMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Sign Out");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        signoutBtn.setText("Sign Out");
+        signoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                signoutBtnActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(manageAssessmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dashboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+        javax.swing.GroupLayout studentMenu2Layout = new javax.swing.GroupLayout(studentMenu2);
+        studentMenu2.setLayout(studentMenu2Layout);
+        studentMenu2Layout.setHorizontalGroup(
+            studentMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(manageAssessmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(signoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(dashboardBtn)
-                .addGap(18, 18, 18)
-                .addComponent(manageAssessmentBtn)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addContainerGap(638, Short.MAX_VALUE))
+        studentMenu2Layout.setVerticalGroup(
+            studentMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(studentMenu2Layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(manageAssessmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(234, 234, 234)
+                .addComponent(signoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(402, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 900));
+        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 900));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        LoginForm loginForm = new LoginForm();
-        loginForm.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
+        jTabbedPane1.setSelectedIndex(0);
+        porjectManagerDashboard1.initialCard();
+        porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData, null);
+        fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
+    }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void manageAssessmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAssessmentBtnActionPerformed
         // TODO add your handling code here:
@@ -125,13 +120,11 @@ public class SecondMenu extends javax.swing.JFrame {
         fs.showFileData(AssignAssessmentPanel.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
     }//GEN-LAST:event_manageAssessmentBtnActionPerformed
 
-    private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
-        jTabbedPane1.setSelectedIndex(0);
-        porjectManagerDashboard1.initialCard();
-        porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData);
-        fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
-
-    }//GEN-LAST:event_dashboardBtnActionPerformed
+    private void signoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signoutBtnActionPerformed
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_signoutBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,10 +165,10 @@ public class SecondMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel assignAssessmentPanel2;
     private javax.swing.JButton dashboardBtn;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JPanel jPanel2;
     public static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton manageAssessmentBtn;
     private com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard porjectManagerDashboard1;
+    private javax.swing.JButton signoutBtn;
+    private com.mycompany.projectmanagement.gui.StudentMenu studentMenu2;
     // End of variables declaration//GEN-END:variables
 }

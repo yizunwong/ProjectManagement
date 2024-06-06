@@ -25,11 +25,11 @@ public class Validator {
     );
 
     private static final Pattern SPECIFIC_PASSWORD_PATTERN = Pattern.compile(
-            "^TP\\d{1,4}@\\d{4}$"
+             "^(TP|LC)\\d{1,4}@\\d{4}$"
     );
 
     private static final Pattern DEFAULT_PASSWORD_PATTERN = Pattern.compile(
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$"
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!?]).{8,}$"
     );
 
     private static final Pattern IC_PATTERN = Pattern.compile(

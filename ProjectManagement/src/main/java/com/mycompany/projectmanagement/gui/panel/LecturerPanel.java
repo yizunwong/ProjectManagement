@@ -20,7 +20,7 @@ import org.json.JSONArray;
 public class LecturerPanel extends javax.swing.JPanel {
 
     public final static String[] columns = {"ID", "Name", "IC",
-        "Phone.no", "Gender", "Country", "Address", "Email", "Birth Date",
+        "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
         "Department", "Education", "ImagePath"};
     public String fileName;
     private final UserController userController;
@@ -35,7 +35,7 @@ public class LecturerPanel extends javax.swing.JPanel {
 
     public void setFile(String fileName) {
         this.fileName = fileName;
-        lecturerPanel1.setFile(fileName);
+        lecturerForm.setFile(fileName);
 
     }
 
@@ -50,9 +50,9 @@ public class LecturerPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        lecturerPanel1 = new com.mycompany.projectmanagement.gui.panel.LecturerForm();
         searchField = new javax.swing.JTextField();
         importBtn = new javax.swing.JButton();
+        lecturerForm = new com.mycompany.projectmanagement.gui.panel.LecturerForm();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,8 +72,6 @@ public class LecturerPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(userTable);
 
-        lecturerPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchFieldKeyPressed(evt);
@@ -87,6 +85,8 @@ public class LecturerPanel extends javax.swing.JPanel {
             }
         });
 
+        lecturerForm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,12 +97,12 @@ public class LecturerPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lecturerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lecturerForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(importBtn)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +113,7 @@ public class LecturerPanel extends javax.swing.JPanel {
                     .addComponent(importBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lecturerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lecturerForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -132,11 +132,11 @@ public class LecturerPanel extends javax.swing.JPanel {
             }
 
             // Pass the data to the edit form
-            lecturerPanel1.setData(rowData);
+            lecturerForm.setData(rowData);
             if (fileName.equalsIgnoreCase("lecturer.txt")) {
-                lecturerPanel1.setFile("lecturer.txt");
+                lecturerForm.setFile("lecturer.txt");
             } else {
-                lecturerPanel1.setFile("project_manager.txt");
+                lecturerForm.setFile("project_manager.txt");
 
             }
         }
@@ -168,7 +168,7 @@ public class LecturerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    public static com.mycompany.projectmanagement.gui.panel.LecturerForm lecturerPanel1;
+    private com.mycompany.projectmanagement.gui.panel.LecturerForm lecturerForm;
     private javax.swing.JTextField searchField;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables

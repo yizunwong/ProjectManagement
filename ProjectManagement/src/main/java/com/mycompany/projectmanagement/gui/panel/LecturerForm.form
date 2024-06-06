@@ -75,7 +75,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="addressField" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="countryComboBox" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="stateComboBox" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -140,7 +140,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="countryLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="countryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="stateComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -226,7 +226,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="countryLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Country :"/>
+        <Property name="text" type="java.lang.String" value="State :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="fileUploadBtn">
@@ -282,7 +282,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="countryComboBox">
+    <Component class="javax.swing.JComboBox" name="stateComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">

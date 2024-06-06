@@ -3,19 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.projectmanagement.gui;
-
 /**
  *
  * @author yizun
  */
 public class testframe extends javax.swing.JFrame {
 
+
+
     /**
      * Creates new form testframe
      */
     public testframe() {
         initComponents();
+        
+
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,35 +30,25 @@ public class testframe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        studentPanelBorder1 = new com.mycompany.projectmanagement.gui.StudentPanelBorder();
+        pdfPreviewer1 = new com.mycompany.projectmanagement.gui.panel.PdfPreviewer();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        javax.swing.GroupLayout studentPanelBorder1Layout = new javax.swing.GroupLayout(studentPanelBorder1);
-        studentPanelBorder1.setLayout(studentPanelBorder1Layout);
-        studentPanelBorder1Layout.setHorizontalGroup(
-            studentPanelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        studentPanelBorder1Layout.setVerticalGroup(
-            studentPanelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(studentPanelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 472, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pdfPreviewer1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(420, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(studentPanelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 372, Short.MAX_VALUE))
+                .addComponent(pdfPreviewer1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 135, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,12 +85,12 @@ public class testframe extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new testframe().setVisible(true);
-                
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.gui.StudentPanelBorder studentPanelBorder1;
+    private com.mycompany.projectmanagement.gui.panel.PdfPreviewer pdfPreviewer1;
     // End of variables declaration//GEN-END:variables
 }

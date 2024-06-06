@@ -35,9 +35,9 @@ public class AdminDashboard extends javax.swing.JPanel {
         UserController.User user = userController.new User();
         String total_member = user.countTotalUser();
         String[] status = {"In Progress"};
-        HashMap<String, Integer> assessment = fs.countOccurrences("assessment.txt", "status", status);
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Total Member", total_member, "Registered account"));
-        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Total Project", assessment.get("In Progress").toString(), "Project that is active"));
+        HashMap<String, Integer> assessment = fs.countOccurrences("assessment.txt", "status", status, null);
+        card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Total Member", total_member, "Registered account"));
+        card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Total Project", assessment.get("In Progress").toString(), "Project that is active"));
     }
 
     /**

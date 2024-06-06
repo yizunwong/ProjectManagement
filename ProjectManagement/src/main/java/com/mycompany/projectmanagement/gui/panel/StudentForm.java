@@ -6,10 +6,8 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.FileController.Assessment;
-import com.mycompany.projectmanagement.FileController.Country;
 import com.mycompany.projectmanagement.FileController.Course;
-import com.mycompany.projectmanagement.FileController.ImageController;
-import static com.mycompany.projectmanagement.JSONHandler.toJSONObject;
+import com.mycompany.projectmanagement.FileController.State;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.UserController.Account;
 import com.mycompany.projectmanagement.UserController.Student;
@@ -26,9 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import org.json.JSONObject;
 
 /**
  *
@@ -36,14 +32,13 @@ import org.json.JSONObject;
  */
 public class StudentForm extends javax.swing.JPanel {
 
-    private String name, parent_name, ic, phone, gender, country, address, email, intake_date, id, formattedDate, course_id;
+    private String name, parent_name, ic, phone, gender, state, address, email, intake_date, id, formattedDate, course_id;
     private Date dob;
     private File imagePath;
     private String[] courses, modules;
     private String selectedCourse;
     public String entry_level;
     private final UserController userController;
-    private final String projectDirectory;
     private File selectedFile;
     private final FileController.FileService fs;
 
@@ -51,8 +46,7 @@ public class StudentForm extends javax.swing.JPanel {
      * Creates new form EditPanel
      */
     public StudentForm() {
-        this.projectDirectory = System.getProperty("user.dir");
-        this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
+        this.imagePath = new File("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
         this.entry_level = "default";
         initComponents();
         initializeCountryComboBox();
@@ -64,15 +58,9 @@ public class StudentForm extends javax.swing.JPanel {
     }
 
     private void initializeCountryComboBox() {
-        Country cr = new Country();
-        String[] countries = cr.getAllCountries();
-        countryComboBox.setModel(new DefaultComboBoxModel<>(countries));
-    }
-
-    private void updateAvatarImageIcon(File filePath) {
-        ImageController imageController = new ImageController();
-        ImageIcon scaledIcon = imageController.getImageIcon(filePath);
-        avatarImageIcon.setIcon(scaledIcon);
+        State st = new State();
+        String[] states = st.getStates();
+        stateComboBox.setModel(new DefaultComboBoxModel<>(states));
     }
 
     public void setData(Object[] rowData) {
@@ -86,7 +74,7 @@ public class StudentForm extends javax.swing.JPanel {
         } else {
             femaleBtn.setSelected(true);
         }
-        countryComboBox.setSelectedItem(rowData[6].toString());
+        stateComboBox.setSelectedItem(rowData[6].toString());
         addressField.setText(rowData[7].toString());
         emailField.setText(rowData[8].toString());
         try {
@@ -102,7 +90,7 @@ public class StudentForm extends javax.swing.JPanel {
         courseComboBox.setSelectedItem(rowData[11].toString());
         intakeComboBox.setSelectedItem(rowData[12].toString());
         this.imagePath = new File(rowData[13].toString());
-        updateAvatarImageIcon(imagePath);
+        UserController.User.updateAvatarImageIcon(imagePath, avatarImageIcon);
 
     }
 
@@ -113,7 +101,7 @@ public class StudentForm extends javax.swing.JPanel {
         icField.setText("");
         phoneField.setText("");
         maleBtn.setSelected(true);
-        countryComboBox.setSelectedItem("Andorra");
+        stateComboBox.setSelectedItem("Andorra");
         addressField.setText("");
         emailField.setText("");
         dobChooser.setDate(null);
@@ -121,8 +109,8 @@ public class StudentForm extends javax.swing.JPanel {
         courseComboBox.setSelectedItem("-");
         intakeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"-"}));
 
-        this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
-        updateAvatarImageIcon(imagePath);
+        this.imagePath = new File("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
+        UserController.User.updateAvatarImageIcon(imagePath, avatarImageIcon);
 
     }
 
@@ -132,7 +120,7 @@ public class StudentForm extends javax.swing.JPanel {
         ic = icField.getText().trim();
         phone = phoneField.getText().trim();
         parent_name = parentNameField.getText().trim();
-        country = countryComboBox.getSelectedItem().toString();
+        state = stateComboBox.getSelectedItem().toString();
         address = addressField.getText().trim();
         email = emailField.getText().trim();
         entry_level = entryLevelComboBox.getSelectedItem().toString();
@@ -164,17 +152,18 @@ public class StudentForm extends javax.swing.JPanel {
         student.setIc(ic);
         student.setPhone(phone);
         student.setGender(gender);
-        student.setCountry(country);
+        student.setState(state);
         student.setAddress(address);
         student.setEmail(email);
         student.setDob(formattedDate);
         student.setEntry_level(entry_level);
         student.setCourse(selectedCourse);
-        student.setImagePath(imagePath);
+        student.setFullPath(imagePath);
         student.setIntake_date(intake_date);
         if (idField.getText().trim().isEmpty()) {
             String newID = fs.generateUniqueId("student", "account.txt", "ID");
             student.setId(newID);
+            idField.setText(student.getID());
         } else {
             id = idField.getText().trim();
             student.setId(id);
@@ -192,7 +181,7 @@ public class StudentForm extends javax.swing.JPanel {
         validateString(parent_name, "Parent Name", errors);
         validateIC(ic, errors);
         validatePhone(phone, errors);
-        validateString(country, "Country", errors);
+        validateString(state, "State", errors);
         validateString(address, "Address", errors);
         validateEmail(email, errors);
         validateDate(dob, errors);
@@ -224,7 +213,7 @@ public class StudentForm extends javax.swing.JPanel {
         icLabel = new javax.swing.JLabel();
         entryLevelComboBox = new javax.swing.JComboBox<>();
         avatarImageIcon = new javax.swing.JLabel();
-        countryComboBox = new javax.swing.JComboBox<>();
+        stateComboBox = new javax.swing.JComboBox<>();
         genderLabel = new javax.swing.JLabel();
         addressField = new javax.swing.JTextField();
         courseComboBox = new javax.swing.JComboBox<>();
@@ -258,7 +247,7 @@ public class StudentForm extends javax.swing.JPanel {
         genderRadioGroup.add(maleBtn);
         maleBtn.setText("Male");
 
-        countryLabel.setText("Country :");
+        countryLabel.setText("State :");
 
         fileUploadBtn.setText("Upload");
         fileUploadBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +269,7 @@ public class StudentForm extends javax.swing.JPanel {
         avatarImageIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\default-avatar-icon-of-social-media-user-vector.jpg")); // NOI18N
         avatarImageIcon.setMaximumSize(new java.awt.Dimension(120, 120));
 
-        countryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        stateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         genderLabel.setText("Gender :");
 
@@ -352,18 +341,18 @@ public class StudentForm extends javax.swing.JPanel {
                         .addComponent(idLabel)
                         .addGap(18, 18, 18)
                         .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addComponent(avatarImageIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(230, 230, 230))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 3, Short.MAX_VALUE)
-                                .addComponent(icLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(phoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(genderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(parentNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(icLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -381,7 +370,7 @@ public class StudentForm extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(addressField)
-                                            .addComponent(countryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(stateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -435,7 +424,7 @@ public class StudentForm extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(countryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(countryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(parentNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -491,15 +480,14 @@ public class StudentForm extends javax.swing.JPanel {
         getFieldData();
         setFieldData(student, account, assessment);
         List<String> errors = validateField();
-        JSONObject jsonOBj = toJSONObject(student.keys, student.getStudent());
-        boolean alreadyExists = fs.checkExists("student.txt", jsonOBj);
+        boolean alreadyExists = fs.checkExists("student.txt", student.getStudent(),"ID");
         if (errors.isEmpty()) {
             if (!alreadyExists) {
-                student.saveFile("student.txt");
+                student.saveTextFile("student.txt");
                 account.setAccount("student");
-                account.saveFile("account.txt");
-                assessment.saveFile("assessment.txt", assessment);
-                student.saveImage(selectedFile);
+                account.saveTextFile("account.txt");
+                assessment.saveTextFile("assessment.txt", assessment);
+                student.saveFile(selectedFile);
             } else {
                 JOptionPane.showMessageDialog(null, "Data Exists", "Duplciate Data", JOptionPane.WARNING_MESSAGE);
 
@@ -509,16 +497,16 @@ public class StudentForm extends javax.swing.JPanel {
 
         }
 
-        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
+        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void fileUploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileUploadBtnActionPerformed
         // TODO add your handling code here:
         UserController.User user = userController.new User();
-        user.setUploadPath();
-        this.imagePath = user.getImagePath();
+        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\");
+        this.imagePath = user.getFullPath();
         this.selectedFile = user.getSelectedFile();
-        updateAvatarImageIcon(selectedFile);
+        UserController.User.updateAvatarImageIcon(selectedFile, avatarImageIcon);
     }//GEN-LAST:event_fileUploadBtnActionPerformed
 
     private void entryLevelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryLevelComboBoxActionPerformed
@@ -549,19 +537,14 @@ public class StudentForm extends javax.swing.JPanel {
             getFieldData();
             setFieldData(student, account, assessment);
             List<String> errors = validateField();
-            JSONObject jsonOBj = toJSONObject(student.keys, student.getStudent());
-            boolean alreadyExists = fs.checkExists("student.txt", jsonOBj);
             if (errors.isEmpty()) {
-                if (!alreadyExists) {
-                    student.updateFile("student.txt", student.getStudent());
+                    student.updateTextFile("student.txt");
                     assessment.replaceData("assessment.txt", assessment);
-                    student.saveImage(selectedFile);
+                    student.saveFile(selectedFile);
 
                     JOptionPane.showMessageDialog(null, "Data update successfully");
-                    fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Data Exists", "Duplciate Data", JOptionPane.WARNING_MESSAGE);
-                }
+                    fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
+
             } else {
                 JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
 
@@ -584,7 +567,7 @@ public class StudentForm extends javax.swing.JPanel {
         fs.deleteData(id, "account.txt", "ID");
         fs.deleteData(id, "assessment.txt", "student_id");
 
-        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null,1);
+        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
     }//GEN-LAST:event_deleteBtnActionPerformed
 
 
@@ -592,7 +575,6 @@ public class StudentForm extends javax.swing.JPanel {
     private javax.swing.JTextField addressField;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JLabel avatarImageIcon;
-    private javax.swing.JComboBox<String> countryComboBox;
     private javax.swing.JLabel countryLabel;
     private javax.swing.JComboBox<String> courseComboBox;
     private javax.swing.JLabel courseLabel;
@@ -622,6 +604,7 @@ public class StudentForm extends javax.swing.JPanel {
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton resetBtn;
     public javax.swing.JButton saveBtn;
+    private javax.swing.JComboBox<String> stateComboBox;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

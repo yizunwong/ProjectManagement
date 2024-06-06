@@ -40,6 +40,7 @@ public class ResetPasswordForm extends javax.swing.JFrame {
         emailLabel = new javax.swing.JLabel();
         resetBtn = new javax.swing.JButton();
         loginLabel = new javax.swing.JLabel();
+        backBtn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +57,14 @@ public class ResetPasswordForm extends javax.swing.JFrame {
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginLabel.setText("Reset Password");
 
+        backBtn.setForeground(new java.awt.Color(51, 153, 255));
+        backBtn.setText("Back?");
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,15 +72,18 @@ public class ResetPasswordForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(resetBtn))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(emailLabel)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(loginLabel)
-                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(resetBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -83,7 +95,9 @@ public class ResetPasswordForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(resetBtn)
                 .addGap(16, 16, 16))
         );
@@ -120,12 +134,19 @@ public class ResetPasswordForm extends javax.swing.JFrame {
             user.setDob(dob);
             account.setId(id);
             account.setAccount(role);
-            account.updateFile("account.txt", account.getAccount());
+            account.updateTextFile("account.txt");
         } else {
             JOptionPane.showMessageDialog(null, "Password reset cancel");
         }
 
     }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        // TODO add your handling code here:
+        ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+        dispose();
+        changePasswordForm.setVisible(true);
+    }//GEN-LAST:event_backBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,6 +184,7 @@ public class ResetPasswordForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel backBtn;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel loginLabel;

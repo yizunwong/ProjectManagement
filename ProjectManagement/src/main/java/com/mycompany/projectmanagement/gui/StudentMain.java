@@ -5,10 +5,21 @@
 package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.gui.panel.RequestDateList;
-import com.mycompany.projectmanagement.gui.panel.StudentDashboardList;
-import com.mycompany.projectmanagement.gui.panel.SubmissionList;
-import java.awt.Color;
+import com.mycompany.projectmanagement.UserController;
+import com.mycompany.projectmanagement.gui.panel.ModelCard;
+import com.mycompany.projectmanagement.gui.panel.PieChart;
+import com.mycompany.projectmanagement.gui.panel.PieChart.PieChartData;
+import com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel;
+import com.mycompany.projectmanagement.gui.panel.StudentDashboardPanel;
+import com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel;
+import static com.mycompany.projectmanagement.gui.panel.StudentDashboardPanel.card1;
+import static com.mycompany.projectmanagement.gui.panel.StudentDashboardPanel.card2;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.ImageIcon;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -17,12 +28,71 @@ import java.awt.Color;
 public class StudentMain extends javax.swing.JFrame {
 
     int mouseX, mouseY;
-    
+    public String id, name;
+    private final FileController.FileService fs;
+    private final UserController userController;
+    private String imagePath;
+    private JSONArray reportArray;
+    private final ArrayList<PieChartData> pieChartData;
+    String[] grades = {
+        "A+ (Distinction)",
+        "A (Distinction)",
+        "B+ (Credit)",
+        "B (Credit)",
+        "C (Pass)",
+        "D (Pass)",
+        "F+ (Marginal Fail)",
+        "F (Fail)",
+        "-"
+    };
+
     public StudentMain() {
         initComponents();
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null,0);
-        fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null,0);
+        this.fs = new FileController.FileService();
+        this.userController = new UserController();
+        this.pieChartData = new ArrayList<>();
+
+    }
+
+    public void setUser(String id) {
+        this.id = id;
+        refreshTable();
+        UserController.User user = userController.new User();
+        JSONArray searchedArray = user.seachUser(id, "student.txt");
+        JSONObject searchObj = searchedArray.getJSONObject(0);
+        this.name = searchObj.getString("Name");
+        this.imagePath = searchObj.getString("ImagePath");
+        refreshTable();
+
+        String[] status = {"Pending","Late","Accepted","Rejected"};
+        reportArray = user.seachUser(id, "report.txt");
+        JSONArray requestArray = user.seachUser(id, "request.txt");
+
+        HashMap<String, Integer> report = fs.countOccurrences("report.txt", "status", status, reportArray);
+        HashMap<String, Integer> reqeust = fs.countOccurrences("reqeust.txt", "status", status, requestArray);
+        card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Pending Report", report.get("Pending").toString(), "Report that need to be mark"));
+        card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Pendin Request", reqeust.get("Pending").toString(), "Request for presentation"));
+
+        pieChartData.add(new PieChart.PieChartData("Report Percentage", "report.txt", "grade", grades));
+        pieChartData.add(new PieChart.PieChartData("Request Percentage", "request.txt", "status", status));
+
+        studentDashboardPanel2.pieChart1.setData(pieChartData, reportArray);
+        studentDashboardPanel2.pieChart1.refreshPieChart(pieChartData, reportArray);
+    }
+
+    public void setHeader(String title) {
+        String projectDirectory = System.getProperty("user.dir");
+        File image = new File(projectDirectory + imagePath);
+        header1.setData(new ModelHeader(title, name, new ImageIcon(image.toString())));
+
+    }
+
+    public void refreshTable() {
+        UserController.User user = userController.new User();
+        JSONArray requestArray = user.seachUser(id, "request.txt");
+        reportArray = user.seachUser(id, "report.txt");
+        fs.showFileData(StudentDashboardPanel.SubmissionTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 1);
+        fs.showFileData(StudentDashboardPanel.BookingTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
     }
 
     /**
@@ -41,16 +111,16 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        studentPanelBorder1 = new com.mycompany.projectmanagement.gui.StudentPanelBorder();
+        header1 = new com.mycompany.projectmanagement.gui.Header();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        studentDashboardPanel2 = new com.mycompany.projectmanagement.gui.panel.StudentDashboardPanel();
+        reportSubmissionPanel1 = new com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel();
+        presentationRequestPanel = new com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel();
         studentMenu2 = new com.mycompany.projectmanagement.gui.StudentMenu();
         Btn1 = new javax.swing.JButton();
         Btn2 = new javax.swing.JButton();
         Btn3 = new javax.swing.JButton();
         Btn4 = new javax.swing.JButton();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        studentDashboardList1 = new com.mycompany.projectmanagement.gui.panel.StudentDashboardList();
-        submissionList1 = new com.mycompany.projectmanagement.gui.panel.SubmissionList();
-        requestDateList1 = new com.mycompany.projectmanagement.gui.panel.RequestDateList();
 
         jTabbedPane1.setOpaque(true);
 
@@ -116,21 +186,18 @@ public class StudentMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        studentPanelBorder1.setBackground(new java.awt.Color(255, 255, 255));
-        studentPanelBorder1.setForeground(new java.awt.Color(255, 255, 255));
-        studentPanelBorder1.setPreferredSize(new java.awt.Dimension(1761, 672));
-        studentPanelBorder1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                studentPanelBorder1MouseDragged(evt);
-            }
-        });
-        studentPanelBorder1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                studentPanelBorder1MousePressed(evt);
-            }
-        });
-        studentPanelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        header1.setBackground(new java.awt.Color(51, 51, 51));
+        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1650, -1));
+
+        jTabbedPane3.addTab("tab3", studentDashboardPanel2);
+        jTabbedPane3.addTab("tab4", reportSubmissionPanel1);
+
+        presentationRequestPanel.setOpaque(false);
+        jTabbedPane3.addTab("tab3", presentationRequestPanel);
+
+        getContentPane().add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 1450, 750));
 
         studentMenu2.setPreferredSize(new java.awt.Dimension(200, 672));
 
@@ -166,9 +233,9 @@ public class StudentMain extends javax.swing.JFrame {
         studentMenu2.setLayout(studentMenu2Layout);
         studentMenu2Layout.setHorizontalGroup(
             studentMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Btn1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(Btn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Btn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Btn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Btn3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
             .addComponent(Btn4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         studentMenu2Layout.setVerticalGroup(
@@ -182,35 +249,10 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(Btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(112, 112, 112)
                 .addComponent(Btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
-        studentPanelBorder1.add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, -1, 750));
-
-        studentDashboardList1.setOpaque(false);
-        jTabbedPane3.addTab("tab1", studentDashboardList1);
-
-        submissionList1.setOpaque(false);
-        jTabbedPane3.addTab("tab2", submissionList1);
-
-        requestDateList1.setOpaque(false);
-        jTabbedPane3.addTab("tab3", requestDateList1);
-
-        studentPanelBorder1.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 1430, 740));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(studentPanelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 1700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(studentPanelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
-        );
+        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 51, -1, 730));
 
         pack();
         setLocationRelativeTo(null);
@@ -224,29 +266,20 @@ public class StudentMain extends javax.swing.JFrame {
 
     private void Btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn3ActionPerformed
         jTabbedPane3.setSelectedIndex(2);
+        presentationRequestPanel.setUser(id);
+
     }//GEN-LAST:event_Btn3ActionPerformed
 
     private void Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn2ActionPerformed
         jTabbedPane3.setSelectedIndex(1);
+        reportSubmissionPanel1.setUser(id);
     }//GEN-LAST:event_Btn2ActionPerformed
 
     private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(StudentDashboardList.SubmissionTable, SubmissionList.columns, "Report.txt", null,0);
-        fs.showFileData(StudentDashboardList.BookingTable, RequestDateList.columns, "Request.txt", null,0);
+
         jTabbedPane3.setSelectedIndex(0);
-        //        SubmissionTable.revalidate();
-        //        SubmissionTable.repaint();
+        studentDashboardPanel2.setUser(id);
     }//GEN-LAST:event_Btn1ActionPerformed
-
-    private void studentPanelBorder1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MousePressed
-        mouseX = evt.getX();
-        mouseY = evt.getY();
-    }//GEN-LAST:event_studentPanelBorder1MousePressed
-
-    private void studentPanelBorder1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentPanelBorder1MouseDragged
-        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
-    }//GEN-LAST:event_studentPanelBorder1MouseDragged
 
     /**
      * @param args the command line arguments
@@ -288,6 +321,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JButton Btn2;
     private javax.swing.JButton Btn3;
     private javax.swing.JButton Btn4;
+    private com.mycompany.projectmanagement.gui.Header header1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -296,10 +330,9 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private com.mycompany.projectmanagement.gui.panel.RequestDateList requestDateList1;
-    private com.mycompany.projectmanagement.gui.panel.StudentDashboardList studentDashboardList1;
+    private com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel presentationRequestPanel;
+    private com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel reportSubmissionPanel1;
+    private com.mycompany.projectmanagement.gui.panel.StudentDashboardPanel studentDashboardPanel2;
     private com.mycompany.projectmanagement.gui.StudentMenu studentMenu2;
-    private com.mycompany.projectmanagement.gui.StudentPanelBorder studentPanelBorder1;
-    private com.mycompany.projectmanagement.gui.panel.SubmissionList submissionList1;
     // End of variables declaration//GEN-END:variables
 }

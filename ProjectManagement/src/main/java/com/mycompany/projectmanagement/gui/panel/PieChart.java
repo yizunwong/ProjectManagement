@@ -19,6 +19,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
+import org.json.JSONArray;
 
 /**
  *
@@ -38,12 +39,12 @@ public class PieChart extends javax.swing.JPanel {
         data.add(new PieChart.PieChartData("Default", "", "Role", new String[]{}));
         data.add(new PieChart.PieChartData("Default", "", "Entry Level", new String[]{}));
         data.add(new PieChart.PieChartData("Default", "", "Gender", new String[]{}));
-        initialPieChart(data);
+        initialPieChart(data,null);
     }
 
-    public void setData(List<PieChartData> pieChartDataList) {
+    public void setData(List<PieChartData> pieChartDataList,JSONArray searchArray) {
         this.data = pieChartDataList;
-        initialPieChart(data);
+        initialPieChart(data, searchArray);
 
     }
 
@@ -78,14 +79,14 @@ public class PieChart extends javax.swing.JPanel {
         }
     }
 
-    public final void initialPieChart(List<PieChartData> pieChartDataList) {
+    public final void initialPieChart(List<PieChartData> pieChartDataList, JSONArray searchArray) {
         setLayout(new BorderLayout());
         FileController.FileService fs = new FileController.FileService();
 
         JPanel chartPanel = new JPanel(new GridLayout(1, pieChartDataList.size()));
 
         for (PieChartData pieData : pieChartDataList) {
-            HashMap<String, Integer> count = fs.countOccurrences(pieData.getFileName(), pieData.getCategory(), pieData.getValues());
+            HashMap<String, Integer> count = fs.countOccurrences(pieData.getFileName(), pieData.getCategory(), pieData.getValues(), searchArray);
             ModelPieChart model = new ModelPieChart(pieData.getTitle(), count);
             chartPanel.add(createPieChartPanel(model));
         }
@@ -93,11 +94,11 @@ public class PieChart extends javax.swing.JPanel {
         add(chartPanel, BorderLayout.CENTER);
     }
 
-    public void refreshPieChart(List<PieChartData> pieChartDataList) {
+    public void refreshPieChart(List<PieChartData> pieChartDataList, JSONArray searchArray) {
         // Remove all components
         removeAll();
         // Reinitialize the pie charts
-        initialPieChart(pieChartDataList);
+        initialPieChart(pieChartDataList, searchArray );
         // Revalidate and repaint the panel to update the display
         revalidate();
         repaint();

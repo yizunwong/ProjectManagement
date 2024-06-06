@@ -5,100 +5,43 @@
 package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.FileController.Booking;
-import com.mycompany.projectmanagement.FileController.VerifyBooking;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import javax.swing.DefaultComboBoxModel;
+import com.mycompany.projectmanagement.UserController;
+import java.awt.event.KeyEvent;
+import org.json.JSONArray;
 
 public class VerifyBookingPanel extends javax.swing.JPanel {
 
-    private String module;
-    private String request_date;
-    private String lecturer;
-    private String request_id;
-    private String status;
-    private String student_id;
-    private String presentation_id;
-    private String remark;
-    
+    public final static String[] Presentation_columns = {"ID", "request_id", "student_id", "presentation_date", "assessment_id", "supervisor", "status", "remark"};
+    public UserController userController;
+    private String name;
+    private JSONArray requestArray;
+    public FileController.FileService fs;
+    private JSONArray presentationArray;
+
     public VerifyBookingPanel() {
         initComponents();
-        initializeComboBox();
+        this.userController = new UserController();
+
+        this.fs = new FileController.FileService();
+        fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", null, 0);
+        fs.showFileData(presentationTable, Presentation_columns, "presentation.txt", null, 0);
     }
 
-    public void setFieldData(VerifyBooking verifybooking) {
-        verifybooking.setPresentationID(presentation_id);
-        verifybooking.setLecturer(lecturer);
-        verifybooking.setModule(module);
-        verifybooking.setRequestDate(request_date);
-        verifybooking.setRequestID(request_id);
-        verifybooking.setStatus(status);
-        verifybooking.setStudentID(student_id);
-        verifybooking.setRemark(remark);
+    public void setUser(String name) {
+        this.name = name;
+        System.out.println(name);
+        refreshTable();
+        verifyBookingForm1.setUser(name);
     }
-    
-    public void setUpdateFieldData(Booking booking) {
-        booking.setLecturer(lecturer);
-        booking.setModule(module);
-        booking.setRequestDate(request_date);
-        booking.setRequestID(request_id);
-        booking.setStatus(status);
-        booking.setStudentID(student_id);
-        booking.setRemark(remark);
-    }
-    
-    public void getFieldData(){
-        presentation_id = PresentationIDField.getText().trim();
-        module = ModuleComboBox.getSelectedItem().toString();
-        LocalTime time = dateTimePicker1.timePicker.getTime();
-        LocalDate date = dateTimePicker1.datePicker.getDate();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String formattedDate = date.format(dateFormatter);
-        request_date = (formattedDate + "," + time.toString());
-        lecturer = LecturerField.getText().trim();
-        request_id = RequestField.getText().trim();
-        status = StatusComboBox.getSelectedItem().toString();
-        student_id = StudentIDField.getText().trim();
-        remark = RemarkField.getText().trim();
-    }
-    
-    private void initializeComboBox() {
-        FileController.Course cr = new FileController.Course();
-        String[] modules = cr.findModule(null, null);
-        ModuleComboBox.setModel(new DefaultComboBoxModel<>(modules));
-    }
-    
-    void setVerifyBookingData(Object[] rowData) {
-        RequestField.setText(rowData[0].toString());
-        StudentIDField.setText(rowData[1].toString());
-        String dateTimeString = rowData[2].toString();
 
-        try {
-            // Split the date and time
-            String[] parts = dateTimeString.split(",");
-            String dateString = parts[0];
-            String timeString = parts.length > 1 ? parts[1] : "00:00:00"; // default time if not provided
-
-            // Parse the date and time
-            LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-            LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
-
-            // Set the date and time on the picker components
-            dateTimePicker1.datePicker.setDate(date); // You may need to convert LocalDate to the appropriate type for your datePicker
-            dateTimePicker1.timePicker.setTime(time); // You may need to convert LocalTime to the appropriate type for your timePicker
-        } catch (DateTimeParseException e) {
-            // Handle the error (e.g., show an error message or log the issue)
-            e.printStackTrace();
-        }
-        ModuleComboBox.setSelectedItem(rowData[3].toString());
-        LecturerField.setText(rowData[4].toString());
-        StatusComboBox.setSelectedItem(rowData[5].toString());
-        RemarkField.setText(rowData[6].toString());
+    public void refreshTable() {
+        UserController.User user = userController.new User();
+        presentationArray = user.seachUser(name, "presentation.txt");
+        requestArray = user.seachUser(name, "request.txt");
+        fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
+        fs.showFileData(presentationTable, Presentation_columns, "presentation.txt", presentationArray, 0);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,187 +51,149 @@ public class VerifyBookingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        PresentationIDField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        RequestField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        StudentIDField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        dateTimePicker1 = new com.github.lgooddatepicker.components.DateTimePicker();
-        jLabel5 = new javax.swing.JLabel();
-        ModuleComboBox = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        LecturerField = new javax.swing.JTextField();
-        SubmitBtn = new javax.swing.JButton();
-        ResetBtn = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        StatusComboBox = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        RemarkField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        requestTable = new javax.swing.JTable();
+        searchField = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        presentationTable = new javax.swing.JTable();
+        verifyBookingForm1 = new com.mycompany.projectmanagement.gui.panel.VerifyBookingForm();
 
-        jLabel1.setText("Presentation ID :");
+        requestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        requestTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                requestTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(requestTable);
 
-        jLabel2.setText("Request ID :");
-
-        jLabel3.setText("Student ID :");
-
-        jLabel4.setText("Request Presentation Date :");
-
-        jLabel5.setText("Module :");
-
-        ModuleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel6.setText("Lecturer :");
-
-        SubmitBtn.setText("Submit");
-        SubmitBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitBtnActionPerformed(evt);
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchFieldKeyPressed(evt);
             }
         });
 
-        ResetBtn.setText("Reset");
-        ResetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetBtnActionPerformed(evt);
+        presentationTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        presentationTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                presentationTableMouseClicked(evt);
             }
         });
+        jScrollPane2.setViewportView(presentationTable);
 
-        jLabel7.setText("Status :");
-
-        StatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accepted", "Rejected" }));
-
-        jLabel8.setText("Remark :");
+        verifyBookingForm1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1456, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(PresentationIDField)
-                                    .addComponent(RequestField, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addComponent(jLabel3)
-                                .addGap(37, 37, 37)
-                                .addComponent(StudentIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(39, 39, 39)
-                                .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8))
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(LecturerField)
-                                    .addComponent(ModuleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(StatusComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(RemarkField, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(SubmitBtn)
-                        .addGap(148, 148, 148)
-                        .addComponent(ResetBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(verifyBookingForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(PresentationIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(RequestField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(StudentIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(ModuleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(LecturerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(StatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(RemarkField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SubmitBtn)
-                    .addComponent(ResetBtn))
-                .addGap(26, 26, 26))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(verifyBookingForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBtnActionPerformed
-        VerifyBooking verifybooking = new VerifyBooking();
-        getFieldData();
-        setFieldData(verifybooking);
-        verifybooking.saveFile("Presentation.txt");
-        verifybooking.updateFile("Request.txt", verifybooking.getVerifyBooking());
-        
-        FileController.FileService fs = new FileController.FileService();
-        fs.showFileData(VerifyBookingList.PresentationTable, VerifyBookingList.Presentation_columns, "Presentation.txt", null,0);
-        fs.showFileData(VerifyBookingList.BookingTable, VerifyBookingList.columns, "Request.txt", null,0);
-        
-        Booking booking = new Booking();
-        getFieldData();
-        setUpdateFieldData(booking);
-        booking.updateFile("Request.txt", booking.getBooking());
+    private void presentationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_presentationTableMouseClicked
+//        int rowIndex = presentationTable.getSelectedRow(); // Get the selected row index
 //
-//        FileController.FileService fs = new FileController.FileService();
-//        fs.showFileData(VerifyBookingList.BookingTable, VerifyBookingList.columns, "Request.txt", null);
-    }//GEN-LAST:event_SubmitBtnActionPerformed
+//        // Ensure a valid row is selected
+//        if (rowIndex != -1) {
+//            int columnCount = presentationTable.getColumnCount(); // Get the number of columns
+//
+//            // Retrieve data from the table model for the clicked row
+//            Object[] rowData = new Object[columnCount];
+//            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+//                rowData[columnIndex] = presentationTable.getModel().getValueAt(rowIndex, columnIndex);
+//            }
+//
+//            verifyBookingForm1.setRequestData(rowData);
+//
+//        }
+    }//GEN-LAST:event_presentationTableMouseClicked
 
-    private void ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetBtnActionPerformed
+    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ResetBtnActionPerformed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String searchValue = searchField.getText();
+            System.out.println(searchValue);
+            FileController.FileService fs = new FileController.FileService();
+            UserController.User user = userController.new User();
+            JSONArray searchedArray = user.seachUser(searchValue, "request.txt");
+            fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", null, 0);
+            System.out.println(searchedArray);
+        }
+    }//GEN-LAST:event_searchFieldKeyPressed
+
+    private void requestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestTableMouseClicked
+        // TODO add your handling code here:
+        int rowIndex = requestTable.getSelectedRow(); // Get the selected row index
+
+        // Ensure a valid row is selected
+        if (rowIndex != -1) {
+            int columnCount = requestTable.getColumnCount(); // Get the number of columns
+
+            // Retrieve data from the table model for the clicked row
+            Object[] rowData = new Object[columnCount];
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                rowData[columnIndex] = requestTable.getModel().getValueAt(rowIndex, columnIndex);
+            }
+
+            verifyBookingForm1.setRequestData(rowData);
+
+        }
+    }//GEN-LAST:event_requestTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField LecturerField;
-    private javax.swing.JComboBox<String> ModuleComboBox;
-    private javax.swing.JTextField PresentationIDField;
-    private javax.swing.JTextField RemarkField;
-    private javax.swing.JTextField RequestField;
-    private javax.swing.JButton ResetBtn;
-    private javax.swing.JComboBox<String> StatusComboBox;
-    private javax.swing.JTextField StudentIDField;
-    private javax.swing.JButton SubmitBtn;
-    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JTable presentationTable;
+    public static javax.swing.JTable requestTable;
+    private javax.swing.JTextField searchField;
+    private com.mycompany.projectmanagement.gui.panel.VerifyBookingForm verifyBookingForm1;
     // End of variables declaration//GEN-END:variables
 }

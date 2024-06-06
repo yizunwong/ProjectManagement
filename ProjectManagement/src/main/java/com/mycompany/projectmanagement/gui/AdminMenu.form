@@ -99,63 +99,72 @@
             </Constraint>
           </Constraints>
         </Component>
+        <Component class="com.mycompany.projectmanagement.gui.ManageCoursePanel" name="manageCoursePanel1">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="tab5">
+                <Property name="tabTitle" type="java.lang.String" value="tab5"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="com.mycompany.projectmanagement.gui.StudentMenu" name="studentMenu2">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="66" red="66" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-            <BevelBorder/>
-          </Border>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[200, 672]"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="-1" height="830"/>
+          <AbsoluteConstraints x="0" y="0" width="160" height="820"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="dashboarBtn" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
-                      <Component id="managePMBtn" min="-2" pref="119" max="-2" attributes="0"/>
-                      <Component id="signOutBtn" min="-2" pref="119" max="-2" attributes="0"/>
-                      <Component id="manageLecturerBtn" min="-2" pref="119" max="-2" attributes="0"/>
-                      <Component id="manageStudentBtn" min="-2" pref="119" max="-2" attributes="0"/>
-                      <Component id="manageAccountBtn" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
-              </Group>
+              <Component id="dashboardBtn" alignment="0" pref="160" max="32767" attributes="0"/>
+              <Component id="manageStudentBtn" alignment="0" max="32767" attributes="0"/>
+              <Component id="managePmBtn" alignment="0" max="32767" attributes="0"/>
+              <Component id="manageAccountBtn" alignment="0" max="32767" attributes="0"/>
+              <Component id="manageLecturerBtn" alignment="0" max="32767" attributes="0"/>
+              <Component id="manageAccountBtn1" alignment="1" max="32767" attributes="0"/>
+              <Component id="signoutBtn" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
-                  <Component id="dashboarBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="manageStudentBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="manageLecturerBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="managePMBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="manageAccountBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="signOutBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="460" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                  <Component id="dashboardBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="manageStudentBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Component id="manageLecturerBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="managePmBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="manageAccountBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="manageAccountBtn1" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="signoutBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace pref="293" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JButton" name="dashboardBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dashboard"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardBtnActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="manageStudentBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Manage Student"/>
@@ -164,12 +173,20 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageStudentBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="manageLecturerBtn">
+        <Component class="javax.swing.JButton" name="managePmBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Manage Lecturer"/>
+            <Property name="text" type="java.lang.String" value="Manage PM"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageLecturerBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="managePmBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="signoutBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sign Out"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signoutBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="manageAccountBtn">
@@ -180,28 +197,20 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageAccountBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="signOutBtn">
+        <Component class="javax.swing.JButton" name="manageLecturerBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sign Out"/>
+            <Property name="text" type="java.lang.String" value="Manage Lecturer"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signOutBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageLecturerBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="managePMBtn">
+        <Component class="javax.swing.JButton" name="manageAccountBtn1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Manage PM"/>
+            <Property name="text" type="java.lang.String" value="Manage Course"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="managePMBtnActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="dashboarBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dashboard"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboarBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageAccountBtn1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

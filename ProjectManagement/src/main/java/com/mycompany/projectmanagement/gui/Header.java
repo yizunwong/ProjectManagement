@@ -4,11 +4,12 @@
  */
 package com.mycompany.projectmanagement.gui;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,6 +24,18 @@ public class Header extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void setData(ModelHeader header) {
+
+        ImageIcon imageIcon = header.getIcon();
+        Image originalImage = imageIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        
+        photoLabel.setText("");
+        photoLabel.setIcon(scaledIcon);
+        titleLabel.setText(header.getTitle());
+        usernameLabel.setText(header.getUsername());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,64 +46,53 @@ public class Header extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        photoLabel = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Username");
+        usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        usernameLabel.setText("Username");
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Role");
+        photoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        photoLabel.setText("photo");
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("photo");
-
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Title");
+        titleLabel.setBackground(new java.awt.Color(255, 255, 255));
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        titleLabel.setText("Title");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(52, 52, 52)
-                .addComponent(jLabel3)
-                .addGap(146, 146, 146))
+                .addGap(15, 15, 15)
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                .addComponent(photoLabel)
+                .addGap(18, 18, 18)
+                .addComponent(usernameLabel)
+                .addGap(203, 203, 203))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel3)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(photoLabel)
+                            .addComponent(usernameLabel))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel photoLabel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

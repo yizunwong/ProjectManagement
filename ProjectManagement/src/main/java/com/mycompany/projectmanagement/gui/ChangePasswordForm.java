@@ -184,7 +184,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
                     account.setRole(searchedObj.getString("Role"));
                     account.setEmail(searchedObj.getString("Email"));
                     account.setPassword(passwordString);
-                    account.updateFile("account.txt", account.getAccount());
+                    account.updateTextFile("account.txt");
                     JOptionPane.showMessageDialog(null, "Password has been successfully changed.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Confirm password is wrong", "Password Not Match", JOptionPane.WARNING_MESSAGE);

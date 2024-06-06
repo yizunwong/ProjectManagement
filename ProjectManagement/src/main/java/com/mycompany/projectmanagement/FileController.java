@@ -8,6 +8,7 @@ import static com.mycompany.projectmanagement.JSONHandler.generateModuleJSON;
 import static com.mycompany.projectmanagement.JSONHandler.getValues;
 import static com.mycompany.projectmanagement.JSONHandler.replaceObjects;
 import static com.mycompany.projectmanagement.JSONHandler.toJSONObject;
+import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -35,9 +37,9 @@ import org.json.JSONObject;
  */
 public interface FileController {
 
-    public void saveFile(String fileName);
+    public void saveTextFile(String fileName);
 
-    public void updateFile(String fileName, String[] content);
+    public void updateTextFile(String fileName);
 
     class FileService {
 
@@ -85,15 +87,15 @@ public interface FileController {
          * @param jsonObj A JSONObject to compare.
          * @return Boolean indicating if the data exists or not.
          */
-        public boolean checkExists(String fileName, JSONObject jsonObj) {
+        public boolean checkExists(String fileName, JSONObject jsonObj, String keyToCheck) {
             boolean alreadyExists = false;
             jsonArray = (JSONArray) readData(fileName, "array");
 
-            Object valueToCheck = jsonObj.get("IC");
+            Object valueToCheck = jsonObj.get(keyToCheck);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject obj = jsonArray.getJSONObject(i);
-                if (obj.has("IC") && obj.get("IC").equals(valueToCheck)) {
+                if (obj.get(keyToCheck).equals(valueToCheck)) {
                     alreadyExists = true;
                     break;
                 }
@@ -134,13 +136,11 @@ public interface FileController {
          * Writes data to a JSON file, appending it if the file already exists.
          *
          * @param fileName The name of the file to update.
-         * @param contentKeys An array of keys for the JSON object
-         * @param content An array of content that to replace old data
+         * @param jsonObj
          * @param key The key to be compare inside the JSON object
          */
-        public void updateData(String fileName, String[] contentKeys, String[] content, String key) {
+        public void updateData(String fileName, JSONObject jsonObj, String key) {
             jsonArray = (JSONArray) readData(fileName, "array");
-            jsonObj = toJSONObject(contentKeys, content);
             updateJsonArrayIfObjectChanged(jsonArray, jsonObj, key);
             write(jsonArray, fileName, false);
 
@@ -303,10 +303,11 @@ public interface FileController {
                 }
             }
 
-            DefaultTableModel model = createTableModel(columns, jsonArray, hideLastColumns);
+            DefaultTableModel model = createTableModel(columns, jsonArray);
             if (model != null) {
                 table.setModel(model);
                 fixTable(table);
+                hideColumns(table, hideLastColumns);
             }
         }
 
@@ -319,20 +320,17 @@ public interface FileController {
          * @param hideLastColumns The number of last columns to hide.
          * @return A DefaultTableModel containing the data from the JSONArray.
          */
-        private DefaultTableModel createTableModel(String[] columns, JSONArray jsonArray, int hideLastColumns) {
+        private DefaultTableModel createTableModel(String[] columns, JSONArray jsonArray) {
             DefaultTableModel model = new DefaultTableModel();
-            int columnsToShow = columns.length - hideLastColumns;
-
             // Add columns to the model
-            for (int i = 0; i < columnsToShow; i++) {
-                model.addColumn(columns[i]);
+            for (String column : columns) {
+                model.addColumn(column);
             }
-
             // Add rows to the model
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject student = (JSONObject) jsonArray.get(i);
-                Object[] rowData = new Object[columnsToShow];
-                for (int j = 0; j < columnsToShow; j++) {
+                Object[] rowData = new Object[columns.length];
+                for (int j = 0; j < columns.length; j++) {
                     String columnKey = columns[j];
                     rowData[j] = student.opt(columnKey);
                 }
@@ -340,6 +338,18 @@ public interface FileController {
             }
 
             return model;
+        }
+
+        public void hideColumns(JTable table, int hideLastColumns) {
+            int totalColumns = table.getColumnCount();
+            for (int i = totalColumns - hideLastColumns; i < totalColumns; i++) {
+                TableColumn column = table.getColumnModel().getColumn(i);
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+                column.setWidth(0);
+                column.setPreferredWidth(0);
+                column.setResizable(false);
+            }
         }
 
         /**
@@ -381,6 +391,12 @@ public interface FileController {
                     prefix = "LC";
                 case "assessment" ->
                     prefix = "ASMT";
+                case "report" ->
+                    prefix = "RP";
+                case "presentation" ->
+                    prefix = "PRES";
+                case "request" ->
+                    prefix = "REQ";
                 default -> {
                     prefix = null;
                 }
@@ -409,11 +425,17 @@ public interface FileController {
          * @param key The key whose values are to be counted.
          * @param expectedValues An array of expected values to count
          * occurrences for.
+         * @param searchArray
          * @return A HashMap where the keys are the expected values and the
          * values are their respective counts.
          */
-        public HashMap<String, Integer> countOccurrences(String filename, String key, String[] expectedValues) {
-            jsonArray = (JSONArray) readData(filename, "array");
+        public HashMap<String, Integer> countOccurrences(String filename, String key, String[] expectedValues, JSONArray searchArray) {
+            if (searchArray == null) {
+                jsonArray = (JSONArray) readData(filename, "array");
+            }else{
+                jsonArray = searchArray;
+            }
+            
 
             // Initialize the counts hashmap with default values of 0 for all expected values
             HashMap<String, Integer> counts = new HashMap<>();
@@ -436,6 +458,35 @@ public interface FileController {
 
             return counts;
         }
+
+        public static void deleteFile(String filePath) {
+            File file = new File(filePath);
+
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
+        public void viewFile(String file_path) {
+            String filePath = file_path;
+            String projectDirectory = System.getProperty("user.dir");
+            File file = new File(projectDirectory + filePath);
+            System.out.println(file.toString());
+
+            if (file.exists()) {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(file);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Desktop is not supported. Cannot open the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error opening file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "File does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public class ImageController {
@@ -455,21 +506,34 @@ public interface FileController {
         }
     }
 
-    public class Country {
+    public class State {
+
+        private final String[] states = {
+            "Johor",
+            "Kedah",
+            "Kelantan",
+            "Malacca",
+            "Negeri Sembilan",
+            "Pahang",
+            "Penang",
+            "Perak",
+            "Perlis",
+            "Sabah",
+            "Sarawak",
+            "Selangor",
+            "Terengganu",
+            "Kuala Lumpur",
+            "Labuan",
+            "Putrajaya"
+        };
 
         /**
          * Retrieves an array of all country names based on ISO country codes.
          *
          * @return An array with country name
          */
-        public String[] getAllCountries() {
-            String[] countries = new String[Locale.getISOCountries().length];
-            String[] countryCodes = Locale.getISOCountries();
-            for (int i = 0; i < countryCodes.length; i++) {
-                Locale obj = new Locale("", countryCodes[i]);
-                countries[i] = obj.getDisplayCountry();
-            }
-            return countries;
+        public String[] getStates() {
+            return states;
         }
 
     }
@@ -751,7 +815,7 @@ public interface FileController {
             this.course_id = course_id;
         }
 
-        public void saveFile(String fileName, Assessment assessment) {
+        public void saveTextFile(String fileName, Assessment assessment) {
             FileController.FileService fs = new FileController.FileService();
             JSONArray assessmentArray = generateModuleJSON(assessment);
             fs.write(assessmentArray, fileName, true);
@@ -813,38 +877,14 @@ public interface FileController {
             fs.write(jsonArray, "assessment.txt", false);
         }
 
+        public void updateFile(String fileName, JSONObject assessment) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(fileName, assessment, "assessment_id");
+        }
+
     }
 
     class Submission {
-
-        public String module;
-        public String student_id;
-        public String assessment_type;
-        public String supervisor;
-        public String second_marker;
-        public String due_date;
-        public String filepath;
-        public String Rid;
-        public String mark;
-        public String grade;
-        public String feedback;
-        public final String[] keys;
-
-        public Submission() {
-            this.keys = new String[]{"ID", "student_id", "assessment_type", "supervisor", "second_marker", "due_date", "module", "file_path", "mark", "grade", "feedback"};
-        }
-
-        public void setModule(String module) {
-            this.module = module;
-        }
-
-        public void setStudentID(String student_id) {
-            this.student_id = student_id;
-        }
-
-        public void setAssessmentType(String assessment_type) {
-            this.assessment_type = assessment_type;
-        }
 
         public void setSupervisor(String supervisor) {
             this.supervisor = supervisor;
@@ -854,8 +894,36 @@ public interface FileController {
             this.second_marker = second_marker;
         }
 
-        public void setDueDate(String due_date) {
-            this.due_date = due_date;
+        public String getReportID() {
+            return Rid;
+        }
+
+        public String Rid;
+
+        public void setAssessmentId(String assessment_id) {
+            this.assessment_id = assessment_id;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+        public String assessment_id;
+        public String supervisor;
+        public String second_marker;
+        public String student_id;
+        public String status;
+        public String mark;
+        public String grade;
+        public String feedback;
+        public String filepath;
+        public final String[] keys;
+
+        public Submission() {
+            this.keys = new String[]{"ID", "student_id", "assessment_id", "supervisor", "second_marker", "status", "mark", "grade", "feedback", "file_path"};
+        }
+
+        public void setStudentID(String student_id) {
+            this.student_id = student_id;
         }
 
         public void setFilePath(String file_path) {
@@ -878,30 +946,39 @@ public interface FileController {
             this.feedback = feedback;
         }
 
-        public String[] getSubmission() {
-            String[] submission = {Rid, student_id, assessment_type, supervisor, second_marker, due_date, module, filepath, mark, grade, feedback};
-            return submission;
+        public JSONObject getSubmission() {
+            String[] submission = {Rid, student_id, assessment_id, supervisor, second_marker, status, mark, grade, feedback, filepath,};
+            JSONObject jsonObj = toJSONObject(keys, submission);
+            return jsonObj;
         }
 
-        public void saveFile(String fileName) {
+        public void saveTextFile(String fileName) {
             FileController.FileService fs = new FileController.FileService();
-            JSONObject jsonObj = toJSONObject(keys, getSubmission());
-            fs.write(jsonObj, fileName, true);
+            fs.write(getSubmission(), fileName, true);
 
         }
 
-        public void updateFile(String reporttxt, String[] submission) {
+        public void updateFile(String fileName, JSONObject submission) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(reporttxt, keys, submission, "ID");
+            fs.updateData(fileName, submission, "ID");
         }
 
     }
 
     class Booking {
 
+        public void setAssessmentID(String assessment_id) {
+            this.assessment_id = assessment_id;
+        }
+
+        public void setSupervisor(String supervisor) {
+            this.supervisor = supervisor;
+        }
+
         public String module;
+        public String assessment_id;
         public String request_date;
-        public String lecturer;
+        public String supervisor;
         public String request_id;
         public String status;
         public String student_id;
@@ -909,7 +986,7 @@ public interface FileController {
         public final String[] keys;
 
         public Booking() {
-            this.keys = new String[]{"Request_ID", "Student_ID", "Request_Date", "Module", "Lecturer", "Status", "Remark"};
+            this.keys = new String[]{"ID", "student_id", "assessment_id", "module", "request_date", "supervisor", "status", "remark"};
         }
 
         public void setRequestID(String request_id) {
@@ -928,10 +1005,6 @@ public interface FileController {
             this.module = module;
         }
 
-        public void setLecturer(String lecturer) {
-            this.lecturer = lecturer;
-        }
-
         public void setStatus(String status) {
             this.status = status;
         }
@@ -940,25 +1013,24 @@ public interface FileController {
             this.remark = remark;
         }
 
-        public String[] getBooking() {
-            String[] booking = {request_id, student_id, request_date, module, lecturer, status, remark};
-            return booking;
+        public JSONObject getBooking() {
+            String[] booking = {request_id, student_id, assessment_id, module, request_date, supervisor, status, remark};
+            JSONObject jsonObj = toJSONObject(keys, booking);
+            return jsonObj;
         }
 
         public void saveFile(String fileName) {
             FileController.FileService fs = new FileController.FileService();
-            JSONObject jsonObj = toJSONObject(keys, getBooking());
-            fs.write(jsonObj, fileName, true);
+            fs.write(getBooking(), fileName, true);
         }
 
-        public void updateFile(String requesttxt, String[] booking) {
+        public void updateFile(String fileName, JSONObject booking) {
             FileController.FileService fs = new FileController.FileService();
-            fs.updateData(requesttxt, keys, booking, "Request_ID");
+            fs.updateData(fileName, booking, "ID");
         }
-
     }
 
-    class VerifyBooking {
+    class Presentation {
 
         public String module;
         public String request_date;
@@ -970,8 +1042,8 @@ public interface FileController {
         public String remark;
         public final String[] keys;
 
-        public VerifyBooking() {
-            this.keys = new String[]{"Presentation_ID", "Request_ID", "Student_ID", "Request_Date", "Module", "Lecturer", "Status", "Remark"};
+        public Presentation() {
+            this.keys = new String[]{"ID", "request_id", "student_id", "presentation_date", "assessment_id", "supervisor", "status", "remark"};
         }
 
         public void setPresentationID(String presentation_id) {
@@ -1006,105 +1078,15 @@ public interface FileController {
             this.remark = remark;
         }
 
-        public String[] getVerifyBooking() {
-            String[] verifybooking = {presentation_id, request_id, student_id, request_date, module, lecturer, status, remark};
-            return verifybooking;
+        public JSONObject getPresentation() {
+            String[] presentation = {presentation_id, request_id, student_id, request_date, module, lecturer, status, remark};
+            JSONObject jsonObj = toJSONObject(keys, presentation);
+            return jsonObj;
         }
 
         public void saveFile(String fileName) {
             FileController.FileService fs = new FileController.FileService();
-            JSONObject jsonObj = toJSONObject(keys, getVerifyBooking());
-            fs.write(jsonObj, fileName, true);
-        }
-
-        public void updateFile(String reporttxt, String[] submission) {
-            FileController.FileService fs = new FileController.FileService();
-            fs.updateData(reporttxt, keys, submission, "Request_ID");
-        }
-
-        public String[] getBooking() {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-    }
-
-    class Marking {
-
-        public String module;
-        public String student_id;
-        public String assessment_type;
-        public String supervisor;
-        public String second_marker;
-        public String due_date;
-        public String filepath;
-        public String Rid;
-        public String mark;
-        public String grade;
-        public String feedback;
-        public final String[] keys;
-
-        public Marking() {
-            this.keys = new String[]{"ID", "student_id", "assessment_type", "supervisor", "second_marker", "due_date", "module", "file_path", "mark", "grade", "feedback"};
-        }
-
-        public void setModule(String module) {
-            this.module = module;
-        }
-
-        public void setStudentID(String student_id) {
-            this.student_id = student_id;
-        }
-
-        public void setAssessmentType(String assessment_type) {
-            this.assessment_type = assessment_type;
-        }
-
-        public void setSupervisor(String supervisor) {
-            this.supervisor = supervisor;
-        }
-
-        public void setSecondMarker(String second_marker) {
-            this.second_marker = second_marker;
-        }
-
-        public void setDueDate(String due_date) {
-            this.due_date = due_date;
-        }
-
-        public void setFilePath(String file_path) {
-            this.filepath = file_path;
-        }
-
-        public void setReportID(String Rid) {
-            this.Rid = Rid;
-        }
-
-        public void setMark(String mark) {
-            this.mark = mark;
-        }
-
-        public void setGrade(String grade) {
-            this.grade = grade;
-        }
-
-        public void setFeedback(String feedback) {
-            this.feedback = feedback;
-        }
-
-        public String[] getMarking() {
-            String[] submission = {Rid, student_id, assessment_type, supervisor, second_marker, due_date, module, filepath, mark, grade, feedback};
-            return submission;
-        }
-
-        public void saveFile(String fileName) {
-            FileController.FileService fs = new FileController.FileService();
-            JSONObject jsonObj = toJSONObject(keys, getMarking());
-            fs.write(jsonObj, fileName, true);
-        }
-
-        public void updateFile(String presentationtxt, String[] marking) {
-            FileController.FileService fs = new FileController.FileService();
-            fs.updateData(presentationtxt, keys, marking, "ID");
+            fs.write(getPresentation(), fileName, true);
         }
 
     }

@@ -2,7 +2,7 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import javax.swing.Icon;
 
-public class Model_Card {
+public class ModelCard {
 
     public Icon getIcon() {
         return icon;
@@ -36,14 +36,14 @@ public class Model_Card {
         this.description = description;
     }
 
-    public Model_Card(Icon icon, String title, String values, String description) {
+    public ModelCard(Icon icon, String title, String values, String description) {
         this.icon = icon;
         this.title = title;
         this.values = values;
         this.description = description;
     }
 
-    public Model_Card() {
+    public ModelCard() {
     }
 
     private Icon icon;

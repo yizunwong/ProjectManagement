@@ -254,7 +254,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 rowData[columnIndex] = userTable.getModel().getValueAt(rowIndex, columnIndex);
             }
-            this.selectedLecturer = (String) rowData[0];
+            this.selectedLecturer = (String) rowData[1];
         }
     }//GEN-LAST:event_userTableMouseClicked
 

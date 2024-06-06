@@ -11,7 +11,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.filechooser.FileFilter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,11 +26,9 @@ public class UserController {
 
     public class User implements FileController {
 
-        public File getReportPath() {
-            return reportPath;
+        public String getID() {
+            return id;
         }
-
-        private File reportPath;
 
         public File getSelectedFile() {
             return selectedFile;
@@ -39,8 +40,8 @@ public class UserController {
         public String ic;
         public String phone;
         public String gender;
-        public String country;
-        public File imagePath;
+        public String state;
+        public File fullPath;
         public static String dob;
         public String address;
         public String[] keys;
@@ -52,8 +53,8 @@ public class UserController {
             this.ic = "";
             this.phone = "";
             this.gender = "";
-            this.country = "";
-            this.imagePath = null;
+            this.state = "";
+            this.fullPath = null;
             this.fs = new FileController.FileService();
 
         }
@@ -94,20 +95,20 @@ public class UserController {
             this.gender = gender;
         }
 
-        public File getImagePath() {
-            return imagePath;
+        public File getFullPath() {
+            return fullPath;
         }
 
-        public void setImagePath(File imagePath) {
-            this.imagePath = imagePath;
+        public void setFullPath(File imagePath) {
+            this.fullPath = imagePath;
         }
 
-        public String getCountry() {
-            return country;
+        public String getState() {
+            return state;
         }
 
-        public void setCountry(String country) {
-            this.country = country;
+        public void setState(String state) {
+            this.state = state;
         }
 
         public String getDob() {
@@ -140,38 +141,13 @@ public class UserController {
             return searchedArray;
         }
 
-        public void saveImage(File selectedFile) {
+        public void saveFile(File selectedFile) {
             String projectDirectory = System.getProperty("user.dir");
-
-            if (selectedFile != null) {
-                if (!imagePath.equals(new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg"))) {
-                    try {
-                        FileOutputStream fos;
-                        try (FileInputStream fis = new FileInputStream(selectedFile)) {
-                            fos = new FileOutputStream(imagePath);
-                            byte[] buffer = new byte[1024];
-                            int bytesRead;
-                            while ((bytesRead = fis.read(buffer)) != -1) {
-                                fos.write(buffer, 0, bytesRead);
-                            }
-                        }
-                        fos.close();
-
-                    } catch (IOException e) {
-                    }
-                } else {
-
-                }
-            } else {
-            }
-        }
-
-        public void saveReport(File selectedFile) {
             if (selectedFile != null) {
                 try {
                     FileOutputStream fos;
                     try (FileInputStream fis = new FileInputStream(selectedFile)) {
-                        fos = new FileOutputStream(reportPath);
+                        fos = new FileOutputStream(projectDirectory + fullPath);
                         byte[] buffer = new byte[1024];
                         int bytesRead;
                         while ((bytesRead = fis.read(buffer)) != -1) {
@@ -179,12 +155,30 @@ public class UserController {
                         }
                     }
                     fos.close();
-                    System.out.println(imagePath);
 
                 } catch (IOException e) {
                 }
+            }
 
-            } else {
+        }
+
+        public static void updateAvatarImageIcon(File filePath, JLabel avatarImageIcon) {
+            ImageController imageController = new ImageController();
+            File fullPath;
+
+            // Check if the file exists at the given path
+            if (filePath != null) {
+                if (filePath.exists()) {
+                    fullPath = filePath;
+                } else {
+                    // Construct the path relative to the project directory
+                    String projectDirectory = System.getProperty("user.dir");
+                    fullPath = new File(projectDirectory, filePath.getPath());
+                }
+
+                // Get the scaled icon and set it to the label
+                ImageIcon scaledIcon = imageController.getImageIcon(fullPath);
+                avatarImageIcon.setIcon(scaledIcon);
             }
         }
 
@@ -197,38 +191,51 @@ public class UserController {
             return Integer.toString(count);
         }
 
-        public void setUploadPath() {
+        public void setUploadPath(String uploadPath) {
             JFileChooser fileChooser = new JFileChooser();
-            String projectDirectory = System.getProperty("user.dir");
             fileChooser.setCurrentDirectory(new File(""));
+
+            // Only accept photo format,word and pdf file
+            fileChooser.setFileFilter(createFileFilter());
+            fileChooser.setAcceptAllFileFilterUsed(false);
+
             int returnValue = fileChooser.showOpenDialog(null);
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 this.selectedFile = fileChooser.getSelectedFile(); // Get the selected file
-                this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\" + selectedFile.getName());
+                this.fullPath = new File(uploadPath + selectedFile.getName());
             }
         }
 
-        public void setReportPath() {
-            JFileChooser fileChooser = new JFileChooser();
-            String projectDirectory = System.getProperty("user.dir");
-            fileChooser.setCurrentDirectory(new File(""));
-            int returnValue = fileChooser.showOpenDialog(null);
+        private FileFilter createFileFilter() {
+            return new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    if (f.isDirectory()) {
+                        return true; // Allow directories to be shown
+                    }
 
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                this.selectedFile = fileChooser.getSelectedFile(); // Get the selected file
-                this.reportPath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\report\\" + selectedFile.getName());
-                System.out.println(selectedFile);
-            }
+                    String fileName = f.getName().toLowerCase();
+                    return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")
+                            || fileName.endsWith(".png") || fileName.endsWith(".gif")
+                            || fileName.endsWith(".bmp") || fileName.endsWith(".pdf")
+                            || fileName.endsWith(".doc") || fileName.endsWith(".docx");
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Image files, Word documents, and PDFs";
+                }
+            };
         }
 
         @Override
-        public void saveFile(String fileName) {
+        public void saveTextFile(String fileName) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
 
         @Override
-        public void updateFile(String fileName, String[] content) {
+        public void updateTextFile(String fileName) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
 
@@ -249,24 +256,24 @@ public class UserController {
 
         public Lecturer() {
             this.keys = new String[]{"ID", "Name", "IC",
-                "Phone.no", "Gender", "Country", "Address", "Email", "Birth Date",
+                "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
                 "Department", "Education", "ImagePath"};
         }
 
-        public String[] getLecturer() {
-            String[] student = {id, name, ic, phone, gender, country, address, email, dob, department, education, imagePath.toString()};
-            return student;
+        public JSONObject getLecturer() {
+            String[] student = {id, name, ic, phone, gender, state, address, email, dob, department, education, fullPath.toString()};
+            JSONObject jsonObj = toJSONObject(keys, student);
+            return jsonObj;
         }
 
         @Override
-        public void saveFile(String fileName) {
-            JSONObject jsonObj = toJSONObject(keys, getLecturer());
-            fs.write(jsonObj, fileName, true);
+        public void saveTextFile(String fileName) {
+            fs.write(getLecturer(), fileName, true);
         }
 
         @Override
-        public void updateFile(String fileName, String[] content) {
-            fs.updateData(fileName, keys, content, "ID");
+        public void updateTextFile(String fileName) {
+            fs.updateData(fileName, getLecturer(), "ID");
 
         }
 
@@ -288,7 +295,7 @@ public class UserController {
             this.entry_level = "";
             this.course = "";
             this.keys = new String[]{"ID", "Name", "Parent Name", "IC",
-                "Phone.no", "Gender", "Country", "Address", "Email", "Birth Date",
+                "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
                 "Entry Level", "Course", "Intake Date", "ImagePath"};
 
         }
@@ -325,23 +332,22 @@ public class UserController {
             this.intake_date = intake_date;
         }
 
-        public String[] getStudent() {
-            String[] student = {id, name, parent_name, ic, phone, gender, country, address, email, dob, entry_level, course, intake_date, imagePath.toString()};
-            return student;
+        public JSONObject getStudent() {
+            String[] student = {id, name, parent_name, ic, phone, gender, state, address, email, dob, entry_level, course, intake_date, fullPath.toString()};
+            JSONObject jsonObj = toJSONObject(keys, student);
+            return jsonObj;
         }
 
         @Override
-        public void saveFile(String fileName) {
-            JSONObject jsonObj = toJSONObject(keys, getStudent());
-            fs.write(jsonObj, fileName, true);
+        public void saveTextFile(String fileName) {
+            fs.write(getStudent(), fileName, true);
         }
 
         @Override
-        public void updateFile(String fileName, String[] content) {
-            fs.updateData(fileName, keys, content, "ID");
+        public void updateTextFile(String fileName) {
+            fs.updateData(fileName, getStudent(), "ID");
 
         }
-
     }
 
     public class Account extends User {
@@ -356,6 +362,10 @@ public class UserController {
         }
 
         public String getId() {
+            return id;
+        }
+
+        public String setId() {
             return id;
         }
 
@@ -375,20 +385,20 @@ public class UserController {
             this.role = role;
         }
 
-        public String[] getAccount() {
+        public JSONObject getAccount() {
             String[] students = {id, email, password, role};
-            return students;
+            JSONObject jsonObj = toJSONObject(keys, students);
+            return jsonObj;
         }
 
         @Override
-        public void saveFile(String fileName) {
-            JSONObject jsonObj = toJSONObject(keys, getAccount());
-            fs.write(jsonObj, fileName, true);
+        public void saveTextFile(String fileName) {
+            fs.write(getAccount(), fileName, true);
         }
 
         @Override
-        public void updateFile(String fileName, String[] content) {
-            fs.updateData(fileName, keys, content, "ID");
+        public void updateTextFile(String fileName) {
+            fs.updateData(fileName, getAccount(), "ID");
         }
 
         public boolean checkConfidential(String email, String password) {
@@ -404,6 +414,7 @@ public class UserController {
                     JSONArray searchedArray = seachUser(email, "account.txt");
                     JSONObject searchedObj = searchedArray.getJSONObject(0);
                     setRole(searchedObj.getString("Role"));
+                    setId(searchedObj.getString("ID"));
                     return true;
                 }
             } else {
@@ -429,7 +440,7 @@ public class UserController {
 
     }
 
-    class Admin extends Account {
+    public class Admin extends Account {
 
         @Override
         public String getEmail() {
@@ -441,11 +452,17 @@ public class UserController {
             return password;
         }
 
+        @Override
+        public String getName() {
+            return name;
+        }
+
         public Admin() {
             this.id = "admin";
             this.email = "admin@gmail.com";
-            this.password = "admin1234";
+            this.password = "Admin@1234";
             this.role = "admin";
+            this.name = "yizun";
         }
 
     }

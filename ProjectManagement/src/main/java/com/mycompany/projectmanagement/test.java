@@ -4,45 +4,66 @@
  */
 package com.mycompany.projectmanagement;
 
-import java.awt.Desktop;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import javax.swing.JOptionPane;
 
-/**
- *
- * @author yizun
- */
-import javax.swing.*;
-
-public class test {
-    private JFrame frame;
+public class test extends JFrame {
+    private JButton openButton;
+    private JPanel previewPanel;
 
     public test() {
-        // Create the frame
-        frame = new JFrame("No Title Bar Window Example");
-        frame.setSize(300, 200);
+        setTitle("File Previewer");
+        setSize(800, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-        // Set undecorated property to true to remove title bar
-        frame.setUndecorated(true);
+        openButton = new JButton("Open PDF File");
+        openButton.addActionListener(e -> openFile());
 
-        // Set close operation
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        previewPanel = new JPanel(new BorderLayout());
+        
+        setLayout(new BorderLayout());
+        add(openButton, BorderLayout.NORTH);
+        add(previewPanel, BorderLayout.CENTER);
+    }
 
-        // Add some content
-        JLabel label = new JLabel("This is a window without a title bar!");
-        frame.add(label);
+    private void openFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            if (selectedFile.getName().toLowerCase().endsWith(".pdf")) {
+                showPdfPreview(selectedFile);
+            } else {
+                JOptionPane.showMessageDialog(this, "Unsupported file type", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
-        // Make the window visible
-        frame.setVisible(true);
+    private void showPdfPreview(File file) {
+        try (PDDocument document = PDDocument.load(file)) {
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+            BufferedImage bim = pdfRenderer.renderImageWithDPI(0, 300);
+            ImageIcon imageIcon = new ImageIcon(bim);
+            JLabel label = new JLabel(imageIcon);
+            previewPanel.removeAll();
+            previewPanel.add(new JScrollPane(label), BorderLayout.CENTER);
+            previewPanel.revalidate();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Failed to load PDF file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new test();
-            }
+        SwingUtilities.invokeLater(() -> {
+            test previewer = new test();
+            previewer.setVisible(true);
         });
     }
 }

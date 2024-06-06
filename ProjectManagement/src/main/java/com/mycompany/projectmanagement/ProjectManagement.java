@@ -4,10 +4,15 @@
 
 package com.mycompany.projectmanagement;
 
+import com.mycompany.projectmanagement.gui.LoginForm;
+
 /**
  *
  * @author yizun
  */
-public class ProjectManagement {
-
+public class ProjectManagement  extends javax.swing.JFrame {
+    public static void main(String[] args) {
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+    }
 }

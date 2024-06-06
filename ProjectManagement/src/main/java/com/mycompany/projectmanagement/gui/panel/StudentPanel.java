@@ -21,7 +21,7 @@ import org.json.JSONArray;
 public class StudentPanel extends javax.swing.JPanel {
 
     public final static String[] columns = {"ID", "Name", "Parent Name", "IC",
-        "Phone.no", "Gender", "Country", "Address", "Email", "Birth Date",
+        "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
         "Entry Level", "Course", "Intake Date", "ImagePath"};
 //    private final Timer timer;
     private final UserController userController;
@@ -46,13 +46,11 @@ public class StudentPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        studentPanel = new com.mycompany.projectmanagement.gui.panel.StudentForm();
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
         importBtn = new javax.swing.JButton();
-
-        studentPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        studentForm = new com.mycompany.projectmanagement.gui.panel.StudentForm();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,6 +83,8 @@ public class StudentPanel extends javax.swing.JPanel {
             }
         });
 
+        studentForm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,8 +99,8 @@ public class StudentPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(studentForm, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,8 +111,8 @@ public class StudentPanel extends javax.swing.JPanel {
                     .addComponent(importBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(studentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(studentForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -131,7 +131,7 @@ public class StudentPanel extends javax.swing.JPanel {
             }
 
             // Pass the data to the edit form
-            studentPanel.setData(rowData);
+            studentForm.setData(rowData);
         }
     }//GEN-LAST:event_userTableMouseClicked
 
@@ -163,7 +163,7 @@ public class StudentPanel extends javax.swing.JPanel {
     private javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
-    public static com.mycompany.projectmanagement.gui.panel.StudentForm studentPanel;
+    private com.mycompany.projectmanagement.gui.panel.StudentForm studentForm;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

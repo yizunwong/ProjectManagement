@@ -26,7 +26,7 @@ public class ExcelController {
     public ExcelController() {
         this.userController = new UserController();
         this.fileService = new FileController.FileService();
-        this.defaultAvatarPath = "C:\\Users\\yizun\\OneDrive\\Documents\\NetBeansProjects\\Respository\\ProjectManagement\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg";
+        this.defaultAvatarPath = "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg";
         this.dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     }
 
@@ -105,7 +105,7 @@ public class ExcelController {
             }
 
             createAndSaveAccount(id, dob, role);
-            boolean alreadyExists = fileService.checkExists(fileName, jsonObject);
+            boolean alreadyExists = fileService.checkExists(fileName, jsonObject,"ID");
             if (!alreadyExists) {
                 fileService.write(jsonObject, fileName, true);
             } else {
@@ -122,7 +122,7 @@ public class ExcelController {
         user.setDob(dob);
         account.setId(studentID);
         account.setAccount(role);
-        account.saveFile("account.txt");
+        account.saveTextFile("account.txt");
     }
 
     private void createAndSaveAssessment(String studentID, String courseId, String intakeDate, String[] modules) {
@@ -131,6 +131,6 @@ public class ExcelController {
         assessment.setStudentID(studentID);
         assessment.setModules(modules);
         assessment.setIntakeDate(intakeDate);
-        assessment.saveFile("assessment.txt", assessment);
+        assessment.saveTextFile("assessment.txt", assessment);
     }
 }

@@ -41,8 +41,8 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
 
     public final void initialCard() {
         String[] status = {"In Progress"};
-        HashMap<String, Integer> assessment = fs.countOccurrences("assessment.txt", "status", status);
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), 
+        HashMap<String, Integer> assessment = fs.countOccurrences("assessment.txt", "status", status, null);
+        card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), 
                 "Total Project", assessment.get("In Progress").toString(), "Project that is in-progress"));
 
     }

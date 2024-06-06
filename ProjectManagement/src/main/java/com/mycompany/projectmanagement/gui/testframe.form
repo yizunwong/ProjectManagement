@@ -25,35 +25,23 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="studentPanelBorder1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="472" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pdfPreviewer1" min="-2" pref="268" max="-2" attributes="0"/>
+              <EmptySpace pref="420" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="studentPanelBorder1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="372" max="32767" attributes="0"/>
+              <Component id="pdfPreviewer1" min="-2" pref="407" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="com.mycompany.projectmanagement.gui.StudentPanelBorder" name="studentPanelBorder1">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-    </Container>
+    <Component class="com.mycompany.projectmanagement.gui.panel.PdfPreviewer" name="pdfPreviewer1">
+    </Component>
   </SubComponents>
 </Form>
