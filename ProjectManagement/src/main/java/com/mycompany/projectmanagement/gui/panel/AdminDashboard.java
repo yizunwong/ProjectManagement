@@ -94,8 +94,8 @@ public class AdminDashboard extends javax.swing.JPanel {
             String searchValue = searchField.getText();
             FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "assessment.txt");
-            fs.showFileData(userTable, columns, "assessment.txt", searchedArray,0);
+            JSONArray searchedArray = user.seachUser(searchValue, "account.txt",null);
+            fs.showFileData(userTable, columns, "account.txt", searchedArray,0);
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 

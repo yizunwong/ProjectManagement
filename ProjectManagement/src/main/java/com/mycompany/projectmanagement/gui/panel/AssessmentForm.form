@@ -144,12 +144,10 @@
     <Component class="javax.swing.JComboBox" name="statusComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
+          <StringArray count="3">
             <StringItem index="0" value="In Progress"/>
-            <StringItem index="1" value="Submitted"/>
-            <StringItem index="2" value="Late"/>
-            <StringItem index="3" value="Under Review"/>
-            <StringItem index="4" value="Completed"/>
+            <StringItem index="1" value="Late"/>
+            <StringItem index="2" value="Completed"/>
           </StringArray>
         </Property>
       </Properties>

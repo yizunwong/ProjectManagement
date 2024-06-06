@@ -155,7 +155,7 @@ public class AssessmentForm extends javax.swing.JPanel {
 
         assessmentTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Internship Report", "Investigation Reports", "CP1", "CP2", "RMCP", "FYP " }));
 
-        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In Progress", "Submitted", "Late", "Under Review", "Completed" }));
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In Progress", "Late", "Completed" }));
 
         jLabel4.setText("Assessment Type : ");
 
@@ -280,7 +280,7 @@ public class AssessmentForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         intake_date = intakeComboBox.getSelectedItem().toString();
         UserController.User user = userController.new User();
-        searchedArray = user.seachUser(intake_date, "assessment.txt");
+        searchedArray = user.seachUser(intake_date, "assessment.txt",null);
 
     }//GEN-LAST:event_intakeComboBoxActionPerformed
 
@@ -293,19 +293,23 @@ public class AssessmentForm extends javax.swing.JPanel {
             Assessment assessment = new Assessment();
             getFieldData();
             setFieldData(assessment);
-            module = moduleComboBox.getSelectedItem().toString();
-            searchedArray = user.seachUser(intake_date, "assessment.txt");
-            this.assessmentArray = fs.searchData("assessment.txt", module, searchedArray);
-
-            List<String> errors = validateField();
-            if (errors.isEmpty()) {
-                assessment.updateFileByModule(assessment);
-                searchedArray = user.seachUser(intake_date, "assessment.txt");
+            if (!supervisor.equalsIgnoreCase(second_marker)) {
+                module = moduleComboBox.getSelectedItem().toString();
+                searchedArray = user.seachUser(intake_date, "assessment.txt",null);
                 this.assessmentArray = fs.searchData("assessment.txt", module, searchedArray);
 
-                fs.showFileData(dataTable, assessment_columns, "assessment.txt", assessmentArray,0);
+                List<String> errors = validateField();
+                if (errors.isEmpty()) {
+                    assessment.updateFileByModule(assessment);
+                    searchedArray = user.seachUser(intake_date, "assessment.txt",null);
+                    this.assessmentArray = fs.searchData("assessment.txt", module, searchedArray);
+
+                    fs.showFileData(dataTable, assessment_columns, "assessment.txt", assessmentArray, 0);
+                } else {
+                    JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Supervisor and second marker cant be same person", "Selection Error", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Assessment type submit successfully");
@@ -316,14 +320,14 @@ public class AssessmentForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         module = moduleComboBox.getSelectedItem().toString();
         this.assessmentArray = fs.searchData("assessment.txt", module, searchedArray);
-        fs.showFileData(dataTable, assessment_columns, "assessment.txt", assessmentArray,0);
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", assessmentArray, 0);
     }//GEN-LAST:event_moduleComboBoxActionPerformed
 
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
         resetField();
         initializeComboBox();
-        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null,0);
+        fs.showFileData(dataTable, assessment_columns, "assessment.txt", null, 0);
     }//GEN-LAST:event_resetBtnActionPerformed
 
 

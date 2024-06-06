@@ -119,7 +119,7 @@ public class AccountPanel extends javax.swing.JPanel {
             String searchValue = searchField.getText();
             FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "account.txt");
+            JSONArray searchedArray = user.seachUser(searchValue, "account.txt",null);
             fs.showFileData(userTable, columns, "account.txt", searchedArray,0);
 
         }

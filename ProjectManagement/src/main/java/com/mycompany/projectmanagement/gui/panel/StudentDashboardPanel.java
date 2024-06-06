@@ -8,6 +8,7 @@ import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.assessment_columns;
 import static com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel.requestTable;
+import java.awt.event.KeyEvent;
 import org.json.JSONArray;
 
 /**
@@ -19,6 +20,8 @@ public class StudentDashboardPanel extends javax.swing.JPanel {
     private String id;
     private final FileController.FileService fs;
     private final UserController userController;
+    private JSONArray reportArray;
+    private JSONArray requestArray;
 
     /**
      * Creates new form StudentDashboardList
@@ -27,21 +30,20 @@ public class StudentDashboardPanel extends javax.swing.JPanel {
         initComponents();
         this.fs = new FileController.FileService();
         this.userController = new UserController();
-        
+
     }
 
     public void setUser(String id) {
         this.id = id;
-        System.out.println(id);
         refreshTable();
     }
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        JSONArray requestArray = user.seachUser(id, "request.txt");
-        JSONArray reportArray = user.seachUser(id, "report.txt");
-        fs.showFileData(StudentDashboardPanel.SubmissionTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 1);
-        fs.showFileData(StudentDashboardPanel.BookingTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
+        requestArray = user.seachUser(id, "request.txt", null);
+        reportArray = user.seachUser(id, "report.txt", null);
+        fs.showFileData(SubmissionTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 1);
+        fs.showFileData(BookingTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
     }
 
     /**
@@ -60,6 +62,8 @@ public class StudentDashboardPanel extends javax.swing.JPanel {
         card1 = new com.mycompany.projectmanagement.gui.panel.Card();
         card2 = new com.mycompany.projectmanagement.gui.panel.Card();
         pieChart1 = new com.mycompany.projectmanagement.gui.panel.PieChart();
+        submissionSearchField = new javax.swing.JTextField();
+        bookingSearchField = new javax.swing.JTextField();
 
         SubmissionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,22 +103,37 @@ public class StudentDashboardPanel extends javax.swing.JPanel {
 
         card2.setColor1(new java.awt.Color(153, 204, 255));
 
+        submissionSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                submissionSearchFieldKeyPressed(evt);
+            }
+        });
+
+        bookingSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bookingSearchFieldKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pieChart1, javax.swing.GroupLayout.PREFERRED_SIZE, 1113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pieChart1, javax.swing.GroupLayout.DEFAULT_SIZE, 1123, Short.MAX_VALUE))
+                        .addComponent(bookingSearchField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2))
+                    .addComponent(submissionSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,22 +145,48 @@ public class StudentDashboardPanel extends javax.swing.JPanel {
                         .addGap(10, 10, 10)
                         .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pieChart1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submissionSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bookingSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void submissionSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_submissionSearchFieldKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String searchValue = submissionSearchField.getText();
+            UserController.User user = userController.new User();
+            JSONArray searchedArray = user.seachUser(searchValue, "report.txt", reportArray);
+            fs.showFileData(SubmissionTable, ReportSubmissionPanel.columns, "report.txt", searchedArray, 0);
+        }
+    }//GEN-LAST:event_submissionSearchFieldKeyPressed
+
+    private void bookingSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bookingSearchFieldKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String searchValue = bookingSearchField.getText();
+            UserController.User user = userController.new User();
+            JSONArray searchedArray = user.seachUser(searchValue, "request.txt", requestArray);
+            fs.showFileData(BookingTable, PresentationRquestPanel.columns, "request.txt", searchedArray, 0);
+        }
+    }//GEN-LAST:event_bookingSearchFieldKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable BookingTable;
     public static javax.swing.JTable SubmissionTable;
+    private javax.swing.JTextField bookingSearchField;
     public static com.mycompany.projectmanagement.gui.panel.Card card1;
     public static com.mycompany.projectmanagement.gui.panel.Card card2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public com.mycompany.projectmanagement.gui.panel.PieChart pieChart1;
+    private javax.swing.JTextField submissionSearchField;
     // End of variables declaration//GEN-END:variables
 }

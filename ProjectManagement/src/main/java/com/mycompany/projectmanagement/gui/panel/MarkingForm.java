@@ -45,7 +45,7 @@ public class MarkingForm extends javax.swing.JPanel {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        reportArray = user.seachUser(name, "report.txt");
+        reportArray = user.seachUser(name, "report.txt",null);
         fs.showFileData(MarkingPanel.reportTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 0);
     }
 
@@ -224,7 +224,7 @@ public class MarkingForm extends javax.swing.JPanel {
         validateString(mark, "Mark", errors);
 
         if (errors.isEmpty()) {
-            JSONArray searchedArray = user.seachUser(report_id, "report.txt");
+            JSONArray searchedArray = user.seachUser(report_id, "report.txt",null);
             JSONObject searchObj = searchedArray.getJSONObject(0);
             if (!name.equalsIgnoreCase(second_marker)) {
                 if (!searchObj.getString("status").equalsIgnoreCase("Marked")) {
@@ -235,7 +235,7 @@ public class MarkingForm extends javax.swing.JPanel {
                     submission.updateFile("report.txt", searchObj);
 
                     Assessment assessment = new Assessment();
-                    JSONArray assessmentArray = user.seachUser(assessment_id, "assessment.txt");
+                    JSONArray assessmentArray = user.seachUser(assessment_id, "assessment.txt",null);
                     JSONObject assessmentObj = assessmentArray.getJSONObject(0);
                     assessmentObj.put("status", "Completed");
                     assessment.updateFile("assessment.txt", assessmentObj);
@@ -251,7 +251,7 @@ public class MarkingForm extends javax.swing.JPanel {
                 submission.updateFile("report.txt", searchObj);
 
                 Assessment assessment = new Assessment();
-                JSONArray assessmentArray = user.seachUser(assessment_id, "assessment.txt");
+                JSONArray assessmentArray = user.seachUser(assessment_id, "assessment.txt", null);
                 JSONObject assessmentObj = assessmentArray.getJSONObject(0);
                 assessmentObj.put("status", "Completed");
                 assessment.updateFile("assessment.txt", assessmentObj);

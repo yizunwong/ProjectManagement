@@ -1,0 +1,1 @@
+{"Department":"Engineering","Email":"jane.doe@example.com","Address":"123 Tech Lane","Education":"Foundation","State":"Pahang","ImagePath":"\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg","IC":"030123091123","ID":"LC7352","Gender":"Female","Birth Date":"2024/05/01","Phone.no":"+60174551234","Name":"Jane Doe"}

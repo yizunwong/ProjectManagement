@@ -47,14 +47,14 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="assessmentSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="entryLevelComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="courseComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="entryLevelComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="assessmentSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="356" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="348" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lecturerSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -159,7 +159,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="assignLecturerBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assign Lecturer"/>
+        <Property name="text" type="java.lang.String" value="Assign Supervisor"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assignLecturerBtnActionPerformed"/>

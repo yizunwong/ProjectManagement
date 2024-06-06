@@ -12,7 +12,7 @@ import org.json.JSONArray;
 
 public class PresentationRquestPanel extends javax.swing.JPanel {
 
-    public final static String[] columns = {"ID", "student_id", "assessment_id","module", "request_date", "supervisor", "status", "remark"};
+    public final static String[] columns = {"ID", "student_id", "assessment_id", "module", "request_date", "supervisor", "status", "remark"};
     public UserController userController;
     private String id;
     private JSONArray requestArray, assessmentArray;
@@ -28,15 +28,14 @@ public class PresentationRquestPanel extends javax.swing.JPanel {
 
     public void setUser(String id) {
         this.id = id;
-        System.out.println(id);
         refreshTable();
         presentationRequestForm1.setUser(id);
     }
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        requestArray = user.seachUser(id, "request.txt");
-        assessmentArray = user.seachUser(id, "assessment.txt");
+        requestArray = user.seachUser(id, "request.txt", null);
+        assessmentArray = user.seachUser(id, "assessment.txt", null);
         fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
         fs.showFileData(PresentationRquestPanel.assessmentTable, assessment_columns, "assessment.txt", assessmentArray, 0);
     }
@@ -50,16 +49,16 @@ public class PresentationRquestPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lecturerSearchField = new javax.swing.JTextField();
+        requestSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         requestTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         assessmentTable = new javax.swing.JTable();
         presentationRequestForm1 = new com.mycompany.projectmanagement.gui.panel.PresentationRequestForm();
 
-        lecturerSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+        requestSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                lecturerSearchFieldKeyPressed(evt);
+                requestSearchFieldKeyPressed(evt);
             }
         });
 
@@ -110,38 +109,39 @@ public class PresentationRquestPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(requestSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(presentationRequestForm1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lecturerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(presentationRequestForm1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lecturerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(presentationRequestForm1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(presentationRequestForm1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(requestSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lecturerSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lecturerSearchFieldKeyPressed
+    private void requestSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_requestSearchFieldKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String searchValue = lecturerSearchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
+            String searchValue = requestSearchField.getText();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt");
+            JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt", requestArray);
+            fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", searchedArray, 0);
+
         }
-    }//GEN-LAST:event_lecturerSearchFieldKeyPressed
+    }//GEN-LAST:event_requestSearchFieldKeyPressed
 
     private void requestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestTableMouseClicked
         int SelectedRow = requestTable.getSelectedRow(); // Get the selected row index
@@ -183,8 +183,8 @@ public class PresentationRquestPanel extends javax.swing.JPanel {
     public static javax.swing.JTable assessmentTable;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField lecturerSearchField;
     private com.mycompany.projectmanagement.gui.panel.PresentationRequestForm presentationRequestForm1;
+    private javax.swing.JTextField requestSearchField;
     public static javax.swing.JTable requestTable;
     // End of variables declaration//GEN-END:variables
 }

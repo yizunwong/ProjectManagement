@@ -40,6 +40,7 @@ public class LecturerMain extends javax.swing.JFrame {
         "-"
     };
     private JSONArray reportArray;
+    int mouseX, mouseY;
 
     public LecturerMain() {
         initComponents();
@@ -52,18 +53,17 @@ public class LecturerMain extends javax.swing.JFrame {
     public void setUser(String id) {
         this.id = id;
         UserController.User user = userController.new User();
-        JSONArray searchedArray = user.seachUser(id, "lecturer.txt");
+        JSONArray searchedArray = user.seachUser(id, "lecturer.txt", null);
         JSONObject searchObj = searchedArray.getJSONObject(0);
         this.name = searchObj.getString("Name");
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
 
-        String[] status = {"Pending","Late","Accepted","Rejected"};
-        reportArray = user.seachUser(name, "report.txt");
-        JSONArray requestArray = user.seachUser(name, "request.txt");
+        String[] status = {"Pending", "Late", "Accepted", "Rejected"};
+        reportArray = user.seachUser(name, "report.txt", null);
+        JSONArray requestArray = user.seachUser(name, "request.txt", null);
 
         HashMap<String, Integer> report = fs.countOccurrences("report.txt", "status", status, reportArray);
-        System.out.println(report);
         HashMap<String, Integer> reqeust = fs.countOccurrences("reqeust.txt", "status", status, requestArray);
         card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Pending Report", report.get("Pending").toString(), "Report that need to be mark"));
         card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Pendin Request", reqeust.get("Pending").toString(), "Request for presentation"));
@@ -84,7 +84,7 @@ public class LecturerMain extends javax.swing.JFrame {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        assessmentArray = user.seachUser(name, "assessment.txt");
+        assessmentArray = user.seachUser(name, "assessment.txt", null);
         fs.showFileData(LecturerDashboard.superviseeTable, columns, "assessment.txt", assessmentArray, 0);
     }
 
@@ -113,7 +113,17 @@ public class LecturerMain extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header1.setBackground(new java.awt.Color(51, 51, 51));
-        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, -1));
+        header1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header1MouseDragged(evt);
+            }
+        });
+        header1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header1MousePressed(evt);
+            }
+        });
+        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 60));
 
         jButton1.setText("DashBoard");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +212,19 @@ public class LecturerMain extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed
+        // TODO add your handling code here:
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+
+    }//GEN-LAST:event_header1MousePressed
+
+    private void header1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MouseDragged
+        // TODO add your handling code here:
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+
+    }//GEN-LAST:event_header1MouseDragged
 
     /**
      * @param args the command line arguments

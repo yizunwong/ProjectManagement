@@ -11,6 +11,7 @@ import com.mycompany.projectmanagement.FileController.State;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.UserController.Account;
 import com.mycompany.projectmanagement.UserController.Student;
+import com.mycompany.projectmanagement.UserController.User.FileType;
 import static com.mycompany.projectmanagement.Validator.validateDate;
 import static com.mycompany.projectmanagement.Validator.validateEmail;
 import static com.mycompany.projectmanagement.Validator.validatePhone;
@@ -503,7 +504,7 @@ public class StudentForm extends javax.swing.JPanel {
     private void fileUploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileUploadBtnActionPerformed
         // TODO add your handling code here:
         UserController.User user = userController.new User();
-        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\");
+        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\",FileType.IMAGE);
         this.imagePath = user.getFullPath();
         this.selectedFile = user.getSelectedFile();
         UserController.User.updateAvatarImageIcon(selectedFile, avatarImageIcon);

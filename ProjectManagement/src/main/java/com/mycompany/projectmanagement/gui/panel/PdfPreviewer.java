@@ -6,6 +6,7 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import static com.mycompany.projectmanagement.FilePreviewer.setPreviewPanel;
 import com.mycompany.projectmanagement.UserController;
+import com.mycompany.projectmanagement.UserController.User.FileType;
 import static com.mycompany.projectmanagement.gui.panel.ReportSubmissionForm.FilePathField;
 import java.awt.BorderLayout;
 import java.io.File;
@@ -40,7 +41,7 @@ public class PdfPreviewer extends javax.swing.JPanel {
 
     private void openFile() {
         user = userController.new User();
-        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\report\\");
+        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\report\\",FileType.DOCUMENT);
         File selectedFile = user.getSelectedFile();
         if (selectedFile != null) {
             setPreviewPanel(user.getSelectedFile());

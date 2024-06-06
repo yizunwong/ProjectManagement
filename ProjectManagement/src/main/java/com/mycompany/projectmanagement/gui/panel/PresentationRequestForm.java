@@ -89,8 +89,8 @@ public class PresentationRequestForm extends javax.swing.JPanel {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        requestArray = user.seachUser(id, "request.txt");
-        assessmentArray = user.seachUser(id, "assessment.txt");
+        requestArray = user.seachUser(id, "request.txt", null);
+        assessmentArray = user.seachUser(id, "assessment.txt", null);
         fs.showFileData(PresentationRquestPanel.requestTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
         fs.showFileData(PresentationRquestPanel.assessmentTable, assessment_columns, "assessment.txt", assessmentArray, 0);
     }

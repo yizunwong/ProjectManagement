@@ -135,8 +135,10 @@ public class UserController {
             this.address = address;
         }
 
-        public JSONArray seachUser(String searchValue, String fileName) {
-            JSONArray dataArray = (JSONArray) fs.readData(fileName, "array");
+        public JSONArray seachUser(String searchValue, String fileName, JSONArray dataArray) {
+            if (dataArray == null) {
+                dataArray = (JSONArray) fs.readData(fileName, "array");
+            }
             JSONArray searchedArray = fs.searchData(fileName, searchValue, dataArray);
             return searchedArray;
         }
@@ -191,12 +193,17 @@ public class UserController {
             return Integer.toString(count);
         }
 
-        public void setUploadPath(String uploadPath) {
+        public enum FileType {
+            IMAGE,
+            DOCUMENT
+        }
+
+        public void setUploadPath(String uploadPath, FileType fileType) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(""));
 
             // Only accept photo format,word and pdf file
-            fileChooser.setFileFilter(createFileFilter());
+            fileChooser.setFileFilter(createFileFilter(fileType));
             fileChooser.setAcceptAllFileFilterUsed(false);
 
             int returnValue = fileChooser.showOpenDialog(null);
@@ -207,7 +214,7 @@ public class UserController {
             }
         }
 
-        private FileFilter createFileFilter() {
+        private FileFilter createFileFilter(FileType fileType) {
             return new FileFilter() {
                 @Override
                 public boolean accept(File f) {
@@ -216,15 +223,28 @@ public class UserController {
                     }
 
                     String fileName = f.getName().toLowerCase();
-                    return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")
-                            || fileName.endsWith(".png") || fileName.endsWith(".gif")
-                            || fileName.endsWith(".bmp") || fileName.endsWith(".pdf")
-                            || fileName.endsWith(".doc") || fileName.endsWith(".docx");
+                    return switch (fileType) {
+                        case IMAGE ->
+                            fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")
+                            || fileName.endsWith(".png") || fileName.endsWith(".bmp");
+                        case DOCUMENT ->
+                            fileName.endsWith(".pdf") || fileName.endsWith(".doc")
+                            || fileName.endsWith(".docx");
+                        default ->
+                            false;
+                    };
                 }
 
                 @Override
                 public String getDescription() {
-                    return "Image files, Word documents, and PDFs";
+                    return switch (fileType) {
+                        case IMAGE ->
+                            "Image files (*.jpg, *.jpeg, *.png, *.bmp)";
+                        case DOCUMENT ->
+                            "Document files (*.pdf, *.doc, *.docx)";
+                        default ->
+                            "";
+                    };
                 }
             };
         }
@@ -411,7 +431,7 @@ public class UserController {
 
             if (index != -1) {
                 if (existed_password.get(index).equals(password)) {
-                    JSONArray searchedArray = seachUser(email, "account.txt");
+                    JSONArray searchedArray = seachUser(email, "account.txt", null);
                     JSONObject searchedObj = searchedArray.getJSONObject(0);
                     setRole(searchedObj.getString("Role"));
                     setId(searchedObj.getString("ID"));

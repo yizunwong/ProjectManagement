@@ -432,10 +432,9 @@ public interface FileController {
         public HashMap<String, Integer> countOccurrences(String filename, String key, String[] expectedValues, JSONArray searchArray) {
             if (searchArray == null) {
                 jsonArray = (JSONArray) readData(filename, "array");
-            }else{
+            } else {
                 jsonArray = searchArray;
             }
-            
 
             // Initialize the counts hashmap with default values of 0 for all expected values
             HashMap<String, Integer> counts = new HashMap<>();
@@ -471,7 +470,6 @@ public interface FileController {
             String filePath = file_path;
             String projectDirectory = System.getProperty("user.dir");
             File file = new File(projectDirectory + filePath);
-            System.out.println(file.toString());
 
             if (file.exists()) {
                 try {
@@ -550,7 +548,6 @@ public interface FileController {
             JSONObject jsonObj = (JSONObject) fs.readData("course.txt", "object");
             if (jsonObj == null) {
                 // Handle the case where jsonObj is null, such as logging an error or throwing an exception
-                System.out.println("Error: Unable to read JSON data from file.");
                 return new String[0]; // Or any appropriate action
             }
 
@@ -660,7 +657,6 @@ public interface FileController {
             JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
             if (jsonObj == null) {
                 // Handle the case where jsonObj is null, such as logging an error or throwing an exception
-                System.out.println("Error: Unable to read JSON data from file.");
                 return new String[0]; // Or any appropriate action
             }
 
@@ -691,7 +687,6 @@ public interface FileController {
             JSONObject jsonObj = (JSONObject) file.readData("course.txt", "object");
             if (jsonObj == null) {
                 // Handle the case where jsonObj is null, such as logging an error or throwing an exception
-                System.out.println("Error: Unable to read JSON data from file.");
                 return new String[0]; // Or any appropriate action
             }
             if (key == null | ("-".equals(key))) {

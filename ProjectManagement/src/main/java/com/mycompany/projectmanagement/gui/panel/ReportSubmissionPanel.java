@@ -12,7 +12,7 @@ import org.json.JSONArray;
 
 public class ReportSubmissionPanel extends javax.swing.JPanel {
 
-    public final static String[] columns = {"ID", "student_id", "assessment_id", "supervisor","second_marker","status", "mark", "grade", "feedback", "file_path"};
+    public final static String[] columns = {"ID", "student_id", "assessment_id", "supervisor", "second_marker", "status", "mark", "grade", "feedback", "file_path"};
     public String file, id;
     public UserController userController;
     private final FileController.FileService fs;
@@ -27,15 +27,14 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
 
     public void setUser(String id) {
         this.id = id;
-        System.out.println(id);
         refreshTable();
         submissionForm.setUser(id);
     }
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        reportArray = user.seachUser(id, "report.txt");
-        assessmentArray = user.seachUser(id, "assessment.txt");
+        reportArray = user.seachUser(id, "report.txt", null);
+        assessmentArray = user.seachUser(id, "assessment.txt", null);
         fs.showFileData(reportTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 0);
         fs.showFileData(assessmentTable, ReportSubmissionForm.columns, "assessment.txt", assessmentArray, 0);
     }
@@ -53,7 +52,7 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         assessmentTable = new javax.swing.JTable();
         submissionForm = new com.mycompany.projectmanagement.gui.panel.ReportSubmissionForm();
-        SearchField = new javax.swing.JTextField();
+        assessmentSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
 
@@ -77,9 +76,9 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
 
         submissionForm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        SearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+        assessmentSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                SearchFieldKeyPressed(evt);
+                assessmentSearchFieldKeyPressed(evt);
             }
         });
 
@@ -110,7 +109,7 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(assessmentSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
@@ -122,13 +121,13 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(assessmentSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(submissionForm, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -151,15 +150,15 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_assessmentTableMouseClicked
 
-    private void SearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyPressed
+    private void assessmentSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_assessmentSearchFieldKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String searchValue = SearchField.getText();
+            String searchValue = assessmentSearchField.getText();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "report.txt");
-            fs.showFileData(ReportSubmissionPanel.assessmentTable, ReportSubmissionPanel.columns, "report.txt", searchedArray, 0);
+            JSONArray searchedArray = user.seachUser(searchValue, "assessment.txt", assessmentArray);
+            fs.showFileData(assessmentTable, ReportSubmissionForm.columns, "assessment.txt", searchedArray, 0);
         }
-    }//GEN-LAST:event_SearchFieldKeyPressed
+    }//GEN-LAST:event_assessmentSearchFieldKeyPressed
 
     private void reportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportTableMouseClicked
         // TODO add your handling code here:
@@ -182,7 +181,7 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField SearchField;
+    private javax.swing.JTextField assessmentSearchField;
     public static javax.swing.JTable assessmentTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

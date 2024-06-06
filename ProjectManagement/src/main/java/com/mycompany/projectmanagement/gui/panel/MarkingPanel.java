@@ -6,9 +6,6 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
-import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.assessment_columns;
-import static com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel.assessmentTable;
-import static com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel.reportTable;
 import java.awt.event.KeyEvent;
 import org.json.JSONArray;
 
@@ -38,7 +35,7 @@ public class MarkingPanel extends javax.swing.JPanel {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        reportArray = user.seachUser(name, "report.txt");
+        reportArray = user.seachUser(name, "report.txt",null);
         fs.showFileData(MarkingPanel.reportTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 0);
     }
 
@@ -135,12 +132,9 @@ public class MarkingPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
-            System.out.println(searchValue);
-            FileController.FileService fs = new FileController.FileService();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "report.txt");
+            JSONArray searchedArray = user.seachUser(searchValue, "report.txt",reportArray);
             fs.showFileData(reportTable, ReportSubmissionPanel.columns, "report.txt", searchedArray, 0);
-            System.out.println(searchedArray);
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 

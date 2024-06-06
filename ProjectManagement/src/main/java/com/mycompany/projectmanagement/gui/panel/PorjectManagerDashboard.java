@@ -72,10 +72,10 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         courseComboBox = new javax.swing.JComboBox<>();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 1150, 290));
+        add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1150, 280));
 
         card1.setColor1(new java.awt.Color(153, 255, 153));
-        add(card1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 310, 150));
+        add(card1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 310, 150));
 
         assessmentSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -134,7 +134,7 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = assessmentSearchField.getText();
             UserController.User user = userController.new User();
-            searchedArray = user.seachUser(searchValue, "assessment.txt");
+            searchedArray = user.seachUser(searchValue, "assessment.txt",null);
             fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
 
         }
@@ -148,7 +148,7 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
         String intake_date = intakeComboBox.getSelectedItem().toString();
         UserController.User user = userController.new User();
-        searchedArray = user.seachUser(intake_date, "assessment.txt");
+        searchedArray = user.seachUser(intake_date, "assessment.txt",null);
         fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
 
     }//GEN-LAST:event_intakeComboBoxActionPerformed
@@ -172,7 +172,7 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         this.selectedCourse = courseComboBox.getSelectedItem().toString();
         Course course = new Course();
         String courseID = course.findCourseID(entry_level, selectedCourse);
-        searchedArray = user.seachUser(courseID, "assessment.txt");
+        searchedArray = user.seachUser(courseID, "assessment.txt", null);
         fs.showFileData(dataTable, assessment_columns, "assessment.txt", searchedArray,0);
     }//GEN-LAST:event_courseComboBoxActionPerformed
 

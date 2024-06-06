@@ -8,6 +8,7 @@ import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.AccountPanel;
 import com.mycompany.projectmanagement.gui.panel.LecturerPanel;
+import static com.mycompany.projectmanagement.gui.panel.LecturerPanel.importBtn;
 import com.mycompany.projectmanagement.gui.panel.ModelCard;
 import com.mycompany.projectmanagement.gui.panel.PieChart;
 import com.mycompany.projectmanagement.gui.panel.StudentPanel;
@@ -205,6 +206,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void managePmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePmBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
+        lecturerList.remove(importBtn);
         lecturerList.setFile("project_manager.txt");
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null, 1);
     }//GEN-LAST:event_managePmBtnActionPerformed
@@ -225,6 +227,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void manageLecturerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLecturerBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
+        lecturerList.add(importBtn);
         lecturerList.setFile("lecturer.txt");
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null, 1);
     }//GEN-LAST:event_manageLecturerBtnActionPerformed

@@ -30,6 +30,8 @@ public class CheckEmailForm extends javax.swing.JFrame {
         initComponents();
         this.userController = new UserController();
         setLocationRelativeTo(null);
+        setResizable(false);
+
     }
 
     /**
@@ -71,7 +73,7 @@ public class CheckEmailForm extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("Check Student Email");
+        jLabel4.setText("Check Email");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,11 +94,11 @@ public class CheckEmailForm extends javax.swing.JFrame {
                         .addGap(177, 177, 177)
                         .addComponent(backBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(165, 165, 165)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(jLabel4)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,7 +131,7 @@ public class CheckEmailForm extends javax.swing.JFrame {
         String ic = icField.getText().trim();
 
         UserController.User user = userController.new User();
-        JSONArray searchedArray = user.seachUser(name, "student.txt");
+        JSONArray searchedArray = user.seachUser(name, "student.txt", null);
 
         JSONArray icArray = fs.searchData("student.txt", ic, searchedArray);
 
@@ -143,11 +145,11 @@ public class CheckEmailForm extends javax.swing.JFrame {
             JSONObject searchedObj = icArray.getJSONObject(0);
             String id = searchedObj.getString("ID");
 
-            JSONArray account = user.seachUser(id, "account.txt");
+            JSONArray account = user.seachUser(id, "account.txt", null);
             JSONObject accountObj = account.getJSONObject(0);
             String email = accountObj.getString("Email");
 
-            JOptionPane.showMessageDialog(null, email, "Your student email", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, email, "Your school email", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
 

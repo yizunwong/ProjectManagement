@@ -36,6 +36,8 @@ public class LecturerPanel extends javax.swing.JPanel {
     public void setFile(String fileName) {
         this.fileName = fileName;
         lecturerForm.setFile(fileName);
+        revalidate();
+        repaint();
 
     }
 
@@ -147,7 +149,7 @@ public class LecturerPanel extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt");
+            JSONArray searchedArray = user.seachUser(searchValue, "lecturer.txt",null);
             fs.showFileData(userTable, columns, fileName, searchedArray,1);
 
         }
@@ -166,7 +168,7 @@ public class LecturerPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton importBtn;
+    public static javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private com.mycompany.projectmanagement.gui.panel.LecturerForm lecturerForm;
     private javax.swing.JTextField searchField;

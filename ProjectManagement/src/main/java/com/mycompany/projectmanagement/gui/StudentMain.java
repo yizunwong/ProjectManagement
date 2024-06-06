@@ -58,15 +58,15 @@ public class StudentMain extends javax.swing.JFrame {
         this.id = id;
         refreshTable();
         UserController.User user = userController.new User();
-        JSONArray searchedArray = user.seachUser(id, "student.txt");
+        JSONArray searchedArray = user.seachUser(id, "student.txt", null);
         JSONObject searchObj = searchedArray.getJSONObject(0);
         this.name = searchObj.getString("Name");
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
 
-        String[] status = {"Pending","Late","Accepted","Rejected"};
-        reportArray = user.seachUser(id, "report.txt");
-        JSONArray requestArray = user.seachUser(id, "request.txt");
+        String[] status = {"Pending", "Late", "Accepted", "Rejected"};
+        reportArray = user.seachUser(id, "report.txt", null);
+        JSONArray requestArray = user.seachUser(id, "request.txt", null);
 
         HashMap<String, Integer> report = fs.countOccurrences("report.txt", "status", status, reportArray);
         HashMap<String, Integer> reqeust = fs.countOccurrences("reqeust.txt", "status", status, requestArray);
@@ -89,8 +89,8 @@ public class StudentMain extends javax.swing.JFrame {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        JSONArray requestArray = user.seachUser(id, "request.txt");
-        reportArray = user.seachUser(id, "report.txt");
+        JSONArray requestArray = user.seachUser(id, "request.txt", null);
+        reportArray = user.seachUser(id, "report.txt", null);
         fs.showFileData(StudentDashboardPanel.SubmissionTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 1);
         fs.showFileData(StudentDashboardPanel.BookingTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
     }
@@ -189,6 +189,16 @@ public class StudentMain extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header1.setBackground(new java.awt.Color(51, 51, 51));
+        header1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header1MouseDragged(evt);
+            }
+        });
+        header1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header1MousePressed(evt);
+            }
+        });
         getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1650, -1));
 
         jTabbedPane3.addTab("tab3", studentDashboardPanel2);
@@ -197,7 +207,7 @@ public class StudentMain extends javax.swing.JFrame {
         presentationRequestPanel.setOpaque(false);
         jTabbedPane3.addTab("tab3", presentationRequestPanel);
 
-        getContentPane().add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 1450, 750));
+        getContentPane().add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 1450, 840));
 
         studentMenu2.setPreferredSize(new java.awt.Dimension(200, 672));
 
@@ -249,10 +259,10 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(Btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(112, 112, 112)
                 .addComponent(Btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(308, Short.MAX_VALUE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
 
-        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 51, -1, 730));
+        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 51, -1, 810));
 
         pack();
         setLocationRelativeTo(null);
@@ -280,6 +290,18 @@ public class StudentMain extends javax.swing.JFrame {
         jTabbedPane3.setSelectedIndex(0);
         studentDashboardPanel2.setUser(id);
     }//GEN-LAST:event_Btn1ActionPerformed
+
+    private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed
+        // TODO add your handling code here:
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_header1MousePressed
+
+    private void header1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MouseDragged
+        // TODO add your handling code here:
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+
+    }//GEN-LAST:event_header1MouseDragged
 
     /**
      * @param args the command line arguments

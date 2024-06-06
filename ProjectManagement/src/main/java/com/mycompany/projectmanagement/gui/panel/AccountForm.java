@@ -188,17 +188,21 @@ public class AccountForm extends javax.swing.JPanel {
             getFieldData();
             setFieldData(account);
             List<String> errors = validateField();
-            if (errors.isEmpty()) {
-                account.setId(id);
-                account.setRole(account.role);
-                account.updateTextFile("account.txt");
+            if (!role.equalsIgnoreCase("student")) {
+                if (errors.isEmpty()) {
+                    account.setId(id);
+                    account.setRole(account.role);
+                    account.updateTextFile("account.txt");
+                    JOptionPane.showMessageDialog(null, "Data update successfully");
+                    FileController.FileService fs = new FileController.FileService();
+                    fs.moveData(account.id, account.role, "ID");
+                    fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null, 0);
+                } else {
+                    JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
 
-                JOptionPane.showMessageDialog(null, "Data update successfully");
-                FileController.FileService fs = new FileController.FileService();
-                fs.moveData(account.id, account.role, "ID");
-                fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null,0);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Student role cant be change", "Update Error", JOptionPane.WARNING_MESSAGE);
 
             }
         } else {
@@ -227,7 +231,7 @@ public class AccountForm extends javax.swing.JPanel {
                     "project_manager.txt";
             };
             fs.deleteData(id, fileName, "ID");
-            fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null,0);
+            fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null, 0);
         } else {
             JOptionPane.showMessageDialog(null, "Data delete cancel");
         }

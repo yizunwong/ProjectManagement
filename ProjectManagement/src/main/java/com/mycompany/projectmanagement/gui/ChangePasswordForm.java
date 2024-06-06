@@ -29,6 +29,8 @@ public class ChangePasswordForm extends javax.swing.JFrame {
         this.userController = new UserController();
         initComponents();
         setLocationRelativeTo(null);
+        setResizable(false);
+
     }
 
     /**
@@ -166,7 +168,7 @@ public class ChangePasswordForm extends javax.swing.JFrame {
             UserController.Account account = userController.new Account();
             String email = emailField.getText().trim();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(email, "account.txt");
+            JSONArray searchedArray = user.seachUser(email, "account.txt", null);
 
             char[] password = PasswordField.getPassword();
             char[] cpassword = CPasswordField.getPassword();

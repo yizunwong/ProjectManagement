@@ -28,6 +28,8 @@ public class LoginForm extends javax.swing.JFrame {
         this.userController = new UserController();
         initComponents();
         setLocationRelativeTo(null);
+        setResizable(false);
+
     }
 
     /**
@@ -112,6 +114,10 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(submitBtn)
+                .addGap(150, 150, 150))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -122,15 +128,12 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                             .addComponent(passwordField)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(submitBtn))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(loginLabel)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(loginLabel))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel1)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,11 +148,11 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGap(31, 31, 31)
                 .addComponent(submitBtn)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +181,6 @@ public class LoginForm extends javax.swing.JFrame {
         String pass = passwordField.getText().trim();
         List<String> errors = new ArrayList<>();
         validateEmail(email, errors);
-        validatePassword(pass, errors);
 
         if (errors.isEmpty()) {
             if (account.checkConfidential(email, pass)) {
@@ -202,6 +204,12 @@ public class LoginForm extends javax.swing.JFrame {
                     main.setUser(account.getId());
                     main.setHeader("Lecturer Dashboard");
 
+                    main.setVisible(true);
+                } else if (account.getRole().equalsIgnoreCase("project manager")) {
+                    ProjectManagerMenu main = new ProjectManagerMenu();
+                    dispose();
+                    main.setUser(account.getId());
+                    main.setHeader("Project Manager Dashboard");
                     main.setVisible(true);
                 }
             } else {

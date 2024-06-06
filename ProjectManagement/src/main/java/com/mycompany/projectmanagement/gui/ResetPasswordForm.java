@@ -25,6 +25,8 @@ public class ResetPasswordForm extends javax.swing.JFrame {
         this.userController = new UserController();
         initComponents();
         setLocationRelativeTo(null);
+        setResizable(false);
+
     }
 
     /**
@@ -111,30 +113,35 @@ public class ResetPasswordForm extends javax.swing.JFrame {
         if (result == JOptionPane.YES_OPTION) {
             String email = emailField.getText().trim();
             UserController.User user = userController.new User();
-            JSONArray accountArray = user.seachUser(email, "account.txt");
-            JSONObject accountObj = accountArray.getJSONObject(0);
-            String id = accountObj.getString("ID");
-            String role = accountObj.getString("Role");
-            fileName = switch (role.toLowerCase()) {
-                case "student" ->
-                    "student.txt";
-                case "lecturer" ->
-                    "lecturer.txt";
-                case "project manager" ->
-                    "project_manager.txt";
-                default ->
-                    "account.txt";
-            };
+            JSONArray accountArray = user.seachUser(email, "account.txt", null);
+            if (!accountArray.isEmpty()) {
+                JSONObject accountObj = accountArray.getJSONObject(0);
+                String id = accountObj.getString("ID");
+                String role = accountObj.getString("Role");
+                fileName = switch (role.toLowerCase()) {
+                    case "student" ->
+                        "student.txt";
+                    case "lecturer" ->
+                        "lecturer.txt";
+                    case "project manager" ->
+                        "project_manager.txt";
+                    default ->
+                        "account.txt";
+                };
 
-            JSONArray searchedArray = user.seachUser(id, fileName);
-            JSONObject serachedObj = searchedArray.getJSONObject(0);
-            String dob = serachedObj.getString("Birth Date");
+                JSONArray searchedArray = user.seachUser(id, fileName, null);
+                JSONObject serachedObj = searchedArray.getJSONObject(0);
+                String dob = serachedObj.getString("Birth Date");
 
-            UserController.Account account = userController.new Account();
-            user.setDob(dob);
-            account.setId(id);
-            account.setAccount(role);
-            account.updateTextFile("account.txt");
+                UserController.Account account = userController.new Account();
+                user.setDob(dob);
+                account.setId(id);
+                account.setAccount(role);
+                account.updateTextFile("account.txt");
+                JOptionPane.showMessageDialog(null, "Password has been successfully reset.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Email not found.", "Reset Error", JOptionPane.WARNING_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Password reset cancel");
         }

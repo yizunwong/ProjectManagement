@@ -43,8 +43,8 @@ public class VerifyBookingForm extends javax.swing.JPanel {
     
     public void refreshTable() {
         UserController.User user = userController.new User();
-        presentationArray = user.seachUser(name, "presentation.txt");
-        requestArray = user.seachUser(name, "request.txt");
+        presentationArray = user.seachUser(name, "presentation.txt",null);
+        requestArray = user.seachUser(name, "request.txt",null);
         fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
         fs.showFileData(presentationTable, Presentation_columns, "presentation.txt", presentationArray, 0);
     }
@@ -233,7 +233,7 @@ public class VerifyBookingForm extends javax.swing.JPanel {
                 presentation.saveFile("presentation.txt");
                 
                 UserController.User user = userController.new User();
-                JSONArray searchedArray = user.seachUser(request_id, "request.txt");
+                JSONArray searchedArray = user.seachUser(request_id, "request.txt",null);
                 JSONObject searchObj = searchedArray.getJSONObject(0);
                 searchObj.put("status", status);
                 booking.updateFile("request.txt", searchObj);

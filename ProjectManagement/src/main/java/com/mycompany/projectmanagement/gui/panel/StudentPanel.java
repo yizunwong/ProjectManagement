@@ -140,7 +140,7 @@ public class StudentPanel extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String searchValue = searchField.getText();
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(searchValue, "student.txt");
+            JSONArray searchedArray = user.seachUser(searchValue, "student.txt",null);
             fs.showFileData(userTable, columns, "student.txt", searchedArray,1);
 
         }

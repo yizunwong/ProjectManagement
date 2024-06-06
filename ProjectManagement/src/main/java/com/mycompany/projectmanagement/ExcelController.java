@@ -91,29 +91,40 @@ public class ExcelController {
         for (Object obj : jsonArray) {
             JSONObject jsonObject = (JSONObject) obj;
 
-            String id = jsonObject.getString("ID");
-            String dob = jsonObject.getString("Birth Date");
-            if (role.equalsIgnoreCase("student")) {
-                String intakeDate = jsonObject.getString("Intake Date");
-                String course = jsonObject.getString("Course");
-                String entryLevel = jsonObject.getString("Entry Level");
-
-                Course courses = new Course();
-                String[] modules = courses.findModule(entryLevel, course);
-                String courseId = courses.findCourseID(entryLevel, course);
-                createAndSaveAssessment(id, courseId, intakeDate, modules);
-            }
-
-            createAndSaveAccount(id, dob, role);
-            boolean alreadyExists = fileService.checkExists(fileName, jsonObject,"ID");
+            boolean alreadyExists = fileService.checkExists(fileName, jsonObject, "IC");
             if (!alreadyExists) {
+                saveAccountandAssessment(jsonObject, role);
                 fileService.write(jsonObject, fileName, true);
             } else {
-                JOptionPane.showMessageDialog(null, jsonObject.getString("IC"), "Duplciate Data", JOptionPane.WARNING_MESSAGE);
-
+                int result = JOptionPane.showConfirmDialog(null, "There are duplicate data with same IC, are u sure importing?", "", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    saveAccountandAssessment( jsonObject, role);
+                    fileService.write(jsonObject, fileName, true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data Import Cancel");
+                    break;
+                }
             }
+
         }
 
+    }
+
+    public void saveAccountandAssessment(JSONObject jsonObject, String role) {
+        String id = jsonObject.getString("ID");
+        String dob = jsonObject.getString("Birth Date");
+        if (role.equalsIgnoreCase("student")) {
+            String intakeDate = jsonObject.getString("Intake Date");
+            String course = jsonObject.getString("Course");
+            String entryLevel = jsonObject.getString("Entry Level");
+
+            Course courses = new Course();
+            String[] modules = courses.findModule(entryLevel, course);
+            String courseId = courses.findCourseID(entryLevel, course);
+            createAndSaveAssessment(id, courseId, intakeDate, modules);
+        }
+
+        createAndSaveAccount(id, dob, role);
     }
 
     private void createAndSaveAccount(String studentID, String dob, String role) {

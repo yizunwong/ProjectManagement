@@ -5,33 +5,61 @@
 package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.FileController;
+import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel;
 import com.mycompany.projectmanagement.gui.panel.PieChart;
 import com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author yizun
  */
-public class SecondMenu extends javax.swing.JFrame {
+public class ProjectManagerMenu extends javax.swing.JFrame {
 
     private final ArrayList<PieChart.PieChartData> pieChartData;
     private final FileController.FileService fs;
+    private String id, name;
+    private final UserController userController;
+    private String imagePath;
+    private int mouseX, mouseY;
 
     /**
      * Creates new form AdminMenu
      */
-    public SecondMenu() {
+    public ProjectManagerMenu() {
         initComponents();
+        this.userController = new UserController();
+
         this.fs = new FileController.FileService();
         this.pieChartData = new ArrayList<>();
         pieChartData.add(new PieChart.PieChartData("Type Percentage", "assessment.txt", "assessment_type",
                 new String[]{"Internship Report", "Investigation Report", "CP1", "CP2", "RMCP", "FYP"}));
         pieChartData.add(new PieChart.PieChartData("Status Percentage", "assessment.txt", "status",
-                new String[]{"In Progress", "Submitted", "Late", "Under Review", "Completed"}));
+                new String[]{"In Progress", "Late", "Completed"}));
         porjectManagerDashboard1.pieChart1.setData(pieChartData, null);
         porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData, null);
+    }
+
+    public void setUser(String id) {
+        this.id = id;
+        UserController.User user = userController.new User();
+        JSONArray searchedArray = user.seachUser(id, "project_manager.txt", null);
+        JSONObject searchObj = searchedArray.getJSONObject(0);
+        this.name = searchObj.getString("Name");
+        this.imagePath = searchObj.getString("ImagePath");
+
+    }
+
+    public void setHeader(String title) {
+        String projectDirectory = System.getProperty("user.dir");
+        File image = new File(projectDirectory + imagePath);
+        header1.setData(new ModelHeader(title, name, new ImageIcon(image.toString())));
+
     }
 
     /**
@@ -43,6 +71,7 @@ public class SecondMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        header1 = new com.mycompany.projectmanagement.gui.Header();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         porjectManagerDashboard1 = new com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard();
         assignAssessmentPanel2 = new com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel();
@@ -54,10 +83,23 @@ public class SecondMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        header1.setBackground(new java.awt.Color(51, 51, 51));
+        header1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header1MouseDragged(evt);
+            }
+        });
+        header1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header1MousePressed(evt);
+            }
+        });
+        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1790, -1));
+
         jTabbedPane1.addTab("tab2", porjectManagerDashboard1);
         jTabbedPane1.addTab("tab1", assignAssessmentPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 1610, 900));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 1610, 920));
 
         studentMenu2.setPreferredSize(new java.awt.Dimension(200, 672));
 
@@ -99,10 +141,10 @@ public class SecondMenu extends javax.swing.JFrame {
                 .addComponent(manageAssessmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(234, 234, 234)
                 .addComponent(signoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addContainerGap(412, Short.MAX_VALUE))
         );
 
-        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 900));
+        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, 910));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -126,6 +168,18 @@ public class SecondMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_signoutBtnActionPerformed
 
+    private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed
+        // TODO add your handling code here:
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_header1MousePressed
+
+    private void header1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MouseDragged
+        // TODO add your handling code here:
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+
+    }//GEN-LAST:event_header1MouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -143,21 +197,23 @@ public class SecondMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SecondMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectManagerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SecondMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectManagerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SecondMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectManagerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SecondMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjectManagerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SecondMenu().setVisible(true);
+                new ProjectManagerMenu().setVisible(true);
             }
         });
     }
@@ -165,6 +221,7 @@ public class SecondMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel assignAssessmentPanel2;
     private javax.swing.JButton dashboardBtn;
+    private com.mycompany.projectmanagement.gui.Header header1;
     public static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton manageAssessmentBtn;
     private com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard porjectManagerDashboard1;
