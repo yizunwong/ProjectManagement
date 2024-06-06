@@ -94,7 +94,7 @@ public class ReportSubmissionForm extends javax.swing.JPanel {
             if (currentDateTime.isAfter(dueDateTime)) {
                 assessment_status = "Late";
             } else {
-                assessment_status = "Completed";
+                assessment_status = "Under Review";
             }
         }
 

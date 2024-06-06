@@ -155,7 +155,7 @@ public class AssessmentForm extends javax.swing.JPanel {
 
         assessmentTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Internship Report", "Investigation Reports", "CP1", "CP2", "RMCP", "FYP " }));
 
-        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In Progress", "Late", "Completed" }));
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In Progress", "Late", "Completed", "Under Review" }));
 
         jLabel4.setText("Assessment Type : ");
 

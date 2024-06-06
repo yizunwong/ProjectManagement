@@ -65,7 +65,7 @@ public class StudentMenu extends javax.swing.JFrame {
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
 
-        String[] status = {"Pending", "Late", "Accepted", "Rejected"};
+        String[] status = {"Pending", "Late", "Accepted", "Rejected","Under Review"};
         reportArray = user.seachUser(id, "report.txt", null);
         JSONArray requestArray = user.seachUser(id, "request.txt", null);
 
