@@ -50,7 +50,7 @@ public class StudentPanel extends javax.swing.JPanel {
         userTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
         importBtn = new javax.swing.JButton();
-        studentForm = new com.mycompany.projectmanagement.gui.panel.StudentForm();
+        studentForm = new com.mycompany.projectmanagement.gui.form.StudentForm();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,7 +163,7 @@ public class StudentPanel extends javax.swing.JPanel {
     private javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
-    private com.mycompany.projectmanagement.gui.panel.StudentForm studentForm;
+    private com.mycompany.projectmanagement.gui.form.StudentForm studentForm;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

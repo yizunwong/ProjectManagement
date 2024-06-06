@@ -1,34 +1,101 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.projectmanagement.gui;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import com.mycompany.projectmanagement.gui.model.ModelHeader;
+import com.mycompany.projectmanagement.FileController;
+import com.mycompany.projectmanagement.UserController;
+import com.mycompany.projectmanagement.gui.model.ModelCard;
+import com.mycompany.projectmanagement.gui.component.PieChart;
+import com.mycompany.projectmanagement.gui.component.PieChart.PieChartData;
+import com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel;
+import com.mycompany.projectmanagement.gui.dashboard.StudentDashboard;
+import com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel;
+import static com.mycompany.projectmanagement.gui.dashboard.StudentDashboard.card1;
+import static com.mycompany.projectmanagement.gui.dashboard.StudentDashboard.card2;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.ImageIcon;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class StudentMenu extends javax.swing.JPanel {
+/**
+ *
+ * @author Asus
+ */
+public class StudentMenu extends javax.swing.JFrame {
+
+    int mouseX, mouseY;
+    public String id, name;
+    private final FileController.FileService fs;
+    private final UserController userController;
+    private String imagePath;
+    private JSONArray reportArray;
+    private final ArrayList<PieChartData> pieChartData;
+    String[] grades = {
+        "A+ (Distinction)",
+        "A (Distinction)",
+        "B+ (Credit)",
+        "B (Credit)",
+        "C (Pass)",
+        "D (Pass)",
+        "F+ (Marginal Fail)",
+        "F (Fail)",
+        "-"
+    };
 
     public StudentMenu() {
         initComponents();
-        setOpaque(false);
+        this.fs = new FileController.FileService();
+        this.userController = new UserController();
+        this.pieChartData = new ArrayList<>();
+
     }
 
-    @Override
-    protected void paintComponent(Graphics grphcs) {
-        Graphics2D g2 = (Graphics2D) grphcs;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint g = new GradientPaint(0, 0, Color.decode("#000000"), 0, getHeight(), Color.decode("#808080"));
-        g2.setPaint(g);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        super.paintComponent(grphcs); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    public void setUser(String id) {
+        this.id = id;
+        refreshTable();
+        UserController.User user = userController.new User();
+        JSONArray searchedArray = user.seachUser(id, "student.txt", null);
+        JSONObject searchObj = searchedArray.getJSONObject(0);
+        this.name = searchObj.getString("Name");
+        this.imagePath = searchObj.getString("ImagePath");
+        refreshTable();
+
+        String[] status = {"Pending", "Late", "Accepted", "Rejected"};
+        reportArray = user.seachUser(id, "report.txt", null);
+        JSONArray requestArray = user.seachUser(id, "request.txt", null);
+
+        HashMap<String, Integer> report = fs.countOccurrences("report.txt", "status", status, reportArray);
+        HashMap<String, Integer> reqeust = fs.countOccurrences("reqeust.txt", "status", status, requestArray);
+        card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Pending Report", report.get("Pending").toString(), "Report that need to be mark"));
+        card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Pendin Request", reqeust.get("Pending").toString(), "Request for presentation"));
+
+        pieChartData.add(new PieChart.PieChartData("Report Percentage", "report.txt", "grade", grades));
+        pieChartData.add(new PieChart.PieChartData("Request Percentage", "request.txt", "status", status));
+
+        studentDashboard.pieChart1.setData(pieChartData, reportArray);
+        studentDashboard.pieChart1.refreshPieChart(pieChartData, reportArray);
     }
 
-    
-    
+    public void setHeader(String title) {
+        String projectDirectory = System.getProperty("user.dir");
+        File image = new File(projectDirectory + imagePath);
+        header1.setData(new ModelHeader(title, name, new ImageIcon(image.toString())));
+
+    }
+
+    public void refreshTable() {
+        UserController.User user = userController.new User();
+        JSONArray requestArray = user.seachUser(id, "request.txt", null);
+        reportArray = user.seachUser(id, "report.txt", null);
+        fs.showFileData(StudentDashboard.SubmissionTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 1);
+        fs.showFileData(StudentDashboard.BookingTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,19 +105,258 @@ public class StudentMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        header1 = new com.mycompany.projectmanagement.gui.component.Header();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        studentDashboard = new com.mycompany.projectmanagement.gui.dashboard.StudentDashboard();
+        reportSubmissionPanel = new com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel();
+        presentationRequestPanel = new com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel();
+        sideNavigationMenu = new com.mycompany.projectmanagement.gui.model.SideNavigationMenu();
+        dashboardBtn = new javax.swing.JButton();
+        submitReportBtn = new javax.swing.JButton();
+        requestPresentationBtn = new javax.swing.JButton();
+        signOutBtn = new javax.swing.JButton();
+
+        jTabbedPane1.setOpaque(true);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Form 1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.addTab("tab1", jPanel1);
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Form 2");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(261, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel2);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Form 3");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(261, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab3", jPanel3);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        header1.setBackground(new java.awt.Color(51, 51, 51));
+        header1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header1MouseDragged(evt);
+            }
+        });
+        header1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header1MousePressed(evt);
+            }
+        });
+        getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1650, -1));
+
+        jTabbedPane3.addTab("tab3", studentDashboard);
+        jTabbedPane3.addTab("tab4", reportSubmissionPanel);
+
+        presentationRequestPanel.setOpaque(false);
+        jTabbedPane3.addTab("tab3", presentationRequestPanel);
+
+        getContentPane().add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 1450, 850));
+
+        sideNavigationMenu.setPreferredSize(new java.awt.Dimension(200, 672));
+
+        dashboardBtn.setText("Dashboard");
+        dashboardBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardBtnActionPerformed(evt);
+            }
+        });
+
+        submitReportBtn.setText("Submit Report");
+        submitReportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitReportBtnActionPerformed(evt);
+            }
+        });
+
+        requestPresentationBtn.setText("Request Presentation");
+        requestPresentationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestPresentationBtnActionPerformed(evt);
+            }
+        });
+
+        signOutBtn.setText("Sign Out");
+        signOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signOutBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sideNavigationMenuLayout = new javax.swing.GroupLayout(sideNavigationMenu);
+        sideNavigationMenu.setLayout(sideNavigationMenuLayout);
+        sideNavigationMenuLayout.setHorizontalGroup(
+            sideNavigationMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(submitReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(requestPresentationBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(signOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        sideNavigationMenuLayout.setVerticalGroup(
+            sideNavigationMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sideNavigationMenuLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(requestPresentationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112)
+                .addComponent(signOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(398, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(sideNavigationMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 51, -1, 820));
+
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_signOutBtnActionPerformed
+
+    private void requestPresentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestPresentationBtnActionPerformed
+        jTabbedPane3.setSelectedIndex(2);
+        presentationRequestPanel.setUser(id);
+
+    }//GEN-LAST:event_requestPresentationBtnActionPerformed
+
+    private void submitReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitReportBtnActionPerformed
+        jTabbedPane3.setSelectedIndex(1);
+        reportSubmissionPanel.setUser(id);
+    }//GEN-LAST:event_submitReportBtnActionPerformed
+
+    private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
+
+        jTabbedPane3.setSelectedIndex(0);
+        studentDashboard.setUser(id);
+    }//GEN-LAST:event_dashboardBtnActionPerformed
+
+    private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed
+        // TODO add your handling code here:
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_header1MousePressed
+
+    private void header1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MouseDragged
+        // TODO add your handling code here:
+        setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
+
+    }//GEN-LAST:event_header1MouseDragged
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(StudentMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(StudentMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(StudentMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(StudentMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new StudentMenu().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton dashboardBtn;
+    private com.mycompany.projectmanagement.gui.component.Header header1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel presentationRequestPanel;
+    private com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel reportSubmissionPanel;
+    private javax.swing.JButton requestPresentationBtn;
+    private com.mycompany.projectmanagement.gui.model.SideNavigationMenu sideNavigationMenu;
+    private javax.swing.JButton signOutBtn;
+    private com.mycompany.projectmanagement.gui.dashboard.StudentDashboard studentDashboard;
+    private javax.swing.JButton submitReportBtn;
     // End of variables declaration//GEN-END:variables
 }

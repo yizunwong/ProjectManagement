@@ -70,8 +70,8 @@
 package com.mycompany.projectmanagement;
 
 import com.mycompany.projectmanagement.UserController.User;
-import static com.mycompany.projectmanagement.gui.panel.PdfPreviewer.previewPanel;
-import static com.mycompany.projectmanagement.gui.panel.ReportSubmissionForm.FilePathField;
+import static com.mycompany.projectmanagement.gui.component.PdfPreviewer.previewPanel;
+import static com.mycompany.projectmanagement.gui.form.ReportSubmissionForm.FilePathField;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;

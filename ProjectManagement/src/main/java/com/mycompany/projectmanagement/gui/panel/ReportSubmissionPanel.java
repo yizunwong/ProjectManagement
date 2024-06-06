@@ -4,6 +4,7 @@
  */
 package com.mycompany.projectmanagement.gui.panel;
 
+import com.mycompany.projectmanagement.gui.form.ReportSubmissionForm;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.assessment_columns;
@@ -51,7 +52,7 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         assessmentTable = new javax.swing.JTable();
-        submissionForm = new com.mycompany.projectmanagement.gui.panel.ReportSubmissionForm();
+        submissionForm = new com.mycompany.projectmanagement.gui.form.ReportSubmissionForm();
         assessmentSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
@@ -186,6 +187,6 @@ public class ReportSubmissionPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable reportTable;
-    private com.mycompany.projectmanagement.gui.panel.ReportSubmissionForm submissionForm;
+    private com.mycompany.projectmanagement.gui.form.ReportSubmissionForm submissionForm;
     // End of variables declaration//GEN-END:variables
 }

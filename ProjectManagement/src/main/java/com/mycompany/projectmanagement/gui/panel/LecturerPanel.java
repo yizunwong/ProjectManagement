@@ -54,7 +54,7 @@ public class LecturerPanel extends javax.swing.JPanel {
         userTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
         importBtn = new javax.swing.JButton();
-        lecturerForm = new com.mycompany.projectmanagement.gui.panel.LecturerForm();
+        lecturerForm = new com.mycompany.projectmanagement.gui.form.LecturerForm();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,7 +170,7 @@ public class LecturerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton importBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.mycompany.projectmanagement.gui.panel.LecturerForm lecturerForm;
+    private com.mycompany.projectmanagement.gui.form.LecturerForm lecturerForm;
     private javax.swing.JTextField searchField;
     public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables

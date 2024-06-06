@@ -37,7 +37,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        accountPanel1 = new com.mycompany.projectmanagement.gui.panel.AccountForm();
+        accountPanel1 = new com.mycompany.projectmanagement.gui.form.AccountForm();
         searchField = new javax.swing.JTextField();
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,7 +127,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.gui.panel.AccountForm accountPanel1;
+    private com.mycompany.projectmanagement.gui.form.AccountForm accountPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
     public static javax.swing.JTable userTable;

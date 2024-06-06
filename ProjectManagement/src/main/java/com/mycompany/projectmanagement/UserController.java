@@ -26,14 +26,6 @@ public class UserController {
 
     public class User implements FileController {
 
-        public String getID() {
-            return id;
-        }
-
-        public File getSelectedFile() {
-            return selectedFile;
-        }
-
         public String id;
         public String email;
         public String name;
@@ -57,6 +49,14 @@ public class UserController {
             this.fullPath = null;
             this.fs = new FileController.FileService();
 
+        }
+
+        public String getID() {
+            return id;
+        }
+
+        public File getSelectedFile() {
+            return selectedFile;
         }
 
         public void setId(String id) {
@@ -263,14 +263,6 @@ public class UserController {
 
     public class Lecturer extends User {
 
-        public void setDepartment(String department) {
-            this.department = department;
-        }
-
-        public void setEducation(String education) {
-            this.education = education;
-        }
-
         public String department;
         public String education;
 
@@ -278,6 +270,14 @@ public class UserController {
             this.keys = new String[]{"ID", "Name", "IC",
                 "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
                 "Department", "Education", "ImagePath"};
+        }
+
+        public void setDepartment(String department) {
+            this.department = department;
+        }
+
+        public void setEducation(String education) {
+            this.education = education;
         }
 
         public JSONObject getLecturer() {

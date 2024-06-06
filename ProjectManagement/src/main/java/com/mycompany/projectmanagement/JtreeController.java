@@ -6,10 +6,10 @@ package com.mycompany.projectmanagement;
 
 import static com.mycompany.projectmanagement.JSONHandler.getValues;
 import static com.mycompany.projectmanagement.JSONHandler.treeToJson;
-import static com.mycompany.projectmanagement.gui.ManageCourseForm.entrylist;
-import static com.mycompany.projectmanagement.gui.ManageCoursePanel.jTree1;
-import static com.mycompany.projectmanagement.gui.ManageCoursePanel.node;
-import static com.mycompany.projectmanagement.gui.ManageCoursePanel.root;
+import static com.mycompany.projectmanagement.gui.form.ManageCourseForm.entrylist;
+import static com.mycompany.projectmanagement.gui.panel.ManageCoursePanel.jTree1;
+import static com.mycompany.projectmanagement.gui.panel.ManageCoursePanel.node;
+import static com.mycompany.projectmanagement.gui.panel.ManageCoursePanel.root;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;

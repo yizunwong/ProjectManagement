@@ -84,7 +84,7 @@
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchFieldKeyPressed"/>
       </Events>
     </Component>
-    <Component class="com.mycompany.projectmanagement.gui.panel.MarkingForm" name="markingForm1">
+    <Component class="com.mycompany.projectmanagement.gui.form.MarkingForm" name="markingForm1">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">

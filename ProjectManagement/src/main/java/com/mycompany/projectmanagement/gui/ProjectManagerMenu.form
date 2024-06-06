@@ -25,7 +25,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="com.mycompany.projectmanagement.gui.Header" name="header1">
+    <Component class="com.mycompany.projectmanagement.gui.component.Header" name="header1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="33" red="33" type="rgb"/>
@@ -53,7 +53,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard" name="porjectManagerDashboard1">
+        <Component class="com.mycompany.projectmanagement.gui.dashboard.PorjectManagerDashboard" name="porjectManagerDashboard">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="tab2">
@@ -62,7 +62,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel" name="assignAssessmentPanel2">
+        <Component class="com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel" name="assignAssessmentPanel">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
@@ -76,7 +76,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="com.mycompany.projectmanagement.gui.StudentMenu" name="studentMenu2">
+    <Container class="com.mycompany.projectmanagement.gui.model.SideNavigationMenu" name="sideNavigationMenu">
       <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 672]"/>

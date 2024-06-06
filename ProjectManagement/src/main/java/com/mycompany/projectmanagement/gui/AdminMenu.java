@@ -4,13 +4,14 @@
  */
 package com.mycompany.projectmanagement.gui;
 
+import com.mycompany.projectmanagement.gui.model.ModelHeader;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.AccountPanel;
 import com.mycompany.projectmanagement.gui.panel.LecturerPanel;
 import static com.mycompany.projectmanagement.gui.panel.LecturerPanel.importBtn;
-import com.mycompany.projectmanagement.gui.panel.ModelCard;
-import com.mycompany.projectmanagement.gui.panel.PieChart;
+import com.mycompany.projectmanagement.gui.model.ModelCard;
+import com.mycompany.projectmanagement.gui.component.PieChart;
 import com.mycompany.projectmanagement.gui.panel.StudentPanel;
 import java.io.File;
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class AdminMenu extends javax.swing.JFrame {
         pieChartData.add(new PieChart.PieChartData("Role Percentage", "account.txt", "Role", new String[]{"student", "lecturer", "project manager"}));
         pieChartData.add(new PieChart.PieChartData("Entry Level Percentage", "student.txt", "Entry Level", new String[]{"Diploma", "Degree", "Masters Degree", "PhD", "Foundation"}));
         pieChartData.add(new PieChart.PieChartData("Student Gender Percentage", "student.txt", "Gender", new String[]{"Male", "Female"}));
-        adminDashboard1.pieChart1.setData(pieChartData, null);
-        adminDashboard1.pieChart1.refreshPieChart(pieChartData, null);
+        adminDashboard.pieChart1.setData(pieChartData, null);
+        adminDashboard.pieChart1.refreshPieChart(pieChartData, null);
 
     }
 
@@ -60,14 +61,14 @@ public class AdminMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        header1 = new com.mycompany.projectmanagement.gui.Header();
+        header1 = new com.mycompany.projectmanagement.gui.component.Header();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        adminDashboard1 = new com.mycompany.projectmanagement.gui.panel.AdminDashboard();
-        studentList = new com.mycompany.projectmanagement.gui.panel.StudentPanel();
-        lecturerList = new com.mycompany.projectmanagement.gui.panel.LecturerPanel();
-        accountList = new com.mycompany.projectmanagement.gui.panel.AccountPanel();
-        manageCoursePanel1 = new com.mycompany.projectmanagement.gui.ManageCoursePanel();
-        studentMenu2 = new com.mycompany.projectmanagement.gui.StudentMenu();
+        adminDashboard = new com.mycompany.projectmanagement.gui.dashboard.AdminDashboard();
+        studentPanel = new com.mycompany.projectmanagement.gui.panel.StudentPanel();
+        lecturerPanel = new com.mycompany.projectmanagement.gui.panel.LecturerPanel();
+        accountPanel = new com.mycompany.projectmanagement.gui.panel.AccountPanel();
+        manageCoursePanel = new com.mycompany.projectmanagement.gui.panel.ManageCoursePanel();
+        studentMenu2 = new com.mycompany.projectmanagement.gui.model.SideNavigationMenu();
         dashboardBtn = new javax.swing.JButton();
         manageStudentBtn = new javax.swing.JButton();
         managePmBtn = new javax.swing.JButton();
@@ -93,11 +94,11 @@ public class AdminMenu extends javax.swing.JFrame {
         });
         getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1770, -1));
 
-        jTabbedPane1.addTab("tab4", adminDashboard1);
-        jTabbedPane1.addTab("tab1", studentList);
-        jTabbedPane1.addTab("tab2", lecturerList);
-        jTabbedPane1.addTab("tab3", accountList);
-        jTabbedPane1.addTab("tab5", manageCoursePanel1);
+        jTabbedPane1.addTab("tab4", adminDashboard);
+        jTabbedPane1.addTab("tab1", studentPanel);
+        jTabbedPane1.addTab("tab2", lecturerPanel);
+        jTabbedPane1.addTab("tab3", accountPanel);
+        jTabbedPane1.addTab("tab5", manageCoursePanel);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 1590, 800));
 
@@ -192,9 +193,9 @@ public class AdminMenu extends javax.swing.JFrame {
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(0);
-        adminDashboard1.initialCard();
-        adminDashboard1.pieChart1.refreshPieChart(pieChartData, null);
-        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null, 1);
+        adminDashboard.initialCard();
+        adminDashboard.pieChart1.refreshPieChart(pieChartData, null);
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerPanel.fileName, null, 1);
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void manageStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentBtnActionPerformed
@@ -206,9 +207,9 @@ public class AdminMenu extends javax.swing.JFrame {
     private void managePmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePmBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
-        lecturerList.remove(importBtn);
-        lecturerList.setFile("project_manager.txt");
-        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerList.fileName, null, 1);
+        lecturerPanel.remove(importBtn);
+        lecturerPanel.setFile("project_manager.txt");
+        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerPanel.fileName, null, 1);
     }//GEN-LAST:event_managePmBtnActionPerformed
 
     private void signoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signoutBtnActionPerformed
@@ -227,8 +228,8 @@ public class AdminMenu extends javax.swing.JFrame {
     private void manageLecturerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLecturerBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
-        lecturerList.add(importBtn);
-        lecturerList.setFile("lecturer.txt");
+        lecturerPanel.add(importBtn);
+        lecturerPanel.setFile("lecturer.txt");
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null, 1);
     }//GEN-LAST:event_manageLecturerBtnActionPerformed
 
@@ -287,20 +288,20 @@ public class AdminMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static com.mycompany.projectmanagement.gui.panel.AccountPanel accountList;
-    private com.mycompany.projectmanagement.gui.panel.AdminDashboard adminDashboard1;
+    public static com.mycompany.projectmanagement.gui.panel.AccountPanel accountPanel;
+    private com.mycompany.projectmanagement.gui.dashboard.AdminDashboard adminDashboard;
     private javax.swing.JButton dashboardBtn;
-    private com.mycompany.projectmanagement.gui.Header header1;
+    private com.mycompany.projectmanagement.gui.component.Header header1;
     public static javax.swing.JTabbedPane jTabbedPane1;
-    public static com.mycompany.projectmanagement.gui.panel.LecturerPanel lecturerList;
+    public static com.mycompany.projectmanagement.gui.panel.LecturerPanel lecturerPanel;
     private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageAccountBtn1;
-    private com.mycompany.projectmanagement.gui.ManageCoursePanel manageCoursePanel1;
+    private com.mycompany.projectmanagement.gui.panel.ManageCoursePanel manageCoursePanel;
     private javax.swing.JButton manageLecturerBtn;
     private javax.swing.JButton managePmBtn;
     private javax.swing.JButton manageStudentBtn;
     private javax.swing.JButton signoutBtn;
-    public static com.mycompany.projectmanagement.gui.panel.StudentPanel studentList;
-    private com.mycompany.projectmanagement.gui.StudentMenu studentMenu2;
+    private com.mycompany.projectmanagement.gui.model.SideNavigationMenu studentMenu2;
+    public static com.mycompany.projectmanagement.gui.panel.StudentPanel studentPanel;
     // End of variables declaration//GEN-END:variables
 }

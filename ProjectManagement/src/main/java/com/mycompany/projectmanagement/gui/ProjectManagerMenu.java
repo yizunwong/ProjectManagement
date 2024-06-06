@@ -4,11 +4,12 @@
  */
 package com.mycompany.projectmanagement.gui;
 
+import com.mycompany.projectmanagement.gui.model.ModelHeader;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel;
-import com.mycompany.projectmanagement.gui.panel.PieChart;
-import com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard;
+import com.mycompany.projectmanagement.gui.component.PieChart;
+import com.mycompany.projectmanagement.gui.dashboard.PorjectManagerDashboard;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -41,8 +42,8 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
                 new String[]{"Internship Report", "Investigation Report", "CP1", "CP2", "RMCP", "FYP"}));
         pieChartData.add(new PieChart.PieChartData("Status Percentage", "assessment.txt", "status",
                 new String[]{"In Progress", "Late", "Completed"}));
-        porjectManagerDashboard1.pieChart1.setData(pieChartData, null);
-        porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData, null);
+        porjectManagerDashboard.pieChart1.setData(pieChartData, null);
+        porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData, null);
     }
 
     public void setUser(String id) {
@@ -71,11 +72,11 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        header1 = new com.mycompany.projectmanagement.gui.Header();
+        header1 = new com.mycompany.projectmanagement.gui.component.Header();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        porjectManagerDashboard1 = new com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard();
-        assignAssessmentPanel2 = new com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel();
-        studentMenu2 = new com.mycompany.projectmanagement.gui.StudentMenu();
+        porjectManagerDashboard = new com.mycompany.projectmanagement.gui.dashboard.PorjectManagerDashboard();
+        assignAssessmentPanel = new com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel();
+        sideNavigationMenu = new com.mycompany.projectmanagement.gui.model.SideNavigationMenu();
         dashboardBtn = new javax.swing.JButton();
         manageAssessmentBtn = new javax.swing.JButton();
         signoutBtn = new javax.swing.JButton();
@@ -96,12 +97,12 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
         });
         getContentPane().add(header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1790, -1));
 
-        jTabbedPane1.addTab("tab2", porjectManagerDashboard1);
-        jTabbedPane1.addTab("tab1", assignAssessmentPanel2);
+        jTabbedPane1.addTab("tab2", porjectManagerDashboard);
+        jTabbedPane1.addTab("tab1", assignAssessmentPanel);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 1610, 920));
 
-        studentMenu2.setPreferredSize(new java.awt.Dimension(200, 672));
+        sideNavigationMenu.setPreferredSize(new java.awt.Dimension(200, 672));
 
         dashboardBtn.setText("Dashboard");
         dashboardBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -124,17 +125,17 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout studentMenu2Layout = new javax.swing.GroupLayout(studentMenu2);
-        studentMenu2.setLayout(studentMenu2Layout);
-        studentMenu2Layout.setHorizontalGroup(
-            studentMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout sideNavigationMenuLayout = new javax.swing.GroupLayout(sideNavigationMenu);
+        sideNavigationMenu.setLayout(sideNavigationMenuLayout);
+        sideNavigationMenuLayout.setHorizontalGroup(
+            sideNavigationMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(dashboardBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
             .addComponent(manageAssessmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(signoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        studentMenu2Layout.setVerticalGroup(
-            studentMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(studentMenu2Layout.createSequentialGroup()
+        sideNavigationMenuLayout.setVerticalGroup(
+            sideNavigationMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sideNavigationMenuLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -144,15 +145,15 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
                 .addContainerGap(412, Short.MAX_VALUE))
         );
 
-        getContentPane().add(studentMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, 910));
+        getContentPane().add(sideNavigationMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, 910));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         jTabbedPane1.setSelectedIndex(0);
-        porjectManagerDashboard1.initialCard();
-        porjectManagerDashboard1.pieChart1.refreshPieChart(pieChartData, null);
+        porjectManagerDashboard.initialCard();
+        porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData, null);
         fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
@@ -219,13 +220,13 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel assignAssessmentPanel2;
+    public static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel assignAssessmentPanel;
     private javax.swing.JButton dashboardBtn;
-    private com.mycompany.projectmanagement.gui.Header header1;
+    private com.mycompany.projectmanagement.gui.component.Header header1;
     public static javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton manageAssessmentBtn;
-    private com.mycompany.projectmanagement.gui.panel.PorjectManagerDashboard porjectManagerDashboard1;
+    private com.mycompany.projectmanagement.gui.dashboard.PorjectManagerDashboard porjectManagerDashboard;
+    private com.mycompany.projectmanagement.gui.model.SideNavigationMenu sideNavigationMenu;
     private javax.swing.JButton signoutBtn;
-    private com.mycompany.projectmanagement.gui.StudentMenu studentMenu2;
     // End of variables declaration//GEN-END:variables
 }

@@ -51,7 +51,7 @@ public class MarkingPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
-        markingForm1 = new com.mycompany.projectmanagement.gui.panel.MarkingForm();
+        markingForm1 = new com.mycompany.projectmanagement.gui.form.MarkingForm();
 
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,7 +141,7 @@ public class MarkingPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
-    private com.mycompany.projectmanagement.gui.panel.MarkingForm markingForm1;
+    private com.mycompany.projectmanagement.gui.form.MarkingForm markingForm1;
     public static javax.swing.JTable reportTable;
     private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables

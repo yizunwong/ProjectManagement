@@ -26,7 +26,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="com.mycompany.projectmanagement.gui.Header" name="header1">
+    <Component class="com.mycompany.projectmanagement.gui.component.Header" name="header1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="33" red="33" type="rgb"/>
@@ -54,7 +54,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.mycompany.projectmanagement.gui.panel.AdminDashboard" name="adminDashboard1">
+        <Component class="com.mycompany.projectmanagement.gui.dashboard.AdminDashboard" name="adminDashboard">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="tab4">
@@ -63,7 +63,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.projectmanagement.gui.panel.StudentPanel" name="studentList">
+        <Component class="com.mycompany.projectmanagement.gui.panel.StudentPanel" name="studentPanel">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
@@ -75,7 +75,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.projectmanagement.gui.panel.LecturerPanel" name="lecturerList">
+        <Component class="com.mycompany.projectmanagement.gui.panel.LecturerPanel" name="lecturerPanel">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
@@ -87,7 +87,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.projectmanagement.gui.panel.AccountPanel" name="accountList">
+        <Component class="com.mycompany.projectmanagement.gui.panel.AccountPanel" name="accountPanel">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
@@ -99,7 +99,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.projectmanagement.gui.ManageCoursePanel" name="manageCoursePanel1">
+        <Component class="com.mycompany.projectmanagement.gui.panel.ManageCoursePanel" name="manageCoursePanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="tab5">
@@ -110,7 +110,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="com.mycompany.projectmanagement.gui.StudentMenu" name="studentMenu2">
+    <Container class="com.mycompany.projectmanagement.gui.model.SideNavigationMenu" name="studentMenu2">
       <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 672]"/>

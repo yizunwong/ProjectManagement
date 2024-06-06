@@ -6,14 +6,14 @@ package com.mycompany.projectmanagement.gui.panel;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.FileController.Course;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.secondMarkerField;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.supervisorField;
+import static com.mycompany.projectmanagement.gui.form.AssessmentForm.secondMarkerField;
+import static com.mycompany.projectmanagement.gui.form.AssessmentForm.supervisorField;
 import com.mycompany.projectmanagement.UserController;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.intakeComboBox;
+import static com.mycompany.projectmanagement.gui.form.AssessmentForm.intakeComboBox;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import org.json.JSONArray;
-import static com.mycompany.projectmanagement.gui.panel.AssessmentForm.moduleComboBox;
+import static com.mycompany.projectmanagement.gui.form.AssessmentForm.moduleComboBox;
 
 /**
  *
@@ -68,7 +68,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
         lecturerSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        assessmentPanel1 = new com.mycompany.projectmanagement.gui.panel.AssessmentForm();
+        assessmentPanel1 = new com.mycompany.projectmanagement.gui.form.AssessmentForm();
         assignLecturerBtn = new javax.swing.JButton();
         assignSMBtn = new javax.swing.JButton();
         entryLevelComboBox = new javax.swing.JComboBox<>();
@@ -294,7 +294,7 @@ public class AssignAssessmentPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.projectmanagement.gui.panel.AssessmentForm assessmentPanel1;
+    private com.mycompany.projectmanagement.gui.form.AssessmentForm assessmentPanel1;
     private javax.swing.JTextField assessmentSearchField;
     private javax.swing.JButton assignLecturerBtn;
     private javax.swing.JButton assignSMBtn;

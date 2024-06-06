@@ -4,6 +4,7 @@
  */
 package com.mycompany.projectmanagement.gui;
 
+import com.mycompany.projectmanagement.gui.form.ChangePasswordForm;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.UserController.Admin;
 import static com.mycompany.projectmanagement.Validator.validateEmail;
@@ -45,11 +46,11 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         emailLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
         passwordField = new javax.swing.JTextField();
         submitBtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        forgotPassLabel = new javax.swing.JLabel();
         loginLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,7 +90,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         emailLabel.setText("Email :");
 
-        jLabel2.setText("Password :");
+        passwordLabel.setText("Password :");
 
         submitBtn.setText("Login");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -98,11 +99,11 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel1.setText("Forget Password?");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        forgotPassLabel.setForeground(new java.awt.Color(51, 153, 255));
+        forgotPassLabel.setText("Forget Password?");
+        forgotPassLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                forgotPassLabelMouseClicked(evt);
             }
         });
 
@@ -123,7 +124,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
+                            .addComponent(passwordLabel)
                             .addComponent(emailLabel)
                             .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                             .addComponent(passwordField)))
@@ -132,7 +133,7 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(loginLabel))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(130, 130, 130)
-                        .addComponent(jLabel1)))
+                        .addComponent(forgotPassLabel)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -145,11 +146,11 @@ public class LoginForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(passwordLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jLabel1)
+                .addComponent(forgotPassLabel)
                 .addGap(31, 31, 31)
                 .addComponent(submitBtn)
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -185,7 +186,7 @@ public class LoginForm extends javax.swing.JFrame {
         if (errors.isEmpty()) {
             if (account.checkConfidential(email, pass)) {
                 if (account.getRole().equalsIgnoreCase("student")) {
-                    StudentMain studentMain = new StudentMain();
+                    StudentMenu studentMain = new StudentMenu();
                     studentMain.setUser(account.getId());
                     studentMain.setHeader("Student Dashboard");
 
@@ -199,7 +200,7 @@ public class LoginForm extends javax.swing.JFrame {
                     dispose();
                     adminMenu.setVisible(true);
                 } else if (account.getRole().equalsIgnoreCase("lecturer")) {
-                    LecturerMain main = new LecturerMain();
+                    LecturerMenu main = new LecturerMenu();
                     dispose();
                     main.setUser(account.getId());
                     main.setHeader("Lecturer Dashboard");
@@ -222,12 +223,12 @@ public class LoginForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void forgotPassLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPassLabelMouseClicked
         // TODO add your handling code here:
         ChangePasswordForm cpf = new ChangePasswordForm();
         cpf.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_forgotPassLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -267,14 +268,14 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel forgotPassLabel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JTextField passwordField;
+    private javax.swing.JLabel passwordLabel;
     private javax.swing.JButton submitBtn;
     // End of variables declaration//GEN-END:variables
 }
