@@ -154,7 +154,7 @@ public class PresentationRquestPanel extends javax.swing.JPanel {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 rowData[columnIndex] = requestTable.getModel().getValueAt(SelectedRow, columnIndex);
             }
-            presentationRequestForm1.setBookingData(rowData);
+            presentationRequestForm1.setRequestData(rowData);
 
         }
     }//GEN-LAST:event_requestTableMouseClicked

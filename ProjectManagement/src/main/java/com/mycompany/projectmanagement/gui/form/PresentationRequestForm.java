@@ -5,7 +5,7 @@
 package com.mycompany.projectmanagement.gui.form;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.FileController.Booking;
+import com.mycompany.projectmanagement.FileController.Request;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel;
 import static com.mycompany.projectmanagement.Validator.validateString;
@@ -51,7 +51,7 @@ public class PresentationRequestForm extends javax.swing.JPanel {
 
     }
 
-    public void setFieldData(Booking booking) {
+    public void setFieldData(Request booking) {
         booking.setSupervisor(supervisor);
         booking.setModule(module);
         booking.setRequestDate(request_date);
@@ -80,7 +80,7 @@ public class PresentationRequestForm extends javax.swing.JPanel {
         supervisor = supervisorField.getText().trim();
     }
 
-    public void setBookingData(Object[] rowData) {
+    public void setRequestData(Object[] rowData) {
         request_id = rowData[0].toString();
 
         String[] modules = new String[]{rowData[2].toString()};
@@ -208,10 +208,10 @@ public class PresentationRequestForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBtnActionPerformed
-        Booking booking = new Booking();
+        Request request = new Request();
         getFieldData();
-        setFieldData(booking);
-        boolean alreadyExists = fs.checkExists("request.txt", booking.getBooking(), "assessment_id");
+        setFieldData(request);
+        boolean alreadyExists = fs.checkExists("request.txt", request.getRequest(), "assessment_id");
         List<String> errors = new ArrayList<>();
         validateString(supervisor, "Supervisor", errors);
         validateString(request_date, "Request Date", errors);
@@ -220,7 +220,7 @@ public class PresentationRequestForm extends javax.swing.JPanel {
             if (!assessment_type.isEmpty()) {
                 if (errors.isEmpty()) {
                     if (!alreadyExists) {
-                        booking.saveFile("request.txt");
+                        request.saveFile("request.txt");
                     } else {
                         JOptionPane.showMessageDialog(null, "Request has been sended, Please be patient", "Request Error", JOptionPane.WARNING_MESSAGE);
 

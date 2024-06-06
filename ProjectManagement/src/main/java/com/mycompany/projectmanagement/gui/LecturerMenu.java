@@ -106,7 +106,7 @@ public class LecturerMenu extends javax.swing.JFrame {
         markingBtn = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         lecturerDashboard = new com.mycompany.projectmanagement.gui.dashboard.LecturerDashboard();
-        verifyBookingPanel = new com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel();
+        verifyBookingPanel = new com.mycompany.projectmanagement.gui.panel.VerifyRequestPanel();
         markPanel = new com.mycompany.projectmanagement.gui.panel.MarkingPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -275,6 +275,6 @@ public class LecturerMenu extends javax.swing.JFrame {
     private javax.swing.JButton reviewPresentationBtn;
     private com.mycompany.projectmanagement.gui.model.SideNavigationMenu sideNavigationMenu;
     private javax.swing.JButton signoutBtn;
-    private com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel verifyBookingPanel;
+    private com.mycompany.projectmanagement.gui.panel.VerifyRequestPanel verifyBookingPanel;
     // End of variables declaration//GEN-END:variables
 }

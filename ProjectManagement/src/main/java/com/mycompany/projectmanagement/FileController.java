@@ -960,7 +960,7 @@ public interface FileController {
 
     }
 
-    class Booking {
+    class Request {
 
         public void setAssessmentID(String assessment_id) {
             this.assessment_id = assessment_id;
@@ -980,7 +980,7 @@ public interface FileController {
         public String remark;
         public final String[] keys;
 
-        public Booking() {
+        public Request() {
             this.keys = new String[]{"ID", "student_id", "assessment_id", "module", "request_date", "supervisor", "status", "remark"};
         }
 
@@ -1008,7 +1008,7 @@ public interface FileController {
             this.remark = remark;
         }
 
-        public JSONObject getBooking() {
+        public JSONObject getRequest() {
             String[] booking = {request_id, student_id, assessment_id, module, request_date, supervisor, status, remark};
             JSONObject jsonObj = toJSONObject(keys, booking);
             return jsonObj;
@@ -1016,7 +1016,7 @@ public interface FileController {
 
         public void saveFile(String fileName) {
             FileController.FileService fs = new FileController.FileService();
-            fs.write(getBooking(), fileName, true);
+            fs.write(getRequest(), fileName, true);
         }
 
         public void updateFile(String fileName, JSONObject booking) {

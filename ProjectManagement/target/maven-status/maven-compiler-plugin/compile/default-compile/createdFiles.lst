@@ -5,6 +5,7 @@ com\mycompany\projectmanagement\UserController$User$FileType.class
 com\mycompany\projectmanagement\ExcelController.class
 com\mycompany\projectmanagement\gui\form\MarkingForm$4.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$5.class
+com\mycompany\projectmanagement\FileController$Request.class
 com\mycompany\projectmanagement\FileController$Area.class
 com\mycompany\projectmanagement\gui\ProjectManagerMenu.class
 com\mycompany\projectmanagement\gui\component\PieChart$PieChartData.class
@@ -24,14 +25,13 @@ com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$2.class
 com\mycompany\projectmanagement\gui\AdminMenu$9.class
 com\mycompany\projectmanagement\gui\dashboard\PorjectManagerDashboard$3.class
 com\mycompany\projectmanagement\gui\form\ResetPasswordForm$3.class
+com\mycompany\projectmanagement\gui\form\VerifyRequestForm$1.class
 com\mycompany\projectmanagement\gui\panel\MarkingPanel.class
 com\mycompany\projectmanagement\gui\StudentMenu$7.class
 com\mycompany\projectmanagement\gui\panel\MarkingPanel$2.class
 com\mycompany\projectmanagement\gui\panel\StudentPanel$2.class
 com\mycompany\projectmanagement\gui\LecturerMenu$6.class
-com\mycompany\projectmanagement\gui\panel\VerifyBookingPanel.class
 com\mycompany\projectmanagement\gui\form\StudentForm$1.class
-com\mycompany\projectmanagement\gui\form\VerifyBookingForm.class
 com\mycompany\projectmanagement\gui\ProjectManagerMenu$4.class
 com\mycompany\projectmanagement\gui\form\MarkingForm$1.class
 com\mycompany\projectmanagement\gui\component\PdfPreviewer.class
@@ -60,6 +60,7 @@ com\mycompany\projectmanagement\gui\LoginForm$3.class
 com\mycompany\projectmanagement\gui\panel\PresentationRquestPanel$1.class
 com\mycompany\projectmanagement\gui\AdminMenu$7.class
 com\mycompany\projectmanagement\gui\panel\StudentPanel$3.class
+com\mycompany\projectmanagement\gui\panel\VerifyRequestPanel$2.class
 com\mycompany\projectmanagement\gui\dashboard\PorjectManagerDashboard$1.class
 com\mycompany\projectmanagement\UserController.class
 com\mycompany\projectmanagement\UserController$Student.class
@@ -81,7 +82,6 @@ com\mycompany\projectmanagement\gui\model\ModelHeader.class
 com\mycompany\projectmanagement\gui\form\ManageCourseForm$3.class
 com\mycompany\projectmanagement\gui\form\StudentForm$6.class
 com\mycompany\projectmanagement\UserController$Admin.class
-com\mycompany\projectmanagement\FileController$Booking.class
 com\mycompany\projectmanagement\gui\LoginForm$2.class
 com\mycompany\projectmanagement\gui\panel\PresentationRquestPanel$2.class
 com\mycompany\projectmanagement\gui\StudentMenu$5.class
@@ -89,6 +89,7 @@ com\mycompany\projectmanagement\gui\AdminMenu$2.class
 com\mycompany\projectmanagement\gui\dashboard\PorjectManagerDashboard.class
 com\mycompany\projectmanagement\gui\form\ResetPasswordForm$1.class
 com\mycompany\projectmanagement\gui\panel\AccountPanel.class
+com\mycompany\projectmanagement\gui\panel\VerifyRequestPanel.class
 com\mycompany\projectmanagement\gui\AdminMenu$8.class
 com\mycompany\projectmanagement\gui\form\LecturerForm$6.class
 com\mycompany\projectmanagement\gui\form\ReportSubmissionForm$4.class
@@ -102,6 +103,7 @@ com\mycompany\projectmanagement\gui\form\MarkingForm$2.class
 com\mycompany\projectmanagement\gui\AdminMenu$5.class
 com\mycompany\projectmanagement\JtreeController.class
 com\mycompany\projectmanagement\gui\panel\StudentPanel$1.class
+com\mycompany\projectmanagement\gui\form\VerifyRequestForm.class
 com\mycompany\projectmanagement\gui\form\StudentForm.class
 com\mycompany\projectmanagement\gui\panel\MarkingPanel$1.class
 com\mycompany\projectmanagement\gui\form\ReportSubmissionForm$1.class
@@ -121,12 +123,12 @@ com\mycompany\projectmanagement\gui\form\ChangePasswordForm$2.class
 com\mycompany\projectmanagement\gui\form\MarkingForm$3.class
 com\mycompany\projectmanagement\gui\dashboard\PorjectManagerDashboard$2.class
 com\mycompany\projectmanagement\gui\form\AssessmentForm$1.class
+com\mycompany\projectmanagement\gui\panel\VerifyRequestPanel$1.class
 com\mycompany\projectmanagement\gui\panel\LecturerPanel$3.class
 com\mycompany\projectmanagement\FileController$Submission.class
 com\mycompany\projectmanagement\gui\form\AssessmentForm.class
 com\mycompany\projectmanagement\gui\form\ResetPasswordForm$2.class
 com\mycompany\projectmanagement\gui\form\StudentForm$5.class
-com\mycompany\projectmanagement\gui\panel\VerifyBookingPanel$2.class
 com\mycompany\projectmanagement\gui\form\AccountForm$3.class
 com\mycompany\projectmanagement\gui\form\ChangePasswordForm$5.class
 com\mycompany\projectmanagement\gui\panel\AccountPanel$1.class
@@ -134,6 +136,7 @@ com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$6.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$3.class
 com\mycompany\projectmanagement\gui\component\PieChart.class
 com\mycompany\projectmanagement\gui\panel\StudentPanel.class
+com\mycompany\projectmanagement\gui\form\VerifyRequestForm$2.class
 com\mycompany\projectmanagement\gui\form\LecturerForm$3.class
 com\mycompany\projectmanagement\ProjectManagement.class
 com\mycompany\projectmanagement\gui\form\AssessmentForm$4.class
@@ -149,10 +152,8 @@ com\mycompany\projectmanagement\gui\panel\ReportSubmissionPanel$3.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel.class
 com\mycompany\projectmanagement\gui\StudentMenu$3.class
 com\mycompany\projectmanagement\gui\form\CheckEmailForm.class
-com\mycompany\projectmanagement\gui\form\VerifyBookingForm$1.class
 com\mycompany\projectmanagement\gui\AdminMenu$4.class
 com\mycompany\projectmanagement\gui\form\PresentationRequestForm$4.class
-com\mycompany\projectmanagement\gui\panel\VerifyBookingPanel$1.class
 com\mycompany\projectmanagement\FileController$Course.class
 com\mycompany\projectmanagement\gui\form\StudentForm$4.class
 com\mycompany\projectmanagement\gui\panel\AssignAssessmentPanel$7.class
@@ -173,7 +174,6 @@ com\mycompany\projectmanagement\gui\LecturerMenu$4.class
 com\mycompany\projectmanagement\gui\form\AccountForm$1.class
 com\mycompany\projectmanagement\gui\form\ChangePasswordForm.class
 com\mycompany\projectmanagement\gui\form\ManageCourseForm.class
-com\mycompany\projectmanagement\gui\form\VerifyBookingForm$2.class
 com\mycompany\projectmanagement\gui\form\PresentationRequestForm.class
 com\mycompany\projectmanagement\gui\form\ChangePasswordForm$3.class
 com\mycompany\projectmanagement\gui\panel\ReportSubmissionPanel.class

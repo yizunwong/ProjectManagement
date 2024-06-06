@@ -132,7 +132,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel" name="verifyBookingPanel">
+        <Component class="com.mycompany.projectmanagement.gui.panel.VerifyRequestPanel" name="verifyBookingPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="tab2">

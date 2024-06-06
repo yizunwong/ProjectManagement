@@ -5,14 +5,14 @@
 package com.mycompany.projectmanagement.gui.form;
 
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.FileController.Booking;
 import com.mycompany.projectmanagement.FileController.Presentation;
+import com.mycompany.projectmanagement.FileController.Request;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel;
 import static com.mycompany.projectmanagement.Validator.validateString;
-import static com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel.Presentation_columns;
-import static com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel.presentationTable;
-import static com.mycompany.projectmanagement.gui.panel.VerifyBookingPanel.requestTable;
+import static com.mycompany.projectmanagement.gui.panel.VerifyRequestPanel.Presentation_columns;
+import static com.mycompany.projectmanagement.gui.panel.VerifyRequestPanel.presentationTable;
+import static com.mycompany.projectmanagement.gui.panel.VerifyRequestPanel.requestTable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class VerifyBookingForm extends javax.swing.JPanel {
+public class VerifyRequestForm extends javax.swing.JPanel {
     
     private String module, request_date, supervisor, request_id, status, student_id, presentation_id, remark, name;
     private final UserController userController;
@@ -30,7 +30,7 @@ public class VerifyBookingForm extends javax.swing.JPanel {
     private JSONArray requestArray;
     private JSONArray presentationArray;
     
-    public VerifyBookingForm() {
+    public VerifyRequestForm() {
         initComponents();
         this.userController = new UserController();
         this.fs = new FileController.FileService();
@@ -222,7 +222,7 @@ public class VerifyBookingForm extends javax.swing.JPanel {
 
     private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBtnActionPerformed
         Presentation presentation = new Presentation();
-        Booking booking = new Booking();
+        Request request = new Request();
         getFieldData();
         setFieldData(presentation);
         
@@ -237,11 +237,11 @@ public class VerifyBookingForm extends javax.swing.JPanel {
                 JSONArray searchedArray = user.seachUser(request_id, "request.txt",null);
                 JSONObject searchObj = searchedArray.getJSONObject(0);
                 searchObj.put("status", status);
-                booking.updateFile("request.txt", searchObj);
+                request.updateFile("request.txt", searchObj);
                 
                 refreshTable();
             } else {
-                JOptionPane.showMessageDialog(null, "Request has been accepted", "Booking Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Request has been accepted", "Request Error", JOptionPane.WARNING_MESSAGE);
                 
             }
         } else {

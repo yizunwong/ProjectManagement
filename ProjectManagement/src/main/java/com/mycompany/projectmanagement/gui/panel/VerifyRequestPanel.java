@@ -9,7 +9,7 @@ import com.mycompany.projectmanagement.UserController;
 import java.awt.event.KeyEvent;
 import org.json.JSONArray;
 
-public class VerifyBookingPanel extends javax.swing.JPanel {
+public class VerifyRequestPanel extends javax.swing.JPanel {
 
     public final static String[] Presentation_columns = {"ID", "request_id", "student_id", "presentation_date", "assessment_id", "supervisor", "status", "remark"};
     public UserController userController;
@@ -18,7 +18,7 @@ public class VerifyBookingPanel extends javax.swing.JPanel {
     public FileController.FileService fs;
     private JSONArray presentationArray;
 
-    public VerifyBookingPanel() {
+    public VerifyRequestPanel() {
         initComponents();
         this.userController = new UserController();
 
@@ -55,7 +55,7 @@ public class VerifyBookingPanel extends javax.swing.JPanel {
         presentationSearchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         presentationTable = new javax.swing.JTable();
-        verifyBookingForm1 = new com.mycompany.projectmanagement.gui.form.VerifyBookingForm();
+        verifyBookingForm1 = new com.mycompany.projectmanagement.gui.form.VerifyRequestForm();
 
         requestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,6 +167,6 @@ public class VerifyBookingPanel extends javax.swing.JPanel {
     private javax.swing.JTextField presentationSearchField;
     public static javax.swing.JTable presentationTable;
     public static javax.swing.JTable requestTable;
-    private com.mycompany.projectmanagement.gui.form.VerifyBookingForm verifyBookingForm1;
+    private com.mycompany.projectmanagement.gui.form.VerifyRequestForm verifyBookingForm1;
     // End of variables declaration//GEN-END:variables
 }
