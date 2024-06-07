@@ -8,8 +8,6 @@ import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel;
 import com.mycompany.projectmanagement.gui.panel.ReportSubmissionPanel;
-import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.assessment_columns;
-import static com.mycompany.projectmanagement.gui.panel.PresentationRquestPanel.requestTable;
 import java.awt.event.KeyEvent;
 import org.json.JSONArray;
 

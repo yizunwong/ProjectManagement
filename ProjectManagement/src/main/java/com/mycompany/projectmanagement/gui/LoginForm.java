@@ -8,7 +8,6 @@ import com.mycompany.projectmanagement.gui.form.ChangePasswordForm;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.UserController.Admin;
 import static com.mycompany.projectmanagement.Validator.validateEmail;
-import static com.mycompany.projectmanagement.Validator.validatePassword;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

@@ -24,6 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -63,14 +65,26 @@ public class FilePreviewer {
     }
 
     private static void showWordPreview(File file) {
-        try (FileInputStream fis = new FileInputStream(file); XWPFDocument document = new XWPFDocument(fis); XWPFWordExtractor extractor = new XWPFWordExtractor(document)) {
-            String text = extractor.getText();
+        try (FileInputStream fis = new FileInputStream(file)) {
+            String text = "";
+            if (file.getName().endsWith(".docx")) {
+                try (XWPFDocument document = new XWPFDocument(fis); XWPFWordExtractor extractor = new XWPFWordExtractor(document)) {
+                    text = extractor.getText();
+                }
+            } else if (file.getName().endsWith(".doc")) {
+                try (HWPFDocument document = new HWPFDocument(fis); WordExtractor extractor = new WordExtractor(document)) {
+                    text = extractor.getText();
+                }
+            } else {
+                throw new IllegalArgumentException("Unsupported file format");
+            }
+
             JTextArea textArea = new JTextArea(text);
             textArea.setEditable(false);
             previewPanel.removeAll();
             previewPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
             previewPanel.revalidate();
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Failed to load Word file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

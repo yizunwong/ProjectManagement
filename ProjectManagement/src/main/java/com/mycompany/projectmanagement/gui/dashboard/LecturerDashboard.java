@@ -7,8 +7,6 @@ package com.mycompany.projectmanagement.gui.dashboard;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import javax.swing.ImageIcon;
 import org.json.JSONArray;
 
 public class LecturerDashboard extends javax.swing.JPanel {

@@ -6,7 +6,6 @@ package com.mycompany.projectmanagement.gui.form;
 
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.FileController.Area;
-import com.mycompany.projectmanagement.FileController.ImageController;
 import com.mycompany.projectmanagement.FileController.State;
 import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.UserController.Account;
@@ -26,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**

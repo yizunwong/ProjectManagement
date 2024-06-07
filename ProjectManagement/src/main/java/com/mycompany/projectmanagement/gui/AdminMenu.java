@@ -6,18 +6,14 @@ package com.mycompany.projectmanagement.gui;
 
 import com.mycompany.projectmanagement.gui.model.ModelHeader;
 import com.mycompany.projectmanagement.FileController;
-import com.mycompany.projectmanagement.UserController;
 import com.mycompany.projectmanagement.gui.panel.AccountPanel;
 import com.mycompany.projectmanagement.gui.panel.LecturerPanel;
 import static com.mycompany.projectmanagement.gui.panel.LecturerPanel.importBtn;
-import com.mycompany.projectmanagement.gui.model.ModelCard;
 import com.mycompany.projectmanagement.gui.component.PieChart;
 import com.mycompany.projectmanagement.gui.panel.StudentPanel;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *

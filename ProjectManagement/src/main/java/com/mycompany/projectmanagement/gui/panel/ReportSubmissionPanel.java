@@ -7,7 +7,6 @@ package com.mycompany.projectmanagement.gui.panel;
 import com.mycompany.projectmanagement.gui.form.ReportSubmissionForm;
 import com.mycompany.projectmanagement.FileController;
 import com.mycompany.projectmanagement.UserController;
-import static com.mycompany.projectmanagement.gui.panel.AssignAssessmentPanel.assessment_columns;
 import java.awt.event.KeyEvent;
 import org.json.JSONArray;
 

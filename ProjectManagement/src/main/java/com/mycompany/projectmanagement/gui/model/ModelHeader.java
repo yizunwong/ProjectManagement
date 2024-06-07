@@ -4,7 +4,6 @@
  */
 package com.mycompany.projectmanagement.gui.model;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
