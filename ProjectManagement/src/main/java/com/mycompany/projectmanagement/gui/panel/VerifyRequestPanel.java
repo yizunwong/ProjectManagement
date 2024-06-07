@@ -11,7 +11,7 @@ import org.json.JSONArray;
 
 public class VerifyRequestPanel extends javax.swing.JPanel {
 
-    public final static String[] Presentation_columns = {"ID", "request_id", "student_id", "presentation_date", "assessment_id", "supervisor", "status", "remark"};
+    public final static String[] Presentation_columns = {"ID", "request_id", "student_id", "presentation_date", "module", "supervisor", "status", "remark"};
     public UserController userController;
     private String name;
     private JSONArray requestArray;
@@ -92,6 +92,11 @@ public class VerifyRequestPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        presentationTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                presentationTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(presentationTable);
 
         verifyBookingForm1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -159,6 +164,25 @@ public class VerifyRequestPanel extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_requestTableMouseClicked
+
+    private void presentationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_presentationTableMouseClicked
+        // TODO add your handling code here:
+                int rowIndex = presentationTable.getSelectedRow(); // Get the selected row index
+
+        // Ensure a valid row is selected
+        if (rowIndex != -1) {
+            int columnCount = presentationTable.getColumnCount(); // Get the number of columns
+
+            // Retrieve data from the table model for the clicked row
+            Object[] rowData = new Object[columnCount];
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                rowData[columnIndex] = presentationTable.getModel().getValueAt(rowIndex, columnIndex);
+            }
+
+            verifyBookingForm1.setPresentationData(rowData);
+
+        }
+    }//GEN-LAST:event_presentationTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

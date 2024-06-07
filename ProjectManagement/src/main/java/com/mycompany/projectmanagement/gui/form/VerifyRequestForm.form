@@ -21,7 +21,9 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                       <Component id="SubmitBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="ResetBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -90,6 +92,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="SubmitBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ResetBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
@@ -142,9 +145,11 @@
     <Component class="javax.swing.JComboBox" name="StatusComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Accepted"/>
-            <StringItem index="1" value="Rejected"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Pending"/>
+            <StringItem index="1" value="Accepted"/>
+            <StringItem index="2" value="Rejected"/>
+            <StringItem index="3" value="Completed"/>
           </StringArray>
         </Property>
       </Properties>
@@ -172,5 +177,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

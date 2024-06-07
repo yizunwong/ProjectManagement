@@ -93,6 +93,7 @@ com\mycompany\projectmanagement\gui\panel\VerifyRequestPanel.class
 com\mycompany\projectmanagement\gui\AdminMenu$8.class
 com\mycompany\projectmanagement\gui\form\LecturerForm$6.class
 com\mycompany\projectmanagement\gui\form\ReportSubmissionForm$4.class
+com\mycompany\projectmanagement\gui\panel\VerifyRequestPanel$3.class
 com\mycompany\projectmanagement\gui\AdminMenu$10.class
 com\mycompany\projectmanagement\gui\dashboard\AdminDashboard.class
 com\mycompany\projectmanagement\gui\panel\LecturerPanel$2.class
@@ -170,6 +171,7 @@ com\mycompany\projectmanagement\FileController$State.class
 com\mycompany\projectmanagement\gui\form\MarkingForm.class
 com\mycompany\projectmanagement\gui\form\StudentForm$3.class
 com\mycompany\projectmanagement\gui\ProjectManagerMenu$6.class
+com\mycompany\projectmanagement\gui\form\VerifyRequestForm$3.class
 com\mycompany\projectmanagement\gui\panel\ViewReportPanel.class
 com\mycompany\projectmanagement\gui\dashboard\StudentDashboard$1.class
 com\mycompany\projectmanagement\gui\panel\ViewReportPanel$1.class

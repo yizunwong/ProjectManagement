@@ -1037,7 +1037,7 @@ public interface FileController {
         public final String[] keys;
 
         public Presentation() {
-            this.keys = new String[]{"ID", "request_id", "student_id", "presentation_date", "assessment_id", "supervisor", "status", "remark"};
+            this.keys = new String[]{"ID", "request_id", "student_id", "presentation_date", "module", "supervisor", "status", "remark"};
         }
 
         public void setPresentationID(String presentation_id) {
@@ -1081,6 +1081,11 @@ public interface FileController {
         public void saveFile(String fileName) {
             FileController.FileService fs = new FileController.FileService();
             fs.write(getPresentation(), fileName, true);
+        }
+
+        public void updateFile(String fileName, JSONObject presentation) {
+            FileController.FileService fs = new FileController.FileService();
+            fs.updateData(fileName, presentation, "ID");
         }
 
     }

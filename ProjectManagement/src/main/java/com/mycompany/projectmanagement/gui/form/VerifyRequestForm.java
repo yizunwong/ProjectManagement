@@ -18,38 +18,39 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class VerifyRequestForm extends javax.swing.JPanel {
-    
+
     private String module, request_date, supervisor, request_id, status, student_id, presentation_id, remark, name;
     private final UserController userController;
     private final FileController.FileService fs;
     private JSONArray requestArray;
     private JSONArray presentationArray;
-    
+
     public VerifyRequestForm() {
         initComponents();
         this.userController = new UserController();
         this.fs = new FileController.FileService();
-        
+
     }
-    
+
     public void setUser(String name) {
         this.name = name;
-        
+
     }
-    
+
     public void refreshTable() {
         UserController.User user = userController.new User();
-        presentationArray = user.seachUser(name, "presentation.txt",null);
-        requestArray = user.seachUser(name, "request.txt",null);
+        presentationArray = user.seachUser(name, "presentation.txt", null);
+        requestArray = user.seachUser(name, "request.txt", null);
         fs.showFileData(requestTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
         fs.showFileData(presentationTable, Presentation_columns, "presentation.txt", presentationArray, 0);
     }
-    
+
     public void getFieldData() {
         LocalTime time = dateTimePicker1.timePicker.getTime();
         LocalDate date = dateTimePicker1.datePicker.getDate();
@@ -62,9 +63,9 @@ public class VerifyRequestForm extends javax.swing.JPanel {
         request_id = RequestField.getText().trim();
         status = StatusComboBox.getSelectedItem().toString();
         remark = remarkTextArea.getText().trim();
-        
+
     }
-    
+
     public void setFieldData(Presentation prsentation) {
         if (presentation_id == null) {
             presentation_id = fs.generateUniqueId("presentation", "presentation.txt", "ID");
@@ -78,7 +79,7 @@ public class VerifyRequestForm extends javax.swing.JPanel {
         prsentation.setStudentID(student_id);
         prsentation.setRemark(remark);
     }
-    
+
     public void setRequestData(Object[] rowData) {
         this.presentation_id = null;
         RequestField.setText(rowData[0].toString());
@@ -91,9 +92,28 @@ public class VerifyRequestForm extends javax.swing.JPanel {
         dateTimePicker1.timePicker.setTime(time);
         module = rowData[3].toString();
         supervisorField.setText(rowData[5].toString());
+        status = rowData[6].toString();
+        StatusComboBox.setSelectedItem(rowData[6].toString());
         remarkTextArea.setText(rowData[7].toString());
     }
-    
+
+    public void setPresentationData(Object[] rowData) {
+        this.presentation_id = rowData[0].toString();
+        RequestField.setText(rowData[1].toString());
+        student_id = rowData[2].toString();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDate date = LocalDate.parse(rowData[3].toString().split(",")[0], dateFormatter);
+        LocalTime time = LocalTime.parse(rowData[3].toString().split(",")[1], timeFormatter);
+        dateTimePicker1.datePicker.setDate(date);
+        dateTimePicker1.timePicker.setTime(time);
+        module = rowData[4].toString();
+        supervisorField.setText(rowData[5].toString());
+        status = rowData[6].toString();
+        StatusComboBox.setSelectedItem(status);
+        remarkTextArea.setText(rowData[7].toString());
+    }
+
     public void resetField() {
         RequestField.setText("");
         dateTimePicker1.datePicker.setDate(null);
@@ -124,6 +144,7 @@ public class VerifyRequestForm extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         remarkTextArea = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
 
         jLabel2.setText("Request ID :");
 
@@ -147,13 +168,20 @@ public class VerifyRequestForm extends javax.swing.JPanel {
 
         jLabel7.setText("Status :");
 
-        StatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accepted", "Rejected" }));
+        StatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Accepted", "Rejected", "Completed" }));
 
         jLabel8.setText("Remark :");
 
         remarkTextArea.setColumns(20);
         remarkTextArea.setRows(5);
         jScrollPane1.setViewportView(remarkTextArea);
+
+        jButton1.setText("Update");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -164,7 +192,9 @@ public class VerifyRequestForm extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(SubmitBtn)
-                        .addGap(116, 116, 116)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(23, 23, 23)
                         .addComponent(ResetBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -215,39 +245,47 @@ public class VerifyRequestForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SubmitBtn)
-                    .addComponent(ResetBtn))
+                    .addComponent(ResetBtn)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBtnActionPerformed
-        Presentation presentation = new Presentation();
-        Request request = new Request();
-        getFieldData();
-        setFieldData(presentation);
-        
-        List<String> errors = new ArrayList<>();
-        validateString(request_id, "Request", errors);
-        if (errors.isEmpty()) {
-            boolean alreadyExists = fs.checkExists("presentation.txt", presentation.getPresentation(), "request_id");
-            if (!alreadyExists) {
-                presentation.saveFile("presentation.txt");
-                
-                UserController.User user = userController.new User();
-                JSONArray searchedArray = user.seachUser(request_id, "request.txt",null);
-                JSONObject searchObj = searchedArray.getJSONObject(0);
-                searchObj.put("status", status);
-                request.updateFile("request.txt", searchObj);
-                
-                refreshTable();
+
+        if (status.equalsIgnoreCase("Pending")) {
+            Presentation presentation = new Presentation();
+            Request request = new Request();
+            getFieldData();
+            setFieldData(presentation);
+            List<String> errors = new ArrayList<>();
+            validateString(request_id, "Request", errors);
+            presentation.setStatus("On Going");
+            if (errors.isEmpty()) {
+                boolean alreadyExists = fs.checkExists("presentation.txt", presentation.getPresentation(), "request_id");
+                if (!alreadyExists) {
+                    presentation.saveFile("presentation.txt");
+
+                    UserController.User user = userController.new User();
+                    JSONArray searchedArray = user.seachUser(request_id, "request.txt", null);
+                    JSONObject searchObj = searchedArray.getJSONObject(0);
+                    searchObj.put("status", status);
+                    request.updateFile("request.txt", searchObj);
+
+                    refreshTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Request has been accepted", "Request Error", JOptionPane.WARNING_MESSAGE);
+
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Request has been accepted", "Request Error", JOptionPane.WARNING_MESSAGE);
-                
+                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
             }
         } else {
-            JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
-            
+            JOptionPane.showMessageDialog(null, "Request has been accepted/rejected", "Request Error", JOptionPane.WARNING_MESSAGE);
+
         }
+
 
     }//GEN-LAST:event_SubmitBtnActionPerformed
 
@@ -256,6 +294,18 @@ public class VerifyRequestForm extends javax.swing.JPanel {
         resetField();
     }//GEN-LAST:event_ResetBtnActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Presentation presentation = new Presentation();
+        getFieldData();
+        setFieldData(presentation);
+        System.out.println(presentation.getPresentation());
+        presentation.updateFile("presentation.txt", presentation.getPresentation());
+
+        refreshTable();
+        JOptionPane.showMessageDialog(null, "Presentation Updated");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField RequestField;
@@ -263,6 +313,7 @@ public class VerifyRequestForm extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> StatusComboBox;
     private javax.swing.JButton SubmitBtn;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

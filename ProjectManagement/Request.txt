@@ -1,3 +1,2 @@
-{"module":"Introduction to Programming","request_date":"2024/06/25,02:00","student_id":"TP8704","assessment_id":"ASMT399","remark":"","ID":"REQ8764","supervisor":"John Smith","status":"Accepted"}
-{"module":"Network Fundamentals","request_date":"2024/06/06,01:30","student_id":"TP8704","assessment_id":"ASMT2643","remark":"","ID":"REQ8231","supervisor":"John Smith","status":"Accepted"}
+{"module":"Network Fundamentals","request_date":"2024/06/06,01:30","student_id":"TP8704","assessment_id":"ASMT2643","remark":"","ID":"REQ8231","supervisor":"John Smith","status":"Pending"}
 {"module":"HTML and CSS","request_date":"2024/06/14,02:00","student_id":"TP3203","assessment_id":"ASMT6360","remark":"","ID":"REQ7256","supervisor":"Eve White","status":"Pending"}
