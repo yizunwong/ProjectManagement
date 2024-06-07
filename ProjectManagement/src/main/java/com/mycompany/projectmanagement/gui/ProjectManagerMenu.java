@@ -41,11 +41,11 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
         this.fs = new FileController.FileService();
         this.pieChartData = new ArrayList<>();
         pieChartData.add(new PieChart.PieChartData("Type Percentage", "assessment.txt", "assessment_type",
-                new String[]{"Internship Report", "Investigation Report", "CP1", "CP2", "RMCP", "FYP"}));
+                new String[]{"Internship Report", "Investigation Report", "CP1", "CP2", "RMCP", "FYP"},null));
         pieChartData.add(new PieChart.PieChartData("Status Percentage", "assessment.txt", "status",
-                new String[]{"In Progress", "Late", "Completed"}));
-        porjectManagerDashboard.pieChart1.setData(pieChartData, null);
-        porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData, null);
+                new String[]{"In Progress", "Late", "Completed"},null));
+        porjectManagerDashboard.pieChart1.setData(pieChartData);
+        porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData);
     }
 
     public void setUser(String id) {
@@ -170,7 +170,7 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(0);
         setHeader("Project Manager Dashboard");
         porjectManagerDashboard.initialCard();
-        porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData, null);
+        porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData);
         fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
     }//GEN-LAST:event_dashboardBtnActionPerformed
 

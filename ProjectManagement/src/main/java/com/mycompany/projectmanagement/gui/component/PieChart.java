@@ -37,15 +37,15 @@ public class PieChart extends javax.swing.JPanel {
     public PieChart() {
         initComponents();
         this.data = new ArrayList<>();
-        data.add(new PieChart.PieChartData("Default", "", "Role", new String[]{}));
-        data.add(new PieChart.PieChartData("Default", "", "Entry Level", new String[]{}));
-        data.add(new PieChart.PieChartData("Default", "", "Gender", new String[]{}));
-        initialPieChart(data,null);
+        data.add(new PieChart.PieChartData("Default", "", "Role", new String[]{}, null));
+        data.add(new PieChart.PieChartData("Default", "", "Entry Level", new String[]{}, null));
+        data.add(new PieChart.PieChartData("Default", "", "Gender", new String[]{}, null));
+        initialPieChart(data);
     }
 
-    public void setData(List<PieChartData> pieChartDataList,JSONArray searchArray) {
+    public void setData(List<PieChartData> pieChartDataList) {
         this.data = pieChartDataList;
-        initialPieChart(data, searchArray);
+        initialPieChart(data);
 
     }
 
@@ -55,12 +55,14 @@ public class PieChart extends javax.swing.JPanel {
         private final String fileName;
         private final String category;
         private final String[] values;
+        private final JSONArray jsonArray;
 
-        public PieChartData(String title, String fileName, String category, String[] values) {
+        public PieChartData(String title, String fileName, String category, String[] values, JSONArray jsonArray) {
             this.title = title;
             this.fileName = fileName;
             this.category = category;
             this.values = values;
+            this.jsonArray = jsonArray;
         }
 
         public String getTitle() {
@@ -78,16 +80,20 @@ public class PieChart extends javax.swing.JPanel {
         public String[] getValues() {
             return values;
         }
+
+        public JSONArray getJSONArray() {
+            return jsonArray;
+        }
     }
 
-    public final void initialPieChart(List<PieChartData> pieChartDataList, JSONArray searchArray) {
+    public final void initialPieChart(List<PieChartData> pieChartDataList) {
         setLayout(new BorderLayout());
         FileController.FileService fs = new FileController.FileService();
 
         JPanel chartPanel = new JPanel(new GridLayout(1, pieChartDataList.size()));
 
         for (PieChartData pieData : pieChartDataList) {
-            HashMap<String, Integer> count = fs.countOccurrences(pieData.getFileName(), pieData.getCategory(), pieData.getValues(), searchArray);
+            HashMap<String, Integer> count = fs.countOccurrences(pieData.getFileName(), pieData.getCategory(), pieData.getValues(), pieData.getJSONArray());
             ModelPieChart model = new ModelPieChart(pieData.getTitle(), count);
             chartPanel.add(createPieChartPanel(model));
         }
@@ -95,11 +101,11 @@ public class PieChart extends javax.swing.JPanel {
         add(chartPanel, BorderLayout.CENTER);
     }
 
-    public void refreshPieChart(List<PieChartData> pieChartDataList, JSONArray searchArray) {
+    public void refreshPieChart(List<PieChartData> pieChartDataList) {
         // Remove all components
         removeAll();
         // Reinitialize the pie charts
-        initialPieChart(pieChartDataList, searchArray );
+        initialPieChart(pieChartDataList);
         // Revalidate and repaint the panel to update the display
         revalidate();
         repaint();

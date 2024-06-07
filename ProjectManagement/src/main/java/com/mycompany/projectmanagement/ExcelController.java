@@ -87,7 +87,10 @@ public class ExcelController {
         }
     }
 
-    private void saveDataFromJSON(JSONArray jsonArray, String fileName, String role) {
+    public void saveDataFromJSON(JSONArray jsonArray, String fileName, String role) {
+        boolean importAllDuplicates = false;
+        boolean skipAllDuplicates = false;
+
         for (Object obj : jsonArray) {
             JSONObject jsonObject = (JSONObject) obj;
 
@@ -96,18 +99,29 @@ public class ExcelController {
                 saveAccountandAssessment(jsonObject, role);
                 fileService.write(jsonObject, fileName, true);
             } else {
-                int result = JOptionPane.showConfirmDialog(null, "There are duplicate data with same IC, are u sure importing?", "", JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION) {
-                    saveAccountandAssessment( jsonObject, role);
+                if (!importAllDuplicates && !skipAllDuplicates) {
+                    int result = JOptionPane.showConfirmDialog(
+                            null,
+                            "There are duplicate data with same IC, do you want to import all duplicates?",
+                            "",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    if (result == JOptionPane.YES_OPTION) {
+                        importAllDuplicates = true;
+                    } else {
+                        skipAllDuplicates = true;
+                    }
+                }
+
+                if (importAllDuplicates) {
+                    saveAccountandAssessment(jsonObject, role);
                     fileService.write(jsonObject, fileName, true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Data Import Cancel");
-                    break;
+                } else if (skipAllDuplicates) {
+                    // Do nothing, skip this entry
                 }
             }
-
         }
-
     }
 
     public void saveAccountandAssessment(JSONObject jsonObject, String role) {

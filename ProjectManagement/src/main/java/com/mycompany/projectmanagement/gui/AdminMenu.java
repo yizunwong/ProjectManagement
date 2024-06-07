@@ -34,11 +34,11 @@ public class AdminMenu extends javax.swing.JFrame {
         initComponents();
         this.fs = new FileController.FileService();
         this.pieChartData = new ArrayList<>();
-        pieChartData.add(new PieChart.PieChartData("Role Percentage", "account.txt", "Role", new String[]{"student", "lecturer", "project manager"}));
-        pieChartData.add(new PieChart.PieChartData("Entry Level Percentage", "student.txt", "Entry Level", new String[]{"Diploma", "Degree", "Masters Degree", "PhD", "Foundation"}));
-        pieChartData.add(new PieChart.PieChartData("Student Gender Percentage", "student.txt", "Gender", new String[]{"Male", "Female"}));
-        adminDashboard.pieChart1.setData(pieChartData, null);
-        adminDashboard.pieChart1.refreshPieChart(pieChartData, null);
+        pieChartData.add(new PieChart.PieChartData("Role Percentage", "account.txt", "Role", new String[]{"student", "lecturer", "project manager"}, null));
+        pieChartData.add(new PieChart.PieChartData("Entry Level Percentage", "student.txt", "Entry Level", new String[]{"Diploma", "Degree", "Masters Degree", "PhD", "Foundation"},null));
+        pieChartData.add(new PieChart.PieChartData("Student Gender Percentage", "student.txt", "Gender", new String[]{"Male", "Female"},null));
+        adminDashboard.pieChart1.setData(pieChartData);
+        adminDashboard.pieChart1.refreshPieChart(pieChartData);
 
     }
 
@@ -193,14 +193,14 @@ public class AdminMenu extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(0);
         setHeader(name, "Admin Dashboard");
         adminDashboard.initialCard();
-        adminDashboard.pieChart1.refreshPieChart(pieChartData, null);
+        adminDashboard.pieChart1.refreshPieChart(pieChartData);
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerPanel.fileName, null, 1);
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void manageStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(1);
-        setHeader(name, "Register Student");
+        setHeader(name, "Manage Student");
         fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
     }//GEN-LAST:event_manageStudentBtnActionPerformed
 

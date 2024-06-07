@@ -35,7 +35,7 @@ public class StudentMenu extends javax.swing.JFrame {
     private String imagePath;
     private JSONArray reportArray;
     private final ArrayList<PieChartData> pieChartData;
-    String[] grades = {
+    public String[] grades = {
         "A+ (Distinction)",
         "A (Distinction)",
         "B+ (Credit)",
@@ -46,6 +46,9 @@ public class StudentMenu extends javax.swing.JFrame {
         "F (Fail)",
         "-"
     };
+    public String[] status = {"Pending", "Late", "Accepted", "Rejected", "Under Review"};
+
+    private JSONArray requestArray;
 
     public StudentMenu() {
         initComponents();
@@ -57,7 +60,6 @@ public class StudentMenu extends javax.swing.JFrame {
 
     public void setUser(String id) {
         this.id = id;
-        refreshTable();
         UserController.User user = userController.new User();
         JSONArray searchedArray = user.seachUser(id, "student.txt", null);
         JSONObject searchObj = searchedArray.getJSONObject(0);
@@ -65,20 +67,25 @@ public class StudentMenu extends javax.swing.JFrame {
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
 
-        String[] status = {"Pending", "Late", "Accepted", "Rejected", "Under Review"};
         reportArray = user.seachUser(id, "report.txt", null);
-        JSONArray requestArray = user.seachUser(id, "request.txt", null);
+        requestArray = user.seachUser(id, "request.txt", null);
+        initialPieChart(status);
 
+    }
+
+    public void initialPieChart(String[] status) {
+        pieChartData.removeAll(pieChartData);
         HashMap<String, Integer> report = fs.countOccurrences("report.txt", "status", status, reportArray);
         HashMap<String, Integer> reqeust = fs.countOccurrences("reqeust.txt", "status", status, requestArray);
         card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Pending Report", report.get("Pending").toString(), "Report that need to be mark"));
         card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Pendin Request", reqeust.get("Pending").toString(), "Request for presentation"));
 
-        pieChartData.add(new PieChart.PieChartData("Report Percentage", "report.txt", "grade", grades));
-        pieChartData.add(new PieChart.PieChartData("Request Percentage", "request.txt", "status", status));
+        pieChartData.add(new PieChart.PieChartData("Report Percentage", "report.txt", "grade", grades, reportArray));
+        pieChartData.add(new PieChart.PieChartData("Request Percentage", "request.txt", "status", status, requestArray));
 
-        studentDashboard.pieChart1.setData(pieChartData, reportArray);
-        studentDashboard.pieChart1.refreshPieChart(pieChartData, reportArray);
+        studentDashboard.pieChart1.setData(pieChartData);
+        studentDashboard.pieChart1.refreshPieChart(pieChartData);
+
     }
 
     public void setHeader(String title) {
@@ -90,7 +97,7 @@ public class StudentMenu extends javax.swing.JFrame {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        JSONArray requestArray = user.seachUser(id, "request.txt", null);
+        requestArray = user.seachUser(id, "request.txt", null);
         reportArray = user.seachUser(id, "report.txt", null);
         fs.showFileData(StudentDashboard.SubmissionTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 1);
         fs.showFileData(StudentDashboard.BookingTable, PresentationRquestPanel.columns, "request.txt", requestArray, 0);
@@ -292,7 +299,12 @@ public class StudentMenu extends javax.swing.JFrame {
 
         jTabbedPane3.setSelectedIndex(0);
         setHeader("Student Dashboard");
+        UserController.User user = userController.new User();
+        reportArray = user.seachUser(id, "report.txt", null);
+        requestArray = user.seachUser(id, "request.txt", null);
+        initialPieChart(status);
         studentDashboard.setUser(id);
+
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed

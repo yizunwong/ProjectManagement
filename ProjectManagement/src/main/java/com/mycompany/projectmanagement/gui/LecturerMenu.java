@@ -29,7 +29,7 @@ public class LecturerMenu extends javax.swing.JFrame {
     private JSONArray assessmentArray;
     private String imagePath;
     private final ArrayList<PieChartData> pieChartData;
-    String[] grades = {
+    public String[] grades = {
         "A+ (Distinction)",
         "A (Distinction)",
         "B+ (Credit)",
@@ -40,8 +40,12 @@ public class LecturerMenu extends javax.swing.JFrame {
         "F (Fail)",
         "-"
     };
+
+    public String[] status = {"Pending", "Late", "Accepted", "Rejected", "Under Review"};
+
     private JSONArray reportArray;
     int mouseX, mouseY;
+    private JSONArray requestArray;
 
     public LecturerMenu() {
         initComponents();
@@ -59,21 +63,24 @@ public class LecturerMenu extends javax.swing.JFrame {
         this.name = searchObj.getString("Name");
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
-
-        String[] status = {"Pending", "Late", "Accepted", "Rejected", "Under Review"};
         reportArray = user.seachUser(name, "report.txt", null);
-        JSONArray requestArray = user.seachUser(name, "request.txt", null);
+        requestArray = user.seachUser(name, "request.txt", null);
+        initialPieChart(status);
+    }
 
+    public void initialPieChart(String[] status) {
+        pieChartData.removeAll(pieChartData);
         HashMap<String, Integer> report = fs.countOccurrences("report.txt", "status", status, reportArray);
         HashMap<String, Integer> reqeust = fs.countOccurrences("reqeust.txt", "status", status, requestArray);
         card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/user_icon.png")), "Pending Report", report.get("Pending").toString(), "Report that need to be mark"));
         card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/mycompany/projectmanagement/icon/projects_icon.png")), "Pendin Request", reqeust.get("Pending").toString(), "Request for presentation"));
 
-        pieChartData.add(new PieChart.PieChartData("Report Percentage", "report.txt", "grade", grades));
-        pieChartData.add(new PieChart.PieChartData("Request Percentage", "request.txt", "status", status));
+        pieChartData.add(new PieChart.PieChartData("Report Percentage", "report.txt", "grade", grades, reportArray));
+        pieChartData.add(new PieChart.PieChartData("Request Percentage", "request.txt", "status", status, requestArray));
 
-        lecturerDashboard.pieChart1.setData(pieChartData, reportArray);
-        lecturerDashboard.pieChart1.refreshPieChart(pieChartData, reportArray);
+        lecturerDashboard.pieChart1.setData(pieChartData);
+        lecturerDashboard.pieChart1.refreshPieChart(pieChartData);
+
     }
 
     public void setHeader(String title) {
@@ -208,8 +215,12 @@ public class LecturerMenu extends javax.swing.JFrame {
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         jTabbedPane1.setSelectedIndex(0);
         setHeader("Lecturer Dashboard");
+        UserController.User user = userController.new User();
+        reportArray = user.seachUser(name, "report.txt", null);
+        requestArray = user.seachUser(name, "request.txt", null);
+        initialPieChart(status);
         lecturerDashboard.setUser(name);
-        lecturerDashboard.pieChart1.refreshPieChart(pieChartData, reportArray);
+
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed

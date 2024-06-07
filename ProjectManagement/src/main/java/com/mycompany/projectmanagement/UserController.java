@@ -261,115 +261,6 @@ public class UserController {
 
     }
 
-    public class Lecturer extends User {
-
-        public String department;
-        public String education;
-
-        public Lecturer() {
-            this.keys = new String[]{"ID", "Name", "IC",
-                "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
-                "Department", "Education", "ImagePath"};
-        }
-
-        public void setDepartment(String department) {
-            this.department = department;
-        }
-
-        public void setEducation(String education) {
-            this.education = education;
-        }
-
-        public JSONObject getLecturer() {
-            String[] student = {id, name, ic, phone, gender, state, address, email, dob, department, education, fullPath.toString()};
-            JSONObject jsonObj = toJSONObject(keys, student);
-            return jsonObj;
-        }
-
-        @Override
-        public void saveTextFile(String fileName) {
-            fs.write(getLecturer(), fileName, true);
-        }
-
-        @Override
-        public void updateTextFile(String fileName) {
-            fs.updateData(fileName, getLecturer(), "ID");
-
-        }
-
-    }
-
-    public class ProjectManager extends Lecturer {
-
-    }
-
-    public class Student extends User {
-
-        private String parent_name;
-        private String entry_level;
-        public String intake_date;
-        private String course;
-
-        public Student() {
-            this.parent_name = "";
-            this.entry_level = "";
-            this.course = "";
-            this.keys = new String[]{"ID", "Name", "Parent Name", "IC",
-                "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
-                "Entry Level", "Course", "Intake Date", "ImagePath"};
-
-        }
-
-        public String getParent_name() {
-            return parent_name;
-        }
-
-        public void setParent_name(String parent_name) {
-            this.parent_name = parent_name;
-        }
-
-        public String getEntry_level() {
-            return entry_level;
-        }
-
-        public void setEntry_level(String entry_level) {
-            this.entry_level = entry_level;
-        }
-
-        public String getCourse() {
-            return course;
-        }
-
-        public void setCourse(String course) {
-            this.course = course;
-        }
-
-        public String getIntake_date() {
-            return intake_date;
-        }
-
-        public void setIntake_date(String intake_date) {
-            this.intake_date = intake_date;
-        }
-
-        public JSONObject getStudent() {
-            String[] student = {id, name, parent_name, ic, phone, gender, state, address, email, dob, entry_level, course, intake_date, fullPath.toString()};
-            JSONObject jsonObj = toJSONObject(keys, student);
-            return jsonObj;
-        }
-
-        @Override
-        public void saveTextFile(String fileName) {
-            fs.write(getStudent(), fileName, true);
-        }
-
-        @Override
-        public void updateTextFile(String fileName) {
-            fs.updateData(fileName, getStudent(), "ID");
-
-        }
-    }
-
     public class Account extends User {
 
         public String password;
@@ -458,6 +349,111 @@ public class UserController {
             this.role = role;
         }
 
+    }
+
+    public class Lecturer extends Account {
+
+        public String department;
+        public String education;
+
+        public Lecturer() {
+            this.keys = new String[]{"ID", "Name", "IC",
+                "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
+                "Department", "Education", "ImagePath"};
+        }
+
+        public void setDepartment(String department) {
+            this.department = department;
+        }
+
+        public void setEducation(String education) {
+            this.education = education;
+        }
+
+        public JSONObject getLecturer() {
+            String[] student = {id, name, ic, phone, gender, state, address, email, dob, department, education, fullPath.toString()};
+            JSONObject jsonObj = toJSONObject(keys, student);
+            return jsonObj;
+        }
+
+        @Override
+        public void saveTextFile(String fileName) {
+            fs.write(getLecturer(), fileName, true);
+        }
+
+        @Override
+        public void updateTextFile(String fileName) {
+            fs.updateData(fileName, getLecturer(), "ID");
+
+        }
+
+    }
+
+    public class Student extends Account {
+
+        private String parent_name;
+        private String entry_level;
+        public String intake_date;
+        private String course;
+
+        public Student() {
+            this.parent_name = "";
+            this.entry_level = "";
+            this.course = "";
+            this.keys = new String[]{"ID", "Name", "Parent Name", "IC",
+                "Phone.no", "Gender", "State", "Address", "Email", "Birth Date",
+                "Entry Level", "Course", "Intake Date", "ImagePath"};
+
+        }
+
+        public String getParent_name() {
+            return parent_name;
+        }
+
+        public void setParent_name(String parent_name) {
+            this.parent_name = parent_name;
+        }
+
+        public String getEntry_level() {
+            return entry_level;
+        }
+
+        public void setEntry_level(String entry_level) {
+            this.entry_level = entry_level;
+        }
+
+        public String getCourse() {
+            return course;
+        }
+
+        public void setCourse(String course) {
+            this.course = course;
+        }
+
+        public String getIntake_date() {
+            return intake_date;
+        }
+
+        public void setIntake_date(String intake_date) {
+            this.intake_date = intake_date;
+        }
+
+        public JSONObject getStudent() {
+            String[] student = {id, name, parent_name, ic, phone, gender, state, address, email, dob, entry_level, course, intake_date, fullPath.toString()};
+            JSONObject jsonObj = toJSONObject(keys, student);
+            return jsonObj;
+        }
+
+        @Override
+        public void saveTextFile(String fileName) {
+            fs.write(getStudent(), fileName, true);
+        }
+
+        @Override
+        public void updateTextFile(String fileName) {
+            fs.updateData(fileName, getStudent(), "ID");
+
+        }
     }
 
     public class Admin extends Account {

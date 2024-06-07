@@ -482,7 +482,7 @@ public class StudentForm extends javax.swing.JPanel {
         getFieldData();
         setFieldData(student, account, assessment);
         List<String> errors = validateField();
-        boolean alreadyExists = fs.checkExists("student.txt", student.getStudent(),"ID");
+        boolean alreadyExists = fs.checkExists("student.txt", student.getStudent(), "ID");
         if (errors.isEmpty()) {
             if (!alreadyExists) {
                 student.saveTextFile("student.txt");
@@ -505,7 +505,7 @@ public class StudentForm extends javax.swing.JPanel {
     private void fileUploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileUploadBtnActionPerformed
         // TODO add your handling code here:
         UserController.User user = userController.new User();
-        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\",FileType.IMAGE);
+        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\", FileType.IMAGE);
         this.imagePath = user.getFullPath();
         this.selectedFile = user.getSelectedFile();
         UserController.User.updateAvatarImageIcon(selectedFile, avatarImageIcon);
@@ -540,12 +540,12 @@ public class StudentForm extends javax.swing.JPanel {
             setFieldData(student, account, assessment);
             List<String> errors = validateField();
             if (errors.isEmpty()) {
-                    student.updateTextFile("student.txt");
-                    assessment.replaceData("assessment.txt", assessment);
-                    student.saveFile(selectedFile);
+                student.updateTextFile("student.txt");
+                assessment.replaceData("assessment.txt", assessment);
+                student.saveFile(selectedFile);
 
-                    JOptionPane.showMessageDialog(null, "Data update successfully");
-                    fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
+                JOptionPane.showMessageDialog(null, "Data update successfully");
+                fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
 
             } else {
                 JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
@@ -564,12 +564,17 @@ public class StudentForm extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        getFieldData();
-        fs.deleteData(id, "student.txt", "ID");
-        fs.deleteData(id, "account.txt", "ID");
-        fs.deleteData(id, "assessment.txt", "student_id");
+        int result = JOptionPane.showConfirmDialog(null, "Delete Data?", "", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            getFieldData();
+            fs.deleteData(id, "student.txt", "ID");
+            fs.deleteData(id, "account.txt", "ID");
+            fs.deleteData(id, "assessment.txt", "student_id");
 
-        fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
+            fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Data delete cancel");
+        }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
 

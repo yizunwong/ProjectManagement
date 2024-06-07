@@ -77,7 +77,6 @@ public class LecturerForm extends javax.swing.JPanel {
         departmentComboBox.setModel(new DefaultComboBoxModel<>(departments));
     }
 
-
     public void setData(Object[] rowData) {
         idField.setText(rowData[0].toString());
         nameField.setText(rowData[1].toString());
@@ -450,7 +449,7 @@ public class LecturerForm extends javax.swing.JPanel {
         getFieldData();
         setFieldData(lecturer, account);
         List<String> errors = validateField();
-        boolean alreadyExists = fs.checkExists("lecturer.txt", lecturer.getLecturer(),"ID");
+        boolean alreadyExists = fs.checkExists("lecturer.txt", lecturer.getLecturer(), "ID");
         if (errors.isEmpty()) {
             if (!alreadyExists) {
                 lecturer.saveTextFile(fileName);
@@ -472,7 +471,7 @@ public class LecturerForm extends javax.swing.JPanel {
     private void fileUploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileUploadBtnActionPerformed
         // TODO add your handling code here:
         UserController.User user = userController.new User();
-        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\",FileType.IMAGE);
+        user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\", FileType.IMAGE);
         this.imagePath = user.getFullPath();
         this.selectedFile = user.getSelectedFile();
         UserController.User.updateAvatarImageIcon(imagePath, avatarImageIcon);
@@ -495,7 +494,7 @@ public class LecturerForm extends javax.swing.JPanel {
             setFieldData(lecturer, account);
 
             List<String> errors = validateField();
-            boolean alreadyExists = fs.checkExists("student.txt", lecturer.getLecturer(),"ID");
+            boolean alreadyExists = fs.checkExists("student.txt", lecturer.getLecturer(), "ID");
             if (errors.isEmpty()) {
                 if (!alreadyExists) {
                     lecturer.updateTextFile(fileName);
@@ -522,10 +521,15 @@ public class LecturerForm extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        getFieldData();
-        fs.deleteData(id, fileName, "ID");
-        fs.deleteData(id, "account.txt", "ID");
-        fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, fileName, null, 1);
+        int result = JOptionPane.showConfirmDialog(null, "Delete Data?", "", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            getFieldData();
+            fs.deleteData(id, fileName, "ID");
+            fs.deleteData(id, "account.txt", "ID");
+            fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, fileName, null, 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Data delete cancel");
+        }
 
     }//GEN-LAST:event_deleteBtnActionPerformed
 

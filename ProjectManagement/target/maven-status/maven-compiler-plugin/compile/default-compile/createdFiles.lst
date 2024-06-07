@@ -51,7 +51,6 @@ com\mycompany\projectmanagement\gui\dashboard\StudentDashboard$2.class
 com\mycompany\projectmanagement\gui\form\LecturerForm$1.class
 com\mycompany\projectmanagement\gui\form\PresentationRequestForm$3.class
 com\mycompany\projectmanagement\UserController$Lecturer.class
-com\mycompany\projectmanagement\UserController$ProjectManager.class
 com\mycompany\projectmanagement\gui\form\ReportSubmissionForm$2.class
 com\mycompany\projectmanagement\gui\form\CheckEmailForm$1.class
 com\mycompany\projectmanagement\gui\panel\ReportSubmissionPanel$2.class
