@@ -130,7 +130,7 @@
               <Component id="managePmBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="manageAccountBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="manageLecturerBtn" alignment="0" max="32767" attributes="0"/>
-              <Component id="manageAccountBtn1" alignment="1" max="32767" attributes="0"/>
+              <Component id="manageCourseBtn" alignment="1" max="32767" attributes="0"/>
               <Component id="signoutBtn" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
@@ -148,7 +148,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="manageAccountBtn" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="manageAccountBtn1" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="manageCourseBtn" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="signoutBtn" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace pref="293" max="32767" attributes="0"/>
@@ -205,12 +205,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageLecturerBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="manageAccountBtn1">
+        <Component class="javax.swing.JButton" name="manageCourseBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Manage Course"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageAccountBtn1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageCourseBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

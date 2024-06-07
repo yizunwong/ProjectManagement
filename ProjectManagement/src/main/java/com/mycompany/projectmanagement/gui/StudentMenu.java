@@ -65,7 +65,7 @@ public class StudentMenu extends javax.swing.JFrame {
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
 
-        String[] status = {"Pending", "Late", "Accepted", "Rejected","Under Review"};
+        String[] status = {"Pending", "Late", "Accepted", "Rejected", "Under Review"};
         reportArray = user.seachUser(id, "report.txt", null);
         JSONArray requestArray = user.seachUser(id, "request.txt", null);
 
@@ -277,18 +277,21 @@ public class StudentMenu extends javax.swing.JFrame {
 
     private void requestPresentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestPresentationBtnActionPerformed
         jTabbedPane3.setSelectedIndex(2);
+        setHeader("Request Presentation");
         presentationRequestPanel.setUser(id);
 
     }//GEN-LAST:event_requestPresentationBtnActionPerformed
 
     private void submitReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitReportBtnActionPerformed
         jTabbedPane3.setSelectedIndex(1);
+        setHeader("Report Submission");
         reportSubmissionPanel.setUser(id);
     }//GEN-LAST:event_submitReportBtnActionPerformed
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
 
         jTabbedPane3.setSelectedIndex(0);
+        setHeader("Student Dashboard");
         studentDashboard.setUser(id);
     }//GEN-LAST:event_dashboardBtnActionPerformed
 

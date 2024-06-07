@@ -73,7 +73,7 @@ public class AdminMenu extends javax.swing.JFrame {
         signoutBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
         manageLecturerBtn = new javax.swing.JButton();
-        manageAccountBtn1 = new javax.swing.JButton();
+        manageCourseBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -144,10 +144,10 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
-        manageAccountBtn1.setText("Manage Course");
-        manageAccountBtn1.addActionListener(new java.awt.event.ActionListener() {
+        manageCourseBtn.setText("Manage Course");
+        manageCourseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageAccountBtn1ActionPerformed(evt);
+                manageCourseBtnActionPerformed(evt);
             }
         });
 
@@ -160,7 +160,7 @@ public class AdminMenu extends javax.swing.JFrame {
             .addComponent(managePmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(manageAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(manageLecturerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(manageAccountBtn1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(manageCourseBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(signoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         studentMenu2Layout.setVerticalGroup(
@@ -177,7 +177,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(manageAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(manageAccountBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(manageCourseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(signoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(293, Short.MAX_VALUE))
@@ -191,6 +191,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(0);
+        setHeader(name, "Admin Dashboard");
         adminDashboard.initialCard();
         adminDashboard.pieChart1.refreshPieChart(pieChartData, null);
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerPanel.fileName, null, 1);
@@ -206,6 +207,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void managePmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePmBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
+        setHeader(name, "Manage Project Manager");
         lecturerPanel.remove(importBtn);
         lecturerPanel.setFile("project_manager.txt");
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, lecturerPanel.fileName, null, 1);
@@ -220,6 +222,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(3);
+        setHeader(name, "Manage Account");
         fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null, 0);
 
     }//GEN-LAST:event_manageAccountBtnActionPerformed
@@ -227,6 +230,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void manageLecturerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLecturerBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
+        setHeader(name, "Manage Lecturer");
         lecturerPanel.add(importBtn);
         lecturerPanel.setFile("lecturer.txt");
         fs.showFileData(LecturerPanel.userTable, LecturerPanel.columns, "lecturer.txt", null, 1);
@@ -243,11 +247,13 @@ public class AdminMenu extends javax.swing.JFrame {
         setLocation(evt.getXOnScreen() - mouseX, evt.getYOnScreen() - mouseY);
     }//GEN-LAST:event_header1MouseDragged
 
-    private void manageAccountBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtn1ActionPerformed
+    private void manageCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCourseBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(4);
+        setHeader(name, "Manage Course");
 
-    }//GEN-LAST:event_manageAccountBtn1ActionPerformed
+
+    }//GEN-LAST:event_manageCourseBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,7 +300,7 @@ public class AdminMenu extends javax.swing.JFrame {
     public static javax.swing.JTabbedPane jTabbedPane1;
     public static com.mycompany.projectmanagement.gui.panel.LecturerPanel lecturerPanel;
     private javax.swing.JButton manageAccountBtn;
-    private javax.swing.JButton manageAccountBtn1;
+    private javax.swing.JButton manageCourseBtn;
     private com.mycompany.projectmanagement.gui.panel.ManageCoursePanel manageCoursePanel;
     private javax.swing.JButton manageLecturerBtn;
     private javax.swing.JButton managePmBtn;

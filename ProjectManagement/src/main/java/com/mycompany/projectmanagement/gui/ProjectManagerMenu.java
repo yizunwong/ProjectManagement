@@ -168,6 +168,7 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         jTabbedPane1.setSelectedIndex(0);
+        setHeader("Project Manager Dashboard");
         porjectManagerDashboard.initialCard();
         porjectManagerDashboard.pieChart1.refreshPieChart(pieChartData, null);
         fs.showFileData(PorjectManagerDashboard.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
@@ -176,6 +177,7 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
     private void manageAssessmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAssessmentBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(1);
+        setHeader("Manage Assessment");
         fs.showFileData(AssignAssessmentPanel.dataTable, AssignAssessmentPanel.assessment_columns, "assessment.txt", null, 0);
     }//GEN-LAST:event_manageAssessmentBtnActionPerformed
 
@@ -200,6 +202,7 @@ public class ProjectManagerMenu extends javax.swing.JFrame {
     private void viewReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(2);
+        setHeader("Student Report Review");
         fs.showFileData(SubmissionTable1, ReportSubmissionPanel.columns, "report.txt", null, 0);
 
     }//GEN-LAST:event_viewReportBtnActionPerformed

@@ -60,7 +60,7 @@ public class LecturerMenu extends javax.swing.JFrame {
         this.imagePath = searchObj.getString("ImagePath");
         refreshTable();
 
-        String[] status = {"Pending", "Late", "Accepted", "Rejected","Under Review"};
+        String[] status = {"Pending", "Late", "Accepted", "Rejected", "Under Review"};
         reportArray = user.seachUser(name, "report.txt", null);
         JSONArray requestArray = user.seachUser(name, "request.txt", null);
 
@@ -194,20 +194,22 @@ public class LecturerMenu extends javax.swing.JFrame {
     private void markingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markingBtnActionPerformed
         jTabbedPane1.setSelectedIndex(2);
         markPanel.setUser(name);
+        setHeader("Marking Report");
     }//GEN-LAST:event_markingBtnActionPerformed
 
     private void reviewPresentationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewPresentationBtnActionPerformed
         jTabbedPane1.setSelectedIndex(1);
         verifyBookingPanel.setUser(name);
+        setHeader("Review Presentation Request");
+
 
     }//GEN-LAST:event_reviewPresentationBtnActionPerformed
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         jTabbedPane1.setSelectedIndex(0);
+        setHeader("Lecturer Dashboard");
         lecturerDashboard.setUser(name);
         lecturerDashboard.pieChart1.refreshPieChart(pieChartData, reportArray);
-
-
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void header1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header1MousePressed
