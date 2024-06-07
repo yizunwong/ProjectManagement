@@ -25,6 +25,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private final FileController.FileService fs;
     int mouseX, mouseY;
     private File imagePath;
+    public String name;
 
     /**
      * Creates new form MainMenu
@@ -42,6 +43,7 @@ public class AdminMenu extends javax.swing.JFrame {
     }
 
     public void setHeader(String name, String title) {
+        this.name = name;
         String projectDirectory = System.getProperty("user.dir");
         this.imagePath = new File(projectDirectory + "\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
         header1.setData(new ModelHeader(title, name, new ImageIcon(imagePath.toString())));
@@ -197,6 +199,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void manageStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(1);
+        setHeader(name, "Register Student");
         fs.showFileData(StudentPanel.userTable, StudentPanel.columns, "student.txt", null, 1);
     }//GEN-LAST:event_manageStudentBtnActionPerformed
 

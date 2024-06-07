@@ -132,8 +132,8 @@ public class ReportSubmissionForm extends javax.swing.JPanel {
 
     public void refreshTable() {
         UserController.User user = userController.new User();
-        reportArray = user.seachUser(id, "report.txt",null);
-        assessmentArray = user.seachUser(id, "assessment.txt",null);
+        reportArray = user.seachUser(id, "report.txt", null);
+        assessmentArray = user.seachUser(id, "assessment.txt", null);
         fs.showFileData(reportTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 0);
         fs.showFileData(assessmentTable, columns, "assessment.txt", assessmentArray, 0);
     }
@@ -246,7 +246,7 @@ public class ReportSubmissionForm extends javax.swing.JPanel {
             if (!assessment_type.isEmpty()) {
                 if (!alreadyExists) {
                     submission.saveTextFile("report.txt");
-                    JSONArray searchedArray = user.seachUser(assessment_id, "assessment.txt",null);
+                    JSONArray searchedArray = user.seachUser(assessment_id, "assessment.txt", null);
                     JSONObject searchObj = searchedArray.getJSONObject(0);
                     searchObj.put("status", assessment_status);
                     assessment.updateFile("assessment.txt", searchObj);
@@ -274,7 +274,11 @@ public class ReportSubmissionForm extends javax.swing.JPanel {
         user.saveFile(user.getSelectedFile());
         submission.updateFile("report.txt", submission.getSubmission());
 
+        UserController.User user = userController.new User();
+        reportArray = user.seachUser(id, "report.txt", null);
         fs.showFileData(reportTable, ReportSubmissionPanel.columns, "report.txt", reportArray, 0);
+        JOptionPane.showMessageDialog(null, "Report Updated");
+
     }//GEN-LAST:event_UpdateBtnActionPerformed
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
@@ -284,7 +288,7 @@ public class ReportSubmissionForm extends javax.swing.JPanel {
             deleteFile(projectDirectory + file_path);
             fs.deleteData(assessment_id, "report.txt", "assessment_id");
             UserController.User user = userController.new User();
-            JSONArray searchedArray = user.seachUser(assessment_id, "assessment.txt",null);
+            JSONArray searchedArray = user.seachUser(assessment_id, "assessment.txt", null);
             JSONObject searchObj = searchedArray.getJSONObject(0);
             searchObj.put("status", "In Progress");
             assessment.updateFile("assessment.txt", searchObj);
