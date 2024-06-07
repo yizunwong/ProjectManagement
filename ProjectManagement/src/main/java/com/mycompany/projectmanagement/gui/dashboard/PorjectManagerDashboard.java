@@ -73,7 +73,7 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         courseComboBox = new javax.swing.JComboBox<>();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1150, 280));
+        add(pieChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1210, 280));
 
         card1.setColor1(new java.awt.Color(153, 255, 153));
         add(card1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 310, 150));
@@ -103,7 +103,7 @@ public class PorjectManagerDashboard extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(dataTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 1470, 520));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 1520, 520));
 
         intakeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         intakeComboBox.addActionListener(new java.awt.event.ActionListener() {
