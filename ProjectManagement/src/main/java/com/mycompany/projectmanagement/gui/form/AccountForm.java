@@ -36,6 +36,7 @@ public class AccountForm extends javax.swing.JPanel {
         idField.setText(rowData[0].toString());
         emailField.setText(rowData[1].toString());
         passwordField.setText(rowData[2].toString());
+        role = rowData[3].toString();
         roleComboBox.setSelectedItem(rowData[3].toString());
     }
 
@@ -185,27 +186,34 @@ public class AccountForm extends javax.swing.JPanel {
 
         int result = JOptionPane.showConfirmDialog(null, "Update Data?", "", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            UserController.Account account = userController.new Account();
-            getFieldData();
-            setFieldData(account);
-            List<String> errors = validateField();
             if (!role.equalsIgnoreCase("student")) {
-                if (errors.isEmpty()) {
-                    account.setId(id);
-                    account.setRole(account.role);
-                    account.updateTextFile("account.txt");
-                    JOptionPane.showMessageDialog(null, "Data update successfully");
-                    FileController.FileService fs = new FileController.FileService();
-                    fs.moveData(account.id, account.role, "ID");
-                    fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null, 0);
+
+                UserController.Account account = userController.new Account();
+                getFieldData();
+                setFieldData(account);
+                List<String> errors = validateField();
+                if (!role.equalsIgnoreCase("student")) {
+                    if (errors.isEmpty()) {
+                        account.setId(id);
+                        account.setRole(account.role);
+                        account.updateTextFile("account.txt");
+                        JOptionPane.showMessageDialog(null, "Data update successfully");
+                        FileController.FileService fs = new FileController.FileService();
+                        fs.moveData(account.id, account.role, "ID");
+                        fs.showFileData(AccountPanel.userTable, AccountPanel.columns, "account.txt", null, 0);
+                    } else {
+                        JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Student role cant be change", "Update Error", JOptionPane.WARNING_MESSAGE);
 
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Student role cant be change", "Update Error", JOptionPane.WARNING_MESSAGE);
 
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Data update cancel");
         }

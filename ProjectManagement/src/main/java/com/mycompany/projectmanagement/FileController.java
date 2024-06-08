@@ -50,7 +50,7 @@ public interface FileController {
             return jsonArray;
         }
 
-        private JSONObject jsonObj = new JSONObject();
+        private final JSONObject jsonObj = new JSONObject();
         private JSONArray jsonArray = new JSONArray();
         private String fileContent;
 

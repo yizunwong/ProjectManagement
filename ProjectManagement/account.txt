@@ -5,5 +5,5 @@
 {"Role":"project manager","Email":"LC7352@mail.edu.my","ID":"LC7352","Password":"LC7352@0501"}
 {"Role":"lecturer","Email":"LC3988@mail.edu.my","ID":"LC3988","Password":"LC3988@0501"}
 {"Role":"lecturer","Email":"LC5408@mail.edu.my","ID":"LC5408","Password":"LC5408@0501"}
-{"Role":"lecturer","Email":"LC2577@mail.edu.my","ID":"LC2577","Password":"LC2577@0501"}
-{"Role":"lecturer","Email":"LC7312@mail.edu.my","ID":"LC7312","Password":"LC7312@0501"}
+{"Role":"project manager","Email":"LC2577@mail.edu.my","ID":"LC2577","Password":"LC2577@0501"}
+{"Role":"lecturer","ID":"LC438","Email":"LC438@mail.edu.my","Password":"LC438@0605"}

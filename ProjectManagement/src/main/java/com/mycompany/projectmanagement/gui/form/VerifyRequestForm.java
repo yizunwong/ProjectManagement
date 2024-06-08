@@ -18,7 +18,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -261,24 +260,36 @@ public class VerifyRequestForm extends javax.swing.JPanel {
             List<String> errors = new ArrayList<>();
             validateString(request_id, "Request", errors);
             presentation.setStatus("On Going");
-            if (errors.isEmpty()) {
-                boolean alreadyExists = fs.checkExists("presentation.txt", presentation.getPresentation(), "request_id");
-                if (!alreadyExists) {
-                    presentation.saveFile("presentation.txt");
+            if (!status.equalsIgnoreCase("Rejected")) {
+                if (errors.isEmpty()) {
+                    boolean alreadyExists = fs.checkExists("presentation.txt", presentation.getPresentation(), "request_id");
+                    if (!alreadyExists) {
+                        presentation.saveFile("presentation.txt");
 
-                    UserController.User user = userController.new User();
-                    JSONArray searchedArray = user.seachUser(request_id, "request.txt", null);
-                    JSONObject searchObj = searchedArray.getJSONObject(0);
-                    searchObj.put("status", status);
-                    request.updateFile("request.txt", searchObj);
+                        UserController.User user = userController.new User();
+                        JSONArray searchedArray = user.seachUser(request_id, "request.txt", null);
+                        JSONObject searchObj = searchedArray.getJSONObject(0);
+                        searchObj.put("status", status);
+                        request.updateFile("request.txt", searchObj);
 
-                    refreshTable();
+                        refreshTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Request has been accepted", "Request Error", JOptionPane.WARNING_MESSAGE);
+
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Request has been accepted", "Request Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
 
                 }
             } else {
-                JOptionPane.showMessageDialog(null, errors.get(0), "Validation Error", JOptionPane.WARNING_MESSAGE);
+                UserController.User user = userController.new User();
+                JSONArray searchedArray = user.seachUser(request_id, "request.txt", null);
+                JSONObject searchObj = searchedArray.getJSONObject(0);
+                searchObj.put("status", status);
+                request.updateFile("request.txt", searchObj);
+
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Request has been rejected", "Request Error", JOptionPane.WARNING_MESSAGE);
 
             }
         } else {
