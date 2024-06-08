@@ -507,6 +507,9 @@ public class StudentForm extends javax.swing.JPanel {
         UserController.User user = userController.new User();
         user.setUploadPath("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\", FileType.IMAGE);
         this.imagePath = user.getFullPath();
+        if (imagePath == null) {
+            this.imagePath = new File("\\src\\main\\java\\com\\mycompany\\projectmanagement\\avatar\\default-avatar-icon-of-social-media-user-vector.jpg");
+        }
         this.selectedFile = user.getSelectedFile();
         UserController.User.updateAvatarImageIcon(selectedFile, avatarImageIcon);
     }//GEN-LAST:event_fileUploadBtnActionPerformed
